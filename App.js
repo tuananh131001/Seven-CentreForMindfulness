@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { AssessmentView } from "./src/pages/AssessmentView";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider } from "native-base";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+const AppNavigator = () => (
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Examples"
+        component={AssessmentView}
+        options={{
+          title: "",
+        }}
+      />
+    </Stack.Navigator>
+    
+  </NavigationContainer>
+);
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider>
+      <AppNavigator />
+    </NativeBaseProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// eslint-disable-next-line import/no-default-export
+export default App;
