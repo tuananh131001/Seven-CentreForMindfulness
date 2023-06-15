@@ -3,17 +3,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AssessmentView } from "./src/pages/AssessmentView";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from "native-base";
+import { store } from './app/store'
+import { Provider } from 'react-redux'
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name="Examples"
+        name="AssessmentView"
         component={AssessmentView}
-        options={{
-          title: "",
-        }}
       />
     </Stack.Navigator>
     
@@ -22,11 +21,13 @@ const AppNavigator = () => (
 
 const App = () => {
   return (
-    <NativeBaseProvider>
-      <AppNavigator />
-    </NativeBaseProvider>
+    <Provider store={store}>    
+      <NativeBaseProvider>
+        <AppNavigator />
+      </NativeBaseProvider>
+    </Provider>
+
   );
 };
 
-// eslint-disable-next-line import/no-default-export
 export default App;
