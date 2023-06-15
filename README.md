@@ -1,4 +1,4 @@
-# Siuuu-Centre-mindfulness
+# Seven-CentreForMindfulness
 # Feature
 
 - Prepare for Vietnamese version
