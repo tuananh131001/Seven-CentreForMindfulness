@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import { TwoColumnCard } from '../components/TwoColumnCard';
 import { Badge, Button, Center, Container, HStack, Heading, VStack } from 'native-base';
+import { TwoRowCard } from '../components/TwoRowCard';
 
 export const HomeView = () => {
   return (
@@ -13,6 +14,7 @@ export const HomeView = () => {
           <Button colorScheme="secondary" borderRadius="15" >Video</Button>
         </HStack>
         <TwoColumnCard/>
+        <TwoRowCard/>
       </VStack>
   );
 };
