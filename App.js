@@ -15,7 +15,8 @@ import { HomeView } from './src/pages/HomeView';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator
+    screenOptions={{headerShown: false}}>
       <Stack.Screen
         name="LoginPage"
         component={LoginPage}
