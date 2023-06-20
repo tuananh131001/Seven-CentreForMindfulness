@@ -7,7 +7,7 @@ export const TwoColumnCard = () => {
   return (
     <Box borderRadius="16" padding="3" h="182" bg="#FFE3D3" width="100%">
       <VStack>
-        <HStack w="100%" rounded="md" shadow={3} alignItems="center" justifyContent="space-between">
+        <HStack w="100%" rounded="md" alignItems="center" justifyContent="space-between">
             <Heading >Zen Meditation</Heading>
             <Badge fontWeight="bold" borderRadius="16" >20 Min</Badge>
           </HStack> 
