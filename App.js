@@ -14,8 +14,7 @@ import { HomeView } from './src/pages/HomeView';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
-    <Stack.Navigator
-    screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
         name="LoginPage"
         component={LoginPage}
@@ -24,20 +23,18 @@ const AppNavigator = () => (
         name="RegisterPage"
         component={RegisterPage}
       />
-
     </Stack.Navigator>
-    
   </NavigationContainer>
 );
 
 const App = () => {
-	return (
-		<Provider store={store}>
-			<NativeBaseProvider>
-				<AppNavigator />
-			</NativeBaseProvider>
-		</Provider>
-	)
+  return (
+    <Provider store={store}>
+      <NativeBaseProvider>
+        <AppNavigator />
+      </NativeBaseProvider>
+    </Provider>
+  )
 }
 
 export default App
