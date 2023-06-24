@@ -9,6 +9,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install packages lock
+        run: npm install --package-lock-only
       - name: Install packages
         run: npm ci
       - name: Prettier
