@@ -31,6 +31,7 @@ import {
 } from '../../assets/ColorConst'
 
 export const LoginPage = ({ navigation }) => {
+  console.log('test')
   return (
     <Flex direction="column" width="100%" h="100%">
       <Center w="100%" bg={primaryColor}>
