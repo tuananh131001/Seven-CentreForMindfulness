@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react'
 import {
   Box,
   Heading,
@@ -11,7 +11,7 @@ import {
   HStack,
   Text,
   Link,
-} from "native-base";
+} from 'native-base'
 
 export const RegisterPage = ({ navigation }) => {
   return (
@@ -21,7 +21,7 @@ export const RegisterPage = ({ navigation }) => {
           size="lg"
           color="coolGray.800"
           _dark={{
-            color: "warmGray.50",
+            color: 'warmGray.50',
           }}
           fontWeight="semibold"
         >
@@ -31,7 +31,7 @@ export const RegisterPage = ({ navigation }) => {
           mt="1"
           color="coolGray.600"
           _dark={{
-            color: "warmGray.200",
+            color: 'warmGray.200',
           }}
           fontWeight="medium"
           size="xs"
@@ -51,11 +51,7 @@ export const RegisterPage = ({ navigation }) => {
             <FormControl.Label>Confirm Password</FormControl.Label>
             <Input type="password" />
           </FormControl>
-          <Button
-            onPress={() => navigation.navigate("LoginPage")}
-            mt="2"
-            colorScheme="indigo"
-          >
+          <Button onPress={() => navigation.navigate('LoginPage')} mt="2" colorScheme="indigo">
             Sign up
           </Button>
           <HStack mt="6">
@@ -63,18 +59,18 @@ export const RegisterPage = ({ navigation }) => {
               fontSize="sm"
               color="coolGray.600"
               _dark={{
-                color: "warmGray.200",
+                color: 'warmGray.200',
               }}
             >
-              Already has an account.{" "}
+              Already has an account.{' '}
             </Text>
             <Link
               _text={{
-                color: "indigo.500",
-                fontWeight: "medium",
-                fontSize: "sm",
+                color: 'indigo.500',
+                fontWeight: 'medium',
+                fontSize: 'sm',
               }}
-              onPress={() => navigation.navigate("LoginPage")}
+              onPress={() => navigation.navigate('LoginPage')}
             >
               Login Here!
             </Link>
@@ -82,5 +78,5 @@ export const RegisterPage = ({ navigation }) => {
         </VStack>
       </Box>
     </Center>
-  );
-};
+  )
+}
