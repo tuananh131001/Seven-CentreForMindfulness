@@ -1,5 +1,5 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 
 export const FacebookSVGComponent = () => (
   <Svg
@@ -18,4 +18,4 @@ export const FacebookSVGComponent = () => (
       d="M10.725 10.023L11.035 8H9.094V6.687c0-.553.27-1.093 1.14-1.093h.883V3.87s-.801-.137-1.567-.137c-1.6 0-2.644.97-2.644 2.724V8H5.13v2.023h1.777v4.892a7.037 7.037 0 002.188 0v-4.892h1.63z"
     />
   </Svg>
-);
+)

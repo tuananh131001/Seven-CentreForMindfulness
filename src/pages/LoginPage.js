@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react'
 import {
   Box,
   Text,
@@ -16,9 +16,9 @@ import {
   Icon,
   Flex,
   Checkbox,
-} from "native-base";
-import { FacebookSVGComponent } from "../components/svg/FacebookSVGComponent";
-import { GoogleSVGComponent } from "../components/svg/GoogleSVGComponent";
+} from 'native-base'
+import { FacebookSVGComponent } from '../components/svg/FacebookSVGComponent'
+import { GoogleSVGComponent } from '../components/svg/GoogleSVGComponent'
 import {
   primaryColor,
   secondaryColor,
@@ -28,7 +28,7 @@ import {
   boldTextColor,
   placeholderTextColor,
   signInButtonColor,
-} from "../../assets/ColorConst";
+} from '../../assets/ColorConst'
 
 export const LoginPage = ({ navigation }) => {
   return (
@@ -64,9 +64,9 @@ export const LoginPage = ({ navigation }) => {
                 <Input type="password" />
                 <Link
                   _text={{
-                    fontSize: "sm",
-                    fontWeight: "700",
-                    color: "#4C1D95",
+                    fontSize: 'sm',
+                    fontWeight: '700',
+                    color: '#4C1D95',
                   }}
                   isUnderlined={false}
                   alignSelf="flex-end"
@@ -89,19 +89,16 @@ export const LoginPage = ({ navigation }) => {
               <Button my={4} bg={signInButtonColor}>
                 SIGN IN
               </Button>
-              <View style={{ alignItems: "center", marginVertical: 4 }}>
+              <View style={{ alignItems: 'center', marginVertical: 4 }}>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     marginBottom: 2,
                   }}
                 >
                   <Divider style={{ flex: 1 }} />
-                  <Text
-                    color={placeholderTextColor}
-                    style={{ paddingHorizontal: 15 }}
-                  >
+                  <Text color={placeholderTextColor} style={{ paddingHorizontal: 15 }}>
                     or
                   </Text>
                   <Divider style={{ flex: 1 }} />
@@ -127,16 +124,13 @@ export const LoginPage = ({ navigation }) => {
                 fontWeight="300"
                 color="coolGray.600"
                 _dark={{
-                  color: "warmGray.200",
+                  color: 'warmGray.200',
                 }}
               >
-                Don't have an account ?{" "}
+                Don't have an account ?{' '}
               </Text>
 
-              <Link
-                isUnderlined={false}
-                onPress={() => navigation.navigate("RegisterPage")}
-              >
+              <Link isUnderlined={false} onPress={() => navigation.navigate('RegisterPage')}>
                 <Text fontWeight="700" color={boldTextColor}>
                   Sign Up
                 </Text>
@@ -146,5 +140,5 @@ export const LoginPage = ({ navigation }) => {
         </Box>
       </Center>
     </Flex>
-  );
-};
+  )
+}

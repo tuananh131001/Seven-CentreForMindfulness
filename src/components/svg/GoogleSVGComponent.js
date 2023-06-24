@@ -1,5 +1,5 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
+import * as React from 'react'
+import Svg, { Path } from 'react-native-svg'
 export const GoogleSVGComponent = () => (
   <Svg
     width="800px"
@@ -27,4 +27,4 @@ export const GoogleSVGComponent = () => (
       d="M7.1199995 3.31996768c1.12664872 0 1.88663348.48666365 2.31998468.89335887l1.69332861-1.65334353C10.0933434 1.59331888 8.73997656.9999829 7.1199995.9999829c-2.34668704 0-4.37335884 1.34665643-5.36001523 3.30664108l1.9399924 1.5066871c.48670993-1.44666397 1.83336635-2.4933434 3.42002274-2.4933434"
     />
   </Svg>
-);
+)
