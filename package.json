@@ -10,7 +10,7 @@
     "format": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src",
+    "lint:fix": "eslint --fix ./src"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
