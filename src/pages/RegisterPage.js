@@ -24,21 +24,20 @@ import {
   boldTextColor,
   signInButtonColor,
 } from '../../assets/ColorConst'
-import { MaterialIcons } from '@expo/vector-icons'; 
-
+import { MaterialIcons } from '@expo/vector-icons'
 
 export const RegisterPage = ({ navigation }) => {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
-  const [gender, setGender] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
+  const [gender, setGender] = React.useState('')
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
+    setShowConfirmPassword(!showConfirmPassword)
+  }
   return (
     <Flex direction="column" width="100%" h="100%">
       <Center w="100%" bg={primaryColor}>
@@ -68,53 +67,64 @@ export const RegisterPage = ({ navigation }) => {
                 <Input />
                 <FormControl.Label>Name</FormControl.Label>
                 <Input />
-                <Flex direction ='row' justify='space-between' >
+                <Flex direction="row" justify="space-between">
                   <Flex>
-                      <FormControl.Label>Gender</FormControl.Label>
-                      <Select 
-                      selectedValue={gender} 
-                      minWidth="175" 
-                      accessibilityLabel="Choose Gender" 
-                      placeholder="Choose Gender" 
+                    <FormControl.Label>Gender</FormControl.Label>
+                    <Select
+                      selectedValue={gender}
+                      minWidth="175"
+                      accessibilityLabel="Choose Gender"
+                      placeholder="Choose Gender"
                       _selectedItem={{
-                          bg: "teal.600",
-                          endIcon: <CheckIcon size="1" />
-                      }} 
-                      onValueChange={itemValue => setGender(itemValue)}>
-                          <Select.Item label="Male" value="male" />
-                          <Select.Item label="Female" value="female" />
-                          <Select.Item label="Others" value="others" />
-                      </Select>
+                        bg: 'teal.600',
+                        endIcon: <CheckIcon size="1" />,
+                      }}
+                      onValueChange={(itemValue) => setGender(itemValue)}
+                    >
+                      <Select.Item label="Male" value="male" />
+                      <Select.Item label="Female" value="female" />
+                      <Select.Item label="Others" value="others" />
+                    </Select>
                   </Flex>
                   <Flex>
-                      <FormControl.Label>Age</FormControl.Label>
-                      <Input minW='20' />
+                    <FormControl.Label>Age</FormControl.Label>
+                    <Input minW="20" />
                   </Flex>
                 </Flex>
                 <FormControl>
                   <Flex>
-                      <FormControl.Label>Password</FormControl.Label>
+                    <FormControl.Label>Password</FormControl.Label>
                   </Flex>
-                  <Flex width='100%' direction='row'>
-                      <Input flex='1' type={showPassword ? 'text' : 'password'} />
-                      <IconButton
-                    icon={<MaterialIcons name={showPassword ? 'visibility' : 'visibility-off'} size={24} />}
-                    variant="ghost"
-                    onPress={toggleShowPassword}
-                  />
+                  <Flex width="100%" direction="row">
+                    <Input flex="1" type={showPassword ? 'text' : 'password'} />
+                    <IconButton
+                      icon={
+                        <MaterialIcons
+                          name={showPassword ? 'visibility' : 'visibility-off'}
+                          size={24}
+                        />
+                      }
+                      variant="ghost"
+                      onPress={toggleShowPassword}
+                    />
                   </Flex>
                 </FormControl>
                 <FormControl>
                   <Flex>
-                      <FormControl.Label>Confirm Password</FormControl.Label>
+                    <FormControl.Label>Confirm Password</FormControl.Label>
                   </Flex>
-                  <Flex width='100%' direction='row'>
-                      <Input flex='1' type={showConfirmPassword ? 'text' : 'password'} />
-                      <IconButton
-                    icon={<MaterialIcons name={showConfirmPassword ? 'visibility' : 'visibility-off'} size={24} />}
-                    variant="ghost"
-                    onPress={toggleShowConfirmPassword}
-                  />
+                  <Flex width="100%" direction="row">
+                    <Input flex="1" type={showConfirmPassword ? 'text' : 'password'} />
+                    <IconButton
+                      icon={
+                        <MaterialIcons
+                          name={showConfirmPassword ? 'visibility' : 'visibility-off'}
+                          size={24}
+                        />
+                      }
+                      variant="ghost"
+                      onPress={toggleShowConfirmPassword}
+                    />
                   </Flex>
                 </FormControl>
               </FormControl>
@@ -136,7 +146,7 @@ export const RegisterPage = ({ navigation }) => {
                   color: 'warmGray.200',
                 }}
               >
-              Already have an account?
+                Already have an account?
               </Text>
 
               <Link isUnderlined={false} onPress={() => navigation.navigate('LoginPage')}>
