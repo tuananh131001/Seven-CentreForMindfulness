@@ -40,7 +40,9 @@ export const AssessmentView = () => {
         <Heading color={primaryTextColor} fontWeight="light">
           What brings you to Seven?
         </Heading>
-        <Text style={{ fontSize: 17, color:"#DBD9D0" } }>We'll personalize recommendations based on your goals.</Text>
+        <Text style={{ fontSize: 17, color: '#DBD9D0' }}>
+          We'll personalize recommendations based on your goals.
+        </Text>
         <VStack width="100%" space={2} alignItems="center">
           {ICONNAMES.map((iconName, index) => (
             <ChoiceButton iconName={iconName} buttonText={BUTTONTEXT[index]} key={index} />
