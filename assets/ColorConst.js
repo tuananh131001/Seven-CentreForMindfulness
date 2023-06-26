@@ -6,4 +6,5 @@ export const boldTextColor = "#4C1D95";
 export const secondaryTextColor = "#1F2937";
 export const signInButtonColor = "#8B000B";
 export const placeholderTextColor = '#9CA3AF';
+export const choiceButtonColor = '#50381E';
 export const errorColor = '#EF4444';

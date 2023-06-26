@@ -16,13 +16,13 @@ const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name="LoginPage"
-        component={LoginPage}
+        name="AssessmentView"
+        component={AssessmentView}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
-      />
+      /> */}
     </Stack.Navigator>
   </NavigationContainer>
 );
