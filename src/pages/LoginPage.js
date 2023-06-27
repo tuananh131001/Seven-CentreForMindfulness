@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
   Box,
   Text,
@@ -26,11 +27,28 @@ import {
   secondaryTextColor,
   subTextColor,
   boldTextColor,
+  errorColor,
   placeholderTextColor,
   signInButtonColor,
 } from '../../assets/ColorConst'
+import { signInSchema } from '../utils/ValidateUserInput'
 
 export const LoginPage = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(signInSchema),
+  })
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
     <Flex direction="column" width="100%" h="100%">
       <Center w="100%" bg={primaryColor}>
@@ -57,12 +75,45 @@ export const LoginPage = ({ navigation }) => {
             <VStack space={2}>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input />
+                <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+                  )}
+                  name="email"
+                />
+                {errors.email && (
+                  <Text italic color={errorColor} fontSize="xs">
+                    {errors.email.message}
+                  </Text>
+                )}
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input type="password" />
-                <Link
+                <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <Input type ='password' onBlur={onBlur} onChangeText={onChange} value={value} />
+                  )}
+                  name="password"
+                />
+                {errors.password && (
+                  <Text italic color={errorColor} fontSize="xs">
+                    {errors.password.message}
+                  </Text>
+                )}
+                <HStack mt = {2} space={2}>
+                  <Checkbox
+                    value="test"
+                    accessibilityLabel="This is a dummy checkbox"
+                    _checked={{ borderColor: boldTextColor, bg: boldTextColor }}
+                  />
+                  <Text fontSize="sm" color={secondaryTextColor}>
+                    Remember me and keep me logged in
+                  </Text>
+                </HStack>
+              </FormControl>
+              <Link
                   _text={{
                     fontSize: 'sm',
                     fontWeight: '700',
@@ -70,26 +121,14 @@ export const LoginPage = ({ navigation }) => {
                   }}
                   isUnderlined={false}
                   alignSelf="flex-end"
-                  my="4"
+                  my="1"
                 >
                   Forget Password?
                 </Link>
-                <HStack space={2}>
-                  <Checkbox
-                    value="test"
-                    accessibilityLabel="This is a dummy checkbox"
-                    _checked={{ borderColor: boldTextColor, bg: boldTextColor }}
-                  />
-
-                  <Text fontSize="sm" color={secondaryTextColor}>
-                    Remember me and keep me logged in
-                  </Text>
-                </HStack>
-              </FormControl>
-              <Button my={4} bg={signInButtonColor}>
+              <Button my={2} bg={signInButtonColor} onPress={handleSubmit(onSubmit)}>
                 SIGN IN
               </Button>
-              <View style={{ alignItems: 'center', marginVertical: 4 }}>
+              <View style={{ alignItems: 'center', marginVertical: 3 }}>
                 <View
                   style={{
                     flexDirection: 'row',
