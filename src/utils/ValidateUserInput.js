@@ -23,7 +23,12 @@ export const signUpSchema = yup.object().shape({
     .matches(/^(?=.*[0-9])/, 'Must contain at least one number')
     .matches(/^(?=.*[!@#%&])/, 'Must contain at least one special character'),
   name: yup.string().required('Please enter a name.'),
-  age: yup.number().typeError('Must be number').required('Please enter an age').min(1,'Min is 1').max(100, 'Max is 100'),
+  age: yup
+    .number()
+    .typeError('Must be number')
+    .required('Please enter an age')
+    .min(1, 'Min is 1')
+    .max(100, 'Max is 100'),
   confirmPassword: yup
     .string()
     .required('Please enter a confirm password')

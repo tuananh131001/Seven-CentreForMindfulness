@@ -93,7 +93,7 @@ export const LoginPage = ({ navigation }) => {
                 <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <Input type ='password' onBlur={onBlur} onChangeText={onChange} value={value} />
+                    <Input type="password" onBlur={onBlur} onChangeText={onChange} value={value} />
                   )}
                   name="password"
                 />
@@ -102,7 +102,7 @@ export const LoginPage = ({ navigation }) => {
                     {errors.password.message}
                   </Text>
                 )}
-                <HStack mt = {2} space={2}>
+                <HStack mt={2} space={2}>
                   <Checkbox
                     value="test"
                     accessibilityLabel="This is a dummy checkbox"
@@ -114,17 +114,17 @@ export const LoginPage = ({ navigation }) => {
                 </HStack>
               </FormControl>
               <Link
-                  _text={{
-                    fontSize: 'sm',
-                    fontWeight: '700',
-                    color: '#4C1D95',
-                  }}
-                  isUnderlined={false}
-                  alignSelf="flex-end"
-                  my="1"
-                >
-                  Forget Password?
-                </Link>
+                _text={{
+                  fontSize: 'sm',
+                  fontWeight: '700',
+                  color: '#4C1D95',
+                }}
+                isUnderlined={false}
+                alignSelf="flex-end"
+                my="1"
+              >
+                Forget Password?
+              </Link>
               <Button my={2} bg={signInButtonColor} onPress={handleSubmit(onSubmit)}>
                 SIGN IN
               </Button>
