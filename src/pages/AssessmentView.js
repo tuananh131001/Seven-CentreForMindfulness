@@ -1,19 +1,8 @@
-import { View, Text } from 'react-native'
-import {
-  Box,
-  HStack,
-  VStack,
-  Pressable,
-  Image,
-  Flex,
-  Container,
-  Center,
-  Spacer,
-  Button,
-  Heading,
-} from 'native-base'
+import { Text } from 'react-native'
+import { VStack, Flex, Button, Heading, Box, Spacer, HStack } from 'native-base'
 import { ChoiceButton } from '../components/ChoiceButton'
 import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
+import { useState } from 'react'
 const ICONNAMES = [
   'leaf',
   'moon-outline',
@@ -34,24 +23,36 @@ const BUTTONTEXT = [
 ]
 
 export const AssessmentView = () => {
+  const [selected, setSelected] = useState([])
   return (
     <Flex bg={primaryColor} height="100%" width="100%" justifyContent="center">
-      <VStack space={2} alignItems="center" justifyContent="space-between">
-        <Heading color={primaryTextColor} fontWeight="light">
-          What brings you to Seven?
-        </Heading>
-        <Text style={{ fontSize: 17, color: '#DBD9D0' }}>
-          We'll personalize recommendations based on your goals.
-        </Text>
-        <VStack width="100%" space={2} alignItems="center">
-          {ICONNAMES.map((iconName, index) => (
-            <ChoiceButton iconName={iconName} buttonText={BUTTONTEXT[index]} key={index} />
-          ))}
-        </VStack>
+      <VStack space={2} justifyContent={'space-between'} height={'100%'}>
+        <Flex justifyContent={'flex-end'} height={'75%'}>
+          <VStack px={5} marginBottom={5}>
+            <Heading color={primaryTextColor}>What brings you to Seven?</Heading>
+            <Text style={{ fontSize: 17, color: '#DBD9D0', margin: 5 }}>
+              We'll personalize recommendations based on your goals.
+            </Text>
+          </VStack>
 
-        <Button borderRadius="90" bgColor="white" width="90%" mb={-200} mt={120}>
-          <Text>Continue</Text>
-        </Button>
+          <VStack width="100%" space={2} alignItems="center">
+            {ICONNAMES.map((iconName, index) => (
+              <ChoiceButton
+                selected={selected}
+                setSelected={setSelected}
+                iconName={iconName}
+                buttonText={BUTTONTEXT[index]}
+                key={iconName}
+              />
+            ))}
+          </VStack>
+        </Flex>
+
+        <HStack justifyContent={'center'} width={'100%'} marginBottom={5}>
+          <Button borderRadius="90" bgColor="white" width="90%">
+            <Text>Continue</Text>
+          </Button>
+        </HStack>
       </VStack>
     </Flex>
   )
