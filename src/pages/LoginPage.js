@@ -33,7 +33,7 @@ import {
   signInButtonColor,
 } from '../../assets/ColorConst'
 import { signInSchema } from '../utils/ValidateUserInput'
-import {logInWithEmailAndPassword} from '../services/login'
+import { logInWithEmailAndPassword } from '../services/login'
 
 export const LoginPage = ({ navigation }) => {
   const toast = useToast()

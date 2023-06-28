@@ -15,7 +15,7 @@ import {
   Select,
   CheckIcon,
   Flex,
-  useToast
+  useToast,
 } from 'native-base'
 import {
   primaryColor,
