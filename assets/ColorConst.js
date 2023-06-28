@@ -1,5 +1,6 @@
 export const primaryColor = '#8E5330'
-export const secondaryColor = '#FFFFFF'
+// export const secondaryColor = '#FFFFFF'
+export const secondaryColor = "#f3f2f3";
 export const primaryTextColor = '#F9FAFB'
 export const subTextColor = '#C4B5FD'
 export const boldTextColor = '#4C1D95'
