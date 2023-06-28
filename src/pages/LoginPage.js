@@ -17,6 +17,7 @@ import {
   Icon,
   Flex,
   Checkbox,
+  useToast,
 } from 'native-base'
 import { FacebookSVGComponent } from '../components/svg/FacebookSVGComponent'
 import { GoogleSVGComponent } from '../components/svg/GoogleSVGComponent'
@@ -32,21 +33,19 @@ import {
   signInButtonColor,
 } from '../../assets/ColorConst'
 import { signInSchema } from '../utils/ValidateUserInput'
+import {logInWithEmailAndPassword} from '../services/login'
 
 export const LoginPage = ({ navigation }) => {
+  const toast = useToast()
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
     resolver: yupResolver(signInSchema),
   })
   const onSubmit = (data) => {
-    console.log(data)
+    logInWithEmailAndPassword(data, toast)
   }
 
   return (

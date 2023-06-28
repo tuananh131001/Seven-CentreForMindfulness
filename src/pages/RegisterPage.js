@@ -15,7 +15,7 @@ import {
   Select,
   CheckIcon,
   Flex,
-  ScrollView,
+  useToast
 } from 'native-base'
 import {
   primaryColor,
@@ -30,25 +30,21 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
+import { registerWithEmailAndPassword } from '../services/register'
 
 export const RegisterPage = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [gender, setGender] = useState('')
-
+  const toast = useToast()
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
     resolver: yupResolver(signUpSchema),
   })
   const onSubmit = (data) => {
-    console.log(data)
+    registerWithEmailAndPassword(data, toast)
   }
 
   const toggleShowPassword = () => {

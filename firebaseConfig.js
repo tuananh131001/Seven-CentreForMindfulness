@@ -4,12 +4,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAC8WbBY7s8mYO85p2Btxx_gFYhwtaZbP4",
-  authDomain: "seven-f8d9d.firebaseapp.com",
-  projectId: "seven-f8d9d",
-  storageBucket: "seven-f8d9d.appspot.com",
-  messagingSenderId: "951972708118",
-  appId: "1:951972708118:web:15e77c52c529eaf290da37"
+  apiKey: "AIzaSyAXTSOqrGVAQPXQr9JATt15ocq3YkmtcNM",
+  authDomain: "siuuu-centre-of-mindfulness.firebaseapp.com",
+  projectId: "siuuu-centre-of-mindfulness",
+  storageBucket: "siuuu-centre-of-mindfulness.appspot.com",
+  messagingSenderId: "602089947582",
+  appId: "1:602089947582:web:406e2bc4ceb8e5ea34f9ef",
+  measurementId: "G-1788LNV3W6"
 };
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);
