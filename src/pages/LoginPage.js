@@ -34,8 +34,10 @@ import {
 } from '../../assets/ColorConst'
 import { signInSchema } from '../utils/ValidateUserInput'
 import { logInWithEmailAndPassword } from '../services/login'
+import { useState } from 'react'
 
 export const LoginPage = ({ navigation }) => {
+  const [loading, setLoading] = useState()
   const toast = useToast()
   const {
     control,
@@ -44,8 +46,10 @@ export const LoginPage = ({ navigation }) => {
   } = useForm({
     resolver: yupResolver(signInSchema),
   })
-  const onSubmit = (data) => {
-    logInWithEmailAndPassword(data, toast)
+  const onSubmit = async (data) => {
+    setLoading(true)
+    await logInWithEmailAndPassword(data, toast)
+    setLoading(false)
   }
 
   return (
@@ -124,7 +128,12 @@ export const LoginPage = ({ navigation }) => {
               >
                 Forget Password?
               </Link>
-              <Button my={2} bg={signInButtonColor} onPress={handleSubmit(onSubmit)}>
+              <Button
+                loading={loading}
+                my={2}
+                bg={signInButtonColor}
+                onPress={handleSubmit(onSubmit)}
+              >
                 SIGN IN
               </Button>
               <View style={{ alignItems: 'center', marginVertical: 3 }}>

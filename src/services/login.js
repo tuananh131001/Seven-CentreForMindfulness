@@ -5,7 +5,7 @@ import { AlertToast } from '../components/Toast'
 export const logInWithEmailAndPassword = async (data, toast) => {
   try {
     const { email, password } = data
-    const res = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+    return await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
   } catch (err) {
     AlertToast(toast, err.message)
   }

@@ -10,11 +10,16 @@ import { store } from './app/store'
 import { Provider } from 'react-redux'
 import { HomeView } from './src/pages/HomeView'
 import { AudioView } from './src/pages/AudioView'
+import AuthLoadingScreen from './src/pages/AuthLoadingScreen'
 
 const Stack = createNativeStackNavigator()
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="AuthLoadingScreen"
+        component={AuthLoadingScreen}
+      />
       <Stack.Screen
         name="LoginPage"
         component={LoginPage}
