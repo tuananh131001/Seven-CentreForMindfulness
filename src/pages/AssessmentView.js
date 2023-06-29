@@ -22,7 +22,7 @@ const BUTTONTEXT = [
   'Reduce Anxiety',
 ]
 
-export const AssessmentView = () => {
+export const AssessmentView = ({ navigation }) => {
   const [selected, setSelected] = useState([])
   return (
     <Flex bg={primaryColor} height="100%" width="100%" justifyContent="center">
@@ -49,7 +49,12 @@ export const AssessmentView = () => {
         </Flex>
 
         <HStack justifyContent={'center'} width={'100%'} marginBottom={5}>
-          <Button borderRadius="90" bgColor="white" width="90%">
+          <Button
+            borderRadius="90"
+            bgColor="white"
+            width="90%"
+            onPress={() => navigation.navigate('RegisterPage')}
+          >
             <Text>Continue</Text>
           </Button>
         </HStack>

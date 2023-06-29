@@ -25,7 +25,7 @@ export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) =>
         px="5"
         py="2"
         borderWidth={2}
-        borderColor="#726049"
+        borderColor={selected.includes(buttonText) ? 'black' : '#726049'}
       >
         <Flex direction="row" alignItems="center" justifyContent="flex-start" space="5">
           <HStack>
