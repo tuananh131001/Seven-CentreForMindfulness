@@ -15,15 +15,14 @@ const Stack = createNativeStackNavigator()
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <Stack.Screen
+      <Stack.Screen
         name="LoginPage"
         component={LoginPage}
       />
       <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
-      /> */}
-      <Stack.Screen name="AudioView" component={AudioView} />
+      />
     </Stack.Navigator>
   </NavigationContainer>
 )
