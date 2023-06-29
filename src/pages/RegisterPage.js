@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import {
   Box,
   Text,
@@ -15,6 +15,7 @@ import {
   Select,
   CheckIcon,
   Flex,
+  ScrollView,
 } from 'native-base'
 import {
   primaryColor,
@@ -23,13 +24,32 @@ import {
   subTextColor,
   boldTextColor,
   signInButtonColor,
+  errorColor,
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { signUpSchema } from '../utils/ValidateUserInput'
 
 export const RegisterPage = ({ navigation }) => {
-  const [showPassword, setShowPassword] = React.useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
-  const [gender, setGender] = React.useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [gender, setGender] = useState('')
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(signUpSchema),
+  })
+  const onSubmit = (data) => {
+    console.log(data)
+  }
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword)
@@ -53,90 +73,179 @@ export const RegisterPage = ({ navigation }) => {
       <Center
         borderTopRadius="10"
         w="100%"
-        mt="-4"
+        mt="-8"
         flex="1"
-        justifyContent="space-between"
+        justifyContent="space-around"
         alignItems="center"
         bg={secondaryColor}
       >
-        <Box safeArea p="1" py="2" w="100%" maxW="320">
+        <Box safeArea p="1" w="100%" maxW="320">
           <VStack justifyContent="space-around">
             <VStack space={3}>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input />
+                <VStack>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+                    )}
+                    name="email"
+                  />
+                  {errors.email && (
+                    <Text italic color={errorColor} fontSize="xs">
+                      {errors.email.message}
+                    </Text>
+                  )}
+                </VStack>
+
                 <FormControl.Label>Name</FormControl.Label>
-                <Input />
+                <VStack>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <Input onBlur={onBlur} onChangeText={onChange} value={value} />
+                    )}
+                    name="name"
+                  />
+                  {errors.name && (
+                    <Text italic color={errorColor} fontSize="xs">
+                      {errors.name.message}
+                    </Text>
+                  )}
+                </VStack>
                 <Flex direction="row" justify="space-between">
                   <Flex>
                     <FormControl.Label>Gender</FormControl.Label>
-                    <Select
-                      selectedValue={gender}
-                      minWidth="175"
-                      accessibilityLabel="Choose Gender"
-                      placeholder="Choose Gender"
-                      _selectedItem={{
-                        bg: 'teal.600',
-                        endIcon: <CheckIcon size="1" />,
-                      }}
-                      onValueChange={(itemValue) => setGender(itemValue)}
-                    >
-                      <Select.Item label="Male" value="male" />
-                      <Select.Item label="Female" value="female" />
-                      <Select.Item label="Others" value="others" />
-                    </Select>
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Select
+                          onBlur={onBlur}
+                          selectedValue={value}
+                          minWidth="150"
+                          accessibilityLabel="Choose Gender"
+                          placeholder="Choose Gender"
+                          _selectedItem={{
+                            bg: 'teal.600',
+                            endIcon: <CheckIcon size="1" />,
+                          }}
+                          onValueChange={onChange}
+                        >
+                          <Select.Item label="Male" value="male" />
+                          <Select.Item label="Female" value="female" />
+                          <Select.Item label="Others" value="others" />
+                        </Select>
+                      )}
+                      name="gender"
+                    />
+                    {errors.gender && (
+                      <Text italic color={errorColor} fontSize="xs">
+                        {errors.gender.message}
+                      </Text>
+                    )}
                   </Flex>
-                  <Flex>
+                  <VStack>
                     <FormControl.Label>Age</FormControl.Label>
-                    <Input minW="20" />
-                  </Flex>
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          minWidth="10"
+                          onBlur={onBlur}
+                          onChangeText={onChange}
+                          value={value}
+                        />
+                      )}
+                      name="age"
+                    />
+                    {errors.age && (
+                      <Text italic color={errorColor} fontSize="xs">
+                        {errors.age.message}
+                      </Text>
+                    )}
+                  </VStack>
                 </Flex>
                 <FormControl>
                   <Flex>
                     <FormControl.Label>Password</FormControl.Label>
                   </Flex>
-                  <Flex width="100%" direction="row">
-                    <Input flex="1" type={showPassword ? 'text' : 'password'} />
+                  <Flex width="100%" height={8} direction="row">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          flex="1"
+                          type={showPassword ? 'text' : 'password'}
+                          onBlur={onBlur}
+                          onChangeText={onChange}
+                          value={value}
+                        />
+                      )}
+                      name="password"
+                    />
                     <IconButton
                       icon={
                         <MaterialIcons
                           name={showPassword ? 'visibility' : 'visibility-off'}
-                          size={24}
+                          size={14}
                         />
                       }
                       variant="ghost"
                       onPress={toggleShowPassword}
                     />
                   </Flex>
+                  {errors.password && (
+                    <Text italic color={errorColor} fontSize="xs">
+                      {errors.password.message}
+                    </Text>
+                  )}
                 </FormControl>
                 <FormControl>
                   <Flex>
                     <FormControl.Label>Confirm Password</FormControl.Label>
                   </Flex>
-                  <Flex width="100%" direction="row">
-                    <Input flex="1" type={showConfirmPassword ? 'text' : 'password'} />
+                  <Flex width="100%" h={8} direction="row">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          flex="1"
+                          type={showConfirmPassword ? 'text' : 'password'}
+                          onBlur={onBlur}
+                          onChangeText={onChange}
+                          value={value}
+                        />
+                      )}
+                      name="confirmPassword"
+                    />
                     <IconButton
                       icon={
                         <MaterialIcons
                           name={showConfirmPassword ? 'visibility' : 'visibility-off'}
-                          size={24}
+                          size={14}
                         />
                       }
                       variant="ghost"
                       onPress={toggleShowConfirmPassword}
                     />
                   </Flex>
+                  {errors.confirmPassword && (
+                    <Text italic color={errorColor} fontSize="xs">
+                      {errors.confirmPassword.message}
+                    </Text>
+                  )}
                 </FormControl>
               </FormControl>
-              <Button my={4} bg={signInButtonColor}>
+              <Button onPress={handleSubmit(onSubmit)} my={2} bg={signInButtonColor}>
                 SIGN UP
               </Button>
             </VStack>
             <Spacer />
           </VStack>
         </Box>
-        <Box safeArea p="1" py="4" w="100%" maxW="320">
-          <Flex mb="3.5">
+        <Box mb="2" safeArea p="1" w="100%" maxW="320">
+          <Flex>
             <HStack space={1} justifyContent="center">
               <Text
                 fontSize="sm"
