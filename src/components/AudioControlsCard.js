@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { HStack, VStack, IconButton, View, Flex, Text } from 'native-base'
+import { HStack, VStack, IconButton, View, Flex, Text, Slider } from 'native-base'
 import {
   primaryColor,
   secondaryColor,
