@@ -7,7 +7,6 @@ import {
   audioAccentColor,
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
-import Slider from '@react-native-community/slider'
 
 export const AudioControlsCard = () => {
   const [isPaused, setIsPaused] = React.useState(false)
@@ -45,13 +44,19 @@ export const AudioControlsCard = () => {
         <Text>0:00</Text>
         <View>
           <Slider
-            style={{ width: 250, marginHorizontal: 10 }}
-            minimumValue={0}
-            maximumValue={100}
-            thumbTintColor={primaryColor}
-            minimumTrackTintColor={primaryColor}
-            maximumTrackTintColor={audioAccentColor}
-          />
+            width="250"
+            size="md"
+            minValue={0}
+            maxValue={100}
+            defaultValue={50}
+            step={5}
+            marginX={2.5}
+          >
+            <Slider.Track bg={audioAccentColor}>
+              <Slider.FilledTrack bg={primaryColor} />
+            </Slider.Track>
+            <Slider.Thumb bg={primaryColor} />
+          </Slider>
         </View>
         <Text>20:00</Text>
       </Flex>
