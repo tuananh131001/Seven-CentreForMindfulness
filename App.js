@@ -16,16 +16,24 @@ const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="AssessmentView"
-        component={AssessmentView}
+        name="LoginPage"
+        component={LoginPage}
       />
       <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
       />
       <Stack.Screen
+        name="AssessmentView"
+        component={AssessmentView}
+      />
+      <Stack.Screen
         name="HomeView"
         component={HomeView}
+      />
+      <Stack.Screen
+        name="AudioView"
+        component={AudioView}
       />
     </Stack.Navigator>
   </NavigationContainer>
