@@ -8,3 +8,4 @@ export const signInButtonColor = "#8B000B";
 export const placeholderTextColor = '#9CA3AF';
 export const choiceButtonColor = '#50381E';
 export const errorColor = '#EF4444';
+export const assessChoiceButtonBorder = '#726049';

@@ -1,4 +1,4 @@
-import { Text } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { VStack, Flex, Button, Heading, Box, Spacer, HStack } from 'native-base'
 import { ChoiceButton } from '../components/ChoiceButton'
 import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
@@ -53,7 +53,7 @@ export const AssessmentView = ({ navigation }) => {
             borderRadius="90"
             bgColor="white"
             width="90%"
-            onPress={() => navigation.navigate('RegisterPage')}
+            onPress={() => navigation.navigate('HomeView')}
           >
             <Text>Continue</Text>
           </Button>

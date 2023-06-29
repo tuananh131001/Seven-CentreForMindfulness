@@ -4,15 +4,14 @@ import { primaryTextColor } from '../../assets/ColorConst'
 import { Icon } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableHighlight } from 'react-native'
+import { assessChoiceButtonBorder } from '../../assets/ColorConst'
 
 export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) => {
   const handlePress = () => {
     if (selected.includes(buttonText)) {
       setSelected(selected.filter((item) => item !== buttonText))
-      console.log('unpressed')
     } else {
       setSelected([...selected, buttonText])
-      console.log('pressed')
     }
   }
 
@@ -25,7 +24,7 @@ export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) =>
         px="5"
         py="2"
         borderWidth={2}
-        borderColor={selected.includes(buttonText) ? 'black' : '#726049'}
+        borderColor={selected.includes(buttonText) ? 'black' : { assessChoiceButtonBorder }}
       >
         <Flex direction="row" alignItems="center" justifyContent="flex-start" space="5">
           <HStack>
@@ -39,7 +38,6 @@ export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) =>
             <Text
               fontSize="xl"
               color={selected.includes(buttonText) ? 'black' : primaryTextColor}
-              fontWeight="10"
               px={5}
             >
               {buttonText}

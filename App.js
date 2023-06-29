@@ -19,10 +19,14 @@ const AppNavigator = () => (
         name="AssessmentView"
         component={AssessmentView}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="RegisterPage"
         component={RegisterPage}
-      /> */}
+      />
+      <Stack.Screen
+        name="HomeView"
+        component={HomeView}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
