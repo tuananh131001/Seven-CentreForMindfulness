@@ -7,3 +7,5 @@ export const secondaryTextColor = "#1F2937";
 export const signInButtonColor = "#8B000B";
 export const placeholderTextColor = '#9CA3AF';
 export const errorColor = 'error.700';
+export const audioPrimaryColor = '#FFE3D3'
+export const audioAccentColor = '#ACB8C2'
