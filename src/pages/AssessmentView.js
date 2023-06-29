@@ -1,35 +1,64 @@
-import { View, Text } from 'react-native'
-import { Box, HStack, VStack, Pressable, Image } from 'native-base'
+import { Text, StyleSheet } from 'react-native'
+import { VStack, Flex, Button, Heading, Box, Spacer, HStack } from 'native-base'
+import { ChoiceButton } from '../components/ChoiceButton'
+import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
+import { useState } from 'react'
+const ICONNAMES = [
+  'leaf',
+  'moon-outline',
+  'body-outline',
+  'sunny-outline',
+  'happy-outline',
+  'rocket-outline',
+  'water-outline',
+]
+const BUTTONTEXT = [
+  'Develop Gratitude',
+  'Better Sleep',
+  'Improve Performance',
+  'Reduce Stress',
+  'Increase Happiness',
+  'Build Self Esteem',
+  'Reduce Anxiety',
+]
 
-export const AssessmentView = () => {
+export const AssessmentView = ({ navigation }) => {
+  const [selected, setSelected] = useState([])
   return (
-    <Box bg="primary.600" py="4" px="3" borderRadius="5" rounded="md" width={375} maxWidth="100%">
-      <HStack justifyContent="space-between">
-        <Box justifyContent="space-between">
-          <VStack space="2">
-            <Text fontSize="sm" color="white">
-              Today @ 9PM
-            </Text>
-            <Text color="white" fontSize="xl">
-              Let's talk about avatar!
+    <Flex bg={primaryColor} height="100%" width="100%" justifyContent="center">
+      <VStack space={2} justifyContent={'space-between'} height={'100%'}>
+        <Flex justifyContent={'flex-end'} height={'75%'}>
+          <VStack px={5} marginBottom={5}>
+            <Heading color={primaryTextColor}>What brings you to Seven?</Heading>
+            <Text style={{ fontSize: 17, color: '#DBD9D0', margin: 5 }}>
+              We'll personalize recommendations based on your goals.
             </Text>
           </VStack>
-          <Pressable rounded="xs" bg="primary.400" alignSelf="flex-start" py="1" px="3">
-            <Text textTransform="uppercase" fontSize="sm" fontWeight="bold" color="white">
-              Remind me
-            </Text>
-          </Pressable>
-        </Box>
-        <Image
-          source={{
-            uri: 'https://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ',
-          }}
-          alt="Aang flying and surrounded by clouds"
-          height="100"
-          rounded="full"
-          width="100"
-        />
-      </HStack>
-    </Box>
+
+          <VStack width="100%" space={2} alignItems="center">
+            {ICONNAMES.map((iconName, index) => (
+              <ChoiceButton
+                selected={selected}
+                setSelected={setSelected}
+                iconName={iconName}
+                buttonText={BUTTONTEXT[index]}
+                key={iconName}
+              />
+            ))}
+          </VStack>
+        </Flex>
+
+        <HStack justifyContent={'center'} width={'100%'} marginBottom={5}>
+          <Button
+            borderRadius="90"
+            bgColor="white"
+            width="90%"
+            onPress={() => navigation.navigate('HomeView')}
+          >
+            <Text>Continue</Text>
+          </Button>
+        </HStack>
+      </VStack>
+    </Flex>
   )
 }
