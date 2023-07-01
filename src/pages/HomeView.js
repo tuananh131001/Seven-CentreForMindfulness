@@ -2,6 +2,7 @@ import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, VStack, Text } from 'native-base'
 import { VerticalCard } from '../components/VerticalCard'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 const REFLECTION_IMAGE = 'https://blush.design/api/download?shareUri=lFDp6aPiG&w=200&h=200&fm=png'
 const VISUALIZATION_IMAGE =
   'https://blush.design/api/download?shareUri=ntmp6KhX9isrKqM8&c=Hair_0~ad3409_Skin_0~f4d4b8&w=800&h=700&fm=png'
@@ -9,7 +10,8 @@ const CATEGORIES = ['Sleep', 'Inner Peace', 'Stress', 'Anxiety', 'Happiness']
 
 const COLOR_MAP = [secondaryColor, primaryColor, secondaryColor, secondaryColor, secondaryColor]
 const TEXT_COLOR_MAP = [primaryColor, secondaryColor, primaryColor, primaryColor, primaryColor]
-export const HomeView = () => {
+
+export const HomeView = ({ navigation }) => {
   return (
     <VStack safeArea m={5} space="5">
       <Heading>👋 Hi, Sir</Heading>
@@ -22,7 +24,16 @@ export const HomeView = () => {
           </Button>
         ))}
       </HStack>
-      <HorizontalCard />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('AudioView', {
+            itemId: 86,
+            otherParam: 'anything you want here',
+          })
+        }}
+      >
+        <HorizontalCard />
+      </TouchableOpacity>
       <HStack space={4}>
         <VerticalCard
           minute={6}
@@ -32,7 +43,8 @@ export const HomeView = () => {
           size={'xl'}
           image={REFLECTION_IMAGE}
           bg={'#E7F6FF'}
-        />
+        ></VerticalCard>
+
         <VerticalCard
           minute={13}
           title={'Visualization'}

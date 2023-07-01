@@ -1,4 +1,4 @@
-import { Container, Image, VStack, Text } from 'native-base'
+import { Image, VStack, Text, Container } from 'native-base'
 import { Heading } from 'native-base'
 
 export const VerticalCard = ({ h, w, title, image, size, bg, minute }) => {
