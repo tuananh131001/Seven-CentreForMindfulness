@@ -1,17 +1,30 @@
 import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, VStack, Text } from 'native-base'
-import { VerticalCard } from '../components/VerticalCard'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-const REFLECTION_IMAGE = 'https://blush.design/api/download?shareUri=lFDp6aPiG&w=200&h=200&fm=png'
-const VISUALIZATION_IMAGE =
-  'https://blush.design/api/download?shareUri=ntmp6KhX9isrKqM8&c=Hair_0~ad3409_Skin_0~f4d4b8&w=800&h=700&fm=png'
+import { collection, getDocs } from 'firebase/firestore'
+import { FIREBASE_DB } from '../../firebaseConfig'
+import { useEffect, useState } from 'react'
+
 const CATEGORIES = ['Sleep', 'Inner Peace', 'Stress', 'Anxiety', 'Happiness']
 
 const COLOR_MAP = [secondaryColor, primaryColor, secondaryColor, secondaryColor, secondaryColor]
 const TEXT_COLOR_MAP = [primaryColor, secondaryColor, primaryColor, primaryColor, primaryColor]
 
 export const HomeView = ({ navigation }) => {
+  const [audioList, setAudioList] = useState([])
+  useEffect(() => {
+    const getData = async () => {
+      let audioListArr = []
+      const querySnapshot = await getDocs(collection(FIREBASE_DB, 'audios'))
+      querySnapshot.forEach((doc) => {
+        audioListArr.push(doc.data())
+      })
+      setAudioList(audioListArr)
+    }
+    getData()
+  }, [])
+
   return (
     <VStack safeArea m={5} space="5">
       <Heading>👋 Hi, Sir</Heading>
@@ -24,37 +37,19 @@ export const HomeView = ({ navigation }) => {
           </Button>
         ))}
       </HStack>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('AudioView', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          })
-        }}
-      >
-        <HorizontalCard />
-      </TouchableOpacity>
-      <HStack space={4}>
-        <VerticalCard
-          minute={6}
-          title={'Reflection'}
-          h={'60%'}
-          w={'48%'}
-          size={'xl'}
-          image={REFLECTION_IMAGE}
-          bg={'#E7F6FF'}
-        ></VerticalCard>
-
-        <VerticalCard
-          minute={13}
-          title={'Visualization'}
-          h={'100%'}
-          w={'48%'}
-          size={'300'}
-          image={VISUALIZATION_IMAGE}
-          bg={'#FFE8EC'}
-        />
-      </HStack>
+      {audioList.map((audio, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => {
+            navigation.navigate('AudioView', {
+              itemId: 86,
+              link: audio.link,
+            })
+          }}
+        >
+          <HorizontalCard title={audio.title} thumbnail={audio.thumbnail} />
+        </TouchableOpacity>
+      ))}
     </VStack>
   )
 }
