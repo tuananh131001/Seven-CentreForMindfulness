@@ -9,6 +9,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install patch-package
+        run: npm install patch-package
       - name: Install packages lock
         run: npm install --package-lock-only
       - name: Install packages
