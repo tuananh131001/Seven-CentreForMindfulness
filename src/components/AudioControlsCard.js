@@ -8,11 +8,10 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 
-export const AudioControlsCard = () => {
-  const [isPaused, setIsPaused] = React.useState(false)
-
+export const AudioControlsCard = ({ sound, playSound, isPaused, setIsPaused }) => {
   const toggleAudioStatus = () => {
     setIsPaused(!isPaused)
+    isPaused ? sound.unloadAsync() : playSound()
   }
 
   return (
