@@ -1,13 +1,35 @@
 import * as React from 'react'
-import { HStack, Box, Flex, View, IconButton, Heading } from 'native-base'
+import { HStack, Box, Flex, View, IconButton, useToast } from 'native-base'
+import { Audio } from 'expo-av'
+import { FIREBASE_APP } from '../../firebaseConfig'
 import { audioPrimaryColor, primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { AudioThumbnailCard } from '../components/AudioThumbnailCard'
 import { AudioControlsCard } from '../components/AudioControlsCard'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AudioNavigationCard } from '../components/AudioNavigationCard'
+import { getStorage, ref, getDownloadURL } from 'firebase/storage'
+import { AlertToast } from '../components/Toast'
 
 export const AudioView = ({ route, navigation }) => {
-  const { itemId, otherParam } = route.params
+  const [isPaused, setIsPaused] = React.useState(false)
+  const { fileName } = route.params
+  const [sound, setSound] = React.useState()
+  const toast = useToast()
+
+  async function playSound() {
+    const storage = getStorage(FIREBASE_APP)
+    const url = await getDownloadURL(ref(storage, fileName))
+    await Audio.setAudioModeAsync({ playsInSilentModeIOS: true })
+    const soundObject = new Audio.Sound()
+    try {
+      await soundObject.loadAsync({ uri: url })
+      setSound(soundObject)
+      await soundObject.playAsync()
+    } catch (error) {
+      AlertToast(toast, error)
+    }
+  }
+
   return (
     <View bg={primaryColor} height="100%">
       <Flex direction="row" width="100%" mt="60" alignItems={'center'}>
@@ -35,7 +57,12 @@ export const AudioView = ({ route, navigation }) => {
         pt="10"
       >
         <AudioThumbnailCard />
-        <AudioControlsCard />
+        <AudioControlsCard
+          sound={sound}
+          isPaused={isPaused}
+          setIsPaused={setIsPaused}
+          playSound={playSound}
+        />
       </Flex>
       <AudioNavigationCard />
     </View>
