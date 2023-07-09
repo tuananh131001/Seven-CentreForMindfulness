@@ -10,6 +10,7 @@
     "format": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
     "lint": "eslint ./src",
+    "postinstall": "patch-package",
     "lint:fix": "eslint --fix ./src"
   },
   "lint-staged": {
@@ -34,6 +35,7 @@
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.22.2",
     "native-base": "^3.4.28",
+    "patch-package": "^7.0.0",
     "react": "18.2.0",
     "react-hook-form": "^7.45.0",
     "react-native": "0.71.6",
