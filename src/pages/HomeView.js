@@ -1,7 +1,7 @@
 import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, VStack, Text } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState } from 'react'
@@ -38,7 +38,7 @@ export const HomeView = ({ navigation }) => {
         ))}
       </HStack>
       {audioList.map((audio, index) => (
-        <TouchableOpacity
+        <Pressable
           key={index}
           onPress={() => {
             navigation.navigate('AudioView', {
@@ -48,7 +48,7 @@ export const HomeView = ({ navigation }) => {
           }}
         >
           <HorizontalCard title={audio.title} thumbnail={audio.thumbnail} />
-        </TouchableOpacity>
+        </Pressable>
       ))}
     </VStack>
   )
