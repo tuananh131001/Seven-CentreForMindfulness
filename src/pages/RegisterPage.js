@@ -113,7 +113,7 @@ export const RegisterPage = ({ navigation }) => {
                 </VStack>
                 <Flex direction="row" justify="space-between">
                   <Flex>
-                    <FormControl.Label>{t("Gender")}</FormControl.Label>
+                    <FormControl.Label>{t('Gender')}</FormControl.Label>
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (

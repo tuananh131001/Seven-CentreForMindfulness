@@ -1,7 +1,7 @@
 import { HStack, Box, Button } from 'native-base'
 import i18n from '../utils/i18n'
 
-export const LanguageSwitchButton = ({navigation}) => {
+export const LanguageSwitchButton = ({ navigation }) => {
   const toggleLanguage = (lang) => {
     i18n.changeLanguage(lang)
   }
@@ -15,12 +15,13 @@ export const LanguageSwitchButton = ({navigation}) => {
           accessibilityLabel="Change Language"
         >
           🇻🇳 Tiếng Việt
-          </Button>
+        </Button>
         <Button
           onPress={() => toggleLanguage('en')}
           colorScheme="info"
           accessibilityLabel="Change Language"
-        >🇬🇧 English
+        >
+          🇬🇧 English
         </Button>
       </HStack>
     </Box>

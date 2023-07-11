@@ -60,10 +60,10 @@ export const LoginPage = ({ navigation }) => {
       <Center w="100%" bg={primaryColor}>
         <Box safeArea py="10" w="100%" maxW="340">
           <Heading size="lg" fontWeight="800" color={primaryTextColor}>
-            {t("LoginWelcomeTitle")}
+            {t('LoginWelcomeTitle')}
           </Heading>
           <Heading mt="2" color={subTextColor} fontWeight="medium" size="xs">
-           {t("SigninContinue")}
+            {t('SigninContinue')}
           </Heading>
         </Box>
       </Center>
@@ -155,7 +155,7 @@ export const LoginPage = ({ navigation }) => {
                 </View>
               </View>
               <HStack mt="2" justifyContent="center" space={4}>
-                <LanguageSwitchButton/>
+                <LanguageSwitchButton />
               </HStack>
             </VStack>
             <Spacer />

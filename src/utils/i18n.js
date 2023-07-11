@@ -1,6 +1,6 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import * as Localization from "expo-localization";
+import * as Localization from 'expo-localization'
 
 import vi from '../../src/locales/vi.json'
 import en from '../../src/locales/en.json'
@@ -16,7 +16,7 @@ i18n.use(initReactI18next).init({
       translation: vi,
     },
   },
-  lng: Localization.locale.split("-")[0],
+  lng: Localization.locale.split('-')[0],
   fallbackLng: 'en',
   debug: true,
   interpolation: {
