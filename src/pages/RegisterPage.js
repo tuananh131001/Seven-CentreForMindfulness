@@ -31,6 +31,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
 import { registerWithEmailAndPassword } from '../services/register'
+import { t } from 'i18next'
 
 export const RegisterPage = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -112,7 +113,7 @@ export const RegisterPage = ({ navigation }) => {
                 </VStack>
                 <Flex direction="row" justify="space-between">
                   <Flex>
-                    <FormControl.Label>Gender</FormControl.Label>
+                    <FormControl.Label>{t("Gender")}</FormControl.Label>
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (

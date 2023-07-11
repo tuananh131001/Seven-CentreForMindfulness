@@ -35,8 +35,11 @@ import {
 import { signInSchema } from '../utils/ValidateUserInput'
 import { logInWithEmailAndPassword } from '../services/login'
 import { useState } from 'react'
+import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
+import { useTranslation } from 'react-i18next'
 
 export const LoginPage = ({ navigation }) => {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState()
   const toast = useToast()
   const {
@@ -57,10 +60,10 @@ export const LoginPage = ({ navigation }) => {
       <Center w="100%" bg={primaryColor}>
         <Box safeArea py="10" w="100%" maxW="340">
           <Heading size="lg" fontWeight="800" color={primaryTextColor}>
-            Welcome back,
+            {t("LoginWelcomeTitle")}
           </Heading>
           <Heading mt="2" color={subTextColor} fontWeight="medium" size="xs">
-            Sign in to continue!
+           {t("SigninContinue")}
           </Heading>
         </Box>
       </Center>
@@ -92,7 +95,7 @@ export const LoginPage = ({ navigation }) => {
                 )}
               </FormControl>
               <FormControl>
-                <FormControl.Label>Password</FormControl.Label>
+                <FormControl.Label>{t('Password')}</FormControl.Label>
                 <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
@@ -112,7 +115,7 @@ export const LoginPage = ({ navigation }) => {
                     _checked={{ borderColor: boldTextColor, bg: boldTextColor }}
                   />
                   <Text fontSize="sm" color={secondaryTextColor}>
-                    Remember me and keep me logged in
+                    {t('RememberMe')}
                   </Text>
                 </HStack>
               </FormControl>
@@ -126,7 +129,7 @@ export const LoginPage = ({ navigation }) => {
                 alignSelf="flex-end"
                 my="1"
               >
-                Forget Password?
+                {t('ForgotPassword')}
               </Link>
               <Button
                 loading={loading}
@@ -134,7 +137,7 @@ export const LoginPage = ({ navigation }) => {
                 bg={signInButtonColor}
                 onPress={handleSubmit(onSubmit)}
               >
-                SIGN IN
+                {t('SignIn')}
               </Button>
               <View style={{ alignItems: 'center', marginVertical: 3 }}>
                 <View
@@ -146,18 +149,13 @@ export const LoginPage = ({ navigation }) => {
                 >
                   <Divider style={{ flex: 1 }} />
                   <Text color={placeholderTextColor} style={{ paddingHorizontal: 15 }}>
-                    or
+                    {t('Or')}
                   </Text>
                   <Divider style={{ flex: 1 }} />
                 </View>
               </View>
               <HStack mt="2" justifyContent="center" space={4}>
-                <Icon size="2xl" viewBox="0 0 870 873">
-                  <FacebookSVGComponent />
-                </Icon>
-                <Icon size="2xl" viewBox="0 0 870 873">
-                  <GoogleSVGComponent />
-                </Icon>
+                <LanguageSwitchButton/>
               </HStack>
             </VStack>
             <Spacer />
@@ -174,12 +172,12 @@ export const LoginPage = ({ navigation }) => {
                   color: 'warmGray.200',
                 }}
               >
-                Don't have an account ?{' '}
+                {t('NoAccount')}{' '}
               </Text>
 
               <Link isUnderlined={false} onPress={() => navigation.navigate('RegisterPage')}>
                 <Text fontWeight="700" color={boldTextColor}>
-                  Sign Up
+                  {t('SignUp')}
                 </Text>
               </Link>
             </HStack>

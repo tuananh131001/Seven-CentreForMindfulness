@@ -1,0 +1,14 @@
+{
+  "greeting": "Hello!",
+  "LoginWelcomeTitle": "Welcome back,",
+  "SignIn": "Sign In",
+  "SignOut": "Sign Out",
+  "Password": "Password",
+  "RememberMe": "Remember me and keep me logged in",
+  "ForgotPassword": "Forgot Password?",
+  "SigninContinue": "Sign in to continue",
+  "Or": "Or",
+  "NoAccount": "Don't have an account?",
+  "SignUp": "Sign Up",
+  "Gender": "Gender"
+}
