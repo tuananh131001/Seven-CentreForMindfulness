@@ -181,12 +181,11 @@ export const RegisterPage = ({ navigation }) => {
                       name="password"
                     />
                     <IconButton
-                      icon={
-                        <MaterialIcons
-                          name={showPassword ? 'visibility' : 'visibility-off'}
-                          size={14}
-                        />
-                      }
+                      _icon={{
+                        as: MaterialIcons,
+                        name: showConfirmPassword ? 'visibility' : 'visibility-off',
+                        color: 'black',
+                      }}
                       variant="ghost"
                       onPress={toggleShowPassword}
                     />
@@ -216,12 +215,11 @@ export const RegisterPage = ({ navigation }) => {
                       name="confirmPassword"
                     />
                     <IconButton
-                      icon={
-                        <MaterialIcons
-                          name={showConfirmPassword ? 'visibility' : 'visibility-off'}
-                          size={14}
-                        />
-                      }
+                      _icon={{
+                        as: MaterialIcons,
+                        name: showConfirmPassword ? 'visibility' : 'visibility-off',
+                        color: 'black',
+                      }}
                       variant="ghost"
                       onPress={toggleShowConfirmPassword}
                     />

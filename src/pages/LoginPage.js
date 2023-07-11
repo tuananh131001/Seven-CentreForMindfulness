@@ -12,15 +12,10 @@ import {
   HStack,
   Center,
   Spacer,
-  View,
-  Divider,
-  Icon,
   Flex,
   Checkbox,
   useToast,
 } from 'native-base'
-import { FacebookSVGComponent } from '../components/svg/FacebookSVGComponent'
-import { GoogleSVGComponent } from '../components/svg/GoogleSVGComponent'
 import {
   primaryColor,
   secondaryColor,
@@ -136,29 +131,6 @@ export const LoginPage = ({ navigation }) => {
               >
                 SIGN IN
               </Button>
-              <View style={{ alignItems: 'center', marginVertical: 3 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 2,
-                  }}
-                >
-                  <Divider style={{ flex: 1 }} />
-                  <Text color={placeholderTextColor} style={{ paddingHorizontal: 15 }}>
-                    or
-                  </Text>
-                  <Divider style={{ flex: 1 }} />
-                </View>
-              </View>
-              <HStack mt="2" justifyContent="center" space={4}>
-                <Icon size="2xl" viewBox="0 0 870 873">
-                  <FacebookSVGComponent />
-                </Icon>
-                <Icon size="2xl" viewBox="0 0 870 873">
-                  <GoogleSVGComponent />
-                </Icon>
-              </HStack>
             </VStack>
             <Spacer />
           </VStack>
