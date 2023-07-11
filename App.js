@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { AssessmentView } from './src/pages/AssessmentView'
 import { LoginPage } from './src/pages/LoginPage'
@@ -13,13 +12,11 @@ import { AudioView } from './src/pages/AudioView'
 import AuthLoadingScreen from './src/pages/AuthLoadingScreen'
 
 import { I18nextProvider, useTranslation } from 'react-i18next'
-import { LanguageView } from './src/pages/LanguageView'
 
 const Stack = createNativeStackNavigator()
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="LanguageView" component={LanguageView} />
       <Stack.Screen name="AuthLoadingScreen" component={AuthLoadingScreen} />
       <Stack.Screen name="LoginPage" component={LoginPage} />
       <Stack.Screen name="RegisterPage" component={RegisterPage} />
@@ -31,7 +28,7 @@ const AppNavigator = () => (
 )
 
 const App = () => {
-  const { t, i18n } = useTranslation()
+  const {i18n} = useTranslation()
   return (
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
