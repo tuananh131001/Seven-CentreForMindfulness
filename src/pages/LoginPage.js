@@ -12,15 +12,10 @@ import {
   HStack,
   Center,
   Spacer,
-  View,
-  Divider,
-  Icon,
   Flex,
   Checkbox,
   useToast,
 } from 'native-base'
-import { FacebookSVGComponent } from '../components/svg/FacebookSVGComponent'
-import { GoogleSVGComponent } from '../components/svg/GoogleSVGComponent'
 import {
   primaryColor,
   secondaryColor,
