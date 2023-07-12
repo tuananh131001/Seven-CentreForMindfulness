@@ -11,3 +11,4 @@ export const assessChoiceButtonBorder = '#726049';
 export const errorColor = 'error.700';
 export const audioPrimaryColor = '#FFE3D3'
 export const audioAccentColor = '#ACB8C2'
+export const profileTextColor = '#0c0c0c'

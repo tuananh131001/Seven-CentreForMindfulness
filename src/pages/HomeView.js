@@ -1,9 +1,10 @@
 import { HorizontalCard } from '../components/HorizontalCard'
-import { Button, HStack, Heading, VStack, Text } from 'native-base'
+import { Button, HStack, Heading, VStack, Text, IconButton } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
+import { AntDesign } from '@expo/vector-icons'
 import { useEffect, useState } from 'react'
 
 const CATEGORIES = ['Sleep', 'Inner Peace', 'Stress', 'Anxiety', 'Happiness']
@@ -27,7 +28,18 @@ export const HomeView = ({ navigation }) => {
 
   return (
     <VStack safeArea m={5} space="5">
-      <Heading>👋 Hi, Sir</Heading>
+      <HStack alignItems={'center'} justifyContent={'space-between'}>
+        <Heading>👋 Hi, Sir</Heading>
+        <IconButton
+          _icon={{
+            as: AntDesign,
+            name: 'profile',
+            color: 'black',
+          }}
+          variant="ghost"
+          onPress={() => navigation.navigate('ProfilePage')}
+        />
+      </HStack>
       <HStack space={2}>
         {CATEGORIES.map((category, index) => (
           <Button key={category} bg={COLOR_MAP[index]} px={5} borderRadius="15">
