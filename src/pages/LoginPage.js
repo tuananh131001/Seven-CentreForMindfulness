@@ -24,7 +24,6 @@ import {
   subTextColor,
   boldTextColor,
   errorColor,
-  placeholderTextColor,
   signInButtonColor,
 } from '../../assets/ColorConst'
 import { signInSchema } from '../utils/ValidateUserInput'
@@ -134,21 +133,6 @@ export const LoginPage = ({ navigation }) => {
               >
                 {t('SignIn')}
               </Button>
-              <View style={{ alignItems: 'center', marginVertical: 3 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginBottom: 2,
-                  }}
-                >
-                  <Divider style={{ flex: 1 }} />
-                  <Text color={placeholderTextColor} style={{ paddingHorizontal: 15 }}>
-                    {t('Or')}
-                  </Text>
-                  <Divider style={{ flex: 1 }} />
-                </View>
-              </View>
               <HStack mt="2" justifyContent="center" space={4}>
                 <LanguageSwitchButton />
               </HStack>
