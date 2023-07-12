@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { AssessmentView } from './src/pages/AssessmentView'
 import { LoginPage } from './src/pages/LoginPage'
 import { RegisterPage } from './src/pages/RegisterPage'
-
+import { ProfilePage } from './src/pages/ProfilePage'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NativeBaseProvider } from 'native-base'
 import { store } from './app/store'
@@ -17,12 +17,34 @@ const Stack = createNativeStackNavigator()
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="AuthLoadingScreen" component={AuthLoadingScreen} />
-      <Stack.Screen name="LoginPage" component={LoginPage} />
-      <Stack.Screen name="RegisterPage" component={RegisterPage} />
-      <Stack.Screen name="AssessmentView" component={AssessmentView} />
-      <Stack.Screen name="HomeView" component={HomeView} />
-      <Stack.Screen name="AudioView" component={AudioView} />
+      <Stack.Screen
+        name="AuthLoadingScreen"
+        component={AuthLoadingScreen}
+      />
+      <Stack.Screen
+        name="LoginPage"
+        component={LoginPage}
+      />
+      <Stack.Screen
+        name="RegisterPage"
+        component={RegisterPage}
+      />
+      <Stack.Screen
+        name="AssessmentView"
+        component={AssessmentView}
+      />
+      <Stack.Screen
+        name="HomeView"
+        component={HomeView}
+      />
+      <Stack.Screen
+        name="AudioView"
+        component={AudioView}
+      />
+      <Stack.Screen
+        name="ProfilePage"
+        component={ProfilePage}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 )
