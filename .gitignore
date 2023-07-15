@@ -146,3 +146,9 @@ package-lock.json
 .metro-health-check*
 
 .expo
+
+# yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
