@@ -56,7 +56,7 @@ jobs:
           --profile=${{ github.event.inputs.profile }}
 
     - name: 📱 Upload binary
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: app-${{ github.event.inputs.platform }}
         path: app-build
