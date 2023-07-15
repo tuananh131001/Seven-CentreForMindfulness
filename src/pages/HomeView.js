@@ -33,15 +33,6 @@ export const HomeView = ({ navigation }) => {
     <VStack safeArea m={5} space="5">
       <HStack alignItems={'center'} justifyContent={'space-between'}>
         <Heading>👋 Hi, Sir</Heading>
-        <IconButton
-          _icon={{
-            as: AntDesign,
-            name: 'profile',
-            color: 'black',
-          }}
-          variant="ghost"
-          onPress={() => navigation.navigate('ProfilePage')}
-        />
       </HStack>
       <HStack space={2}>
         {CATEGORIES.map((category) => (

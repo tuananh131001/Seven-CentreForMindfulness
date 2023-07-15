@@ -152,3 +152,4 @@ package-lock.json
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
+yarn.lock

@@ -22,8 +22,8 @@ const Tab = createBottomTabNavigator()
 
 const PublicStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Login" component={LoginPage} />
-    <Stack.Screen name="Register" component={RegisterPage} />
+    <Stack.Screen name="LoginPage" component={LoginPage} />
+    <Stack.Screen name="RegisterPage" component={RegisterPage} />
   </Stack.Navigator>
 )
 const HomeStack = () => (
@@ -71,7 +71,7 @@ const AppNavigator = () => {
 
   if (initializing) return null
 
-  return <NavigationContainer>{!user ? <PrivateStack /> : <PublicStack />}</NavigationContainer>
+  return <NavigationContainer>{user ? <PrivateStack /> : <PublicStack />}</NavigationContainer>
 }
 
 const App = () => {
