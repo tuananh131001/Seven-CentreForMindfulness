@@ -1,7 +1,7 @@
 import { HStack, Box, Button } from 'native-base'
 import i18n from '../utils/i18n'
 
-export const LanguageSwitchButton = ({ navigation }) => {
+export const LanguageSwitchButton = () => {
   const toggleLanguage = (lang) => {
     i18n.changeLanguage(lang)
   }

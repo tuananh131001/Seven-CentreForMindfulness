@@ -1,20 +1,7 @@
 import React from 'react'
-import {
-  Box,
-  Text,
-  Heading,
-  VStack,
-  Divider,
-  HStack,
-  Center,
-  IconButton,
-  Avatar,
-  Icon,
-} from 'native-base'
-import { AntDesign } from '@expo/vector-icons'
+import { Box, Text, VStack, Divider, HStack, Center, Avatar, Icon } from 'native-base'
 import { MaterialIcons } from '@expo/vector-icons'
 import { EvilIcons } from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 import {
   primaryColor,
@@ -24,7 +11,7 @@ import {
   placeholderTextColor,
 } from '../../assets/ColorConst'
 
-export const ProfilePage = ({ navigation }) => {
+export const ProfilePage = () => {
   const userInfo = [
     { icon_provider: EvilIcons, icon: 'user', title: 'Username', value: 'Chó Sir' },
     { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: 'Sir@gmail.com' },
@@ -35,37 +22,8 @@ export const ProfilePage = ({ navigation }) => {
 
   return (
     <VStack bg={primaryColor} space={5} width="100%" h="100%">
-      <Center w="100%">
-        <Box safeArea pt="2" w="100%" maxW="340">
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <IconButton
-              _icon={{
-                as: AntDesign,
-                name: 'arrowleft',
-                color: 'white',
-                size: 'md',
-              }}
-              variant="ghost"
-              onPress={() => navigation.navigate('HomeView')}
-            />
-            <Heading size="sm" fontWeight="800" color={primaryTextColor}>
-              My Profile
-            </Heading>
-            <IconButton
-              _icon={{
-                as: Feather,
-                name: 'edit',
-                color: 'white',
-                size: 'md',
-              }}
-              variant="ghost"
-              onPress={() => navigation.navigate('HomeView')}
-            />
-          </HStack>
-        </Box>
-      </Center>
       <Center mt="-2" w="100%">
-        <Box safeArea w="100%" maxW="340">
+        <Box safeAreaTop="24" w="100%" maxW="340">
           <VStack space={8}>
             <HStack space={4} alignItems="center">
               <Avatar
@@ -98,7 +56,7 @@ export const ProfilePage = ({ navigation }) => {
           {userInfo.map((item, index) => (
             <HStack key={index} space={4} alignItems="center">
               <Icon size="lg" as={item.icon_provider} name={item.icon} color={primaryColor}></Icon>
-              <VStack w="80%" safeArea>
+              <VStack w="80%" safeArea="3">
                 <Text fontSize="xs" color={primaryColor}>
                   {item.title}
                 </Text>
