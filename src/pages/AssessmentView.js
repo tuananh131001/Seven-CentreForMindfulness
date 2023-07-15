@@ -1,5 +1,5 @@
-import { Text, StyleSheet } from 'react-native'
-import { VStack, Flex, Button, Heading, Box, Spacer, HStack } from 'native-base'
+import { Text } from 'react-native'
+import { VStack, Flex, Button, Heading, HStack } from 'native-base'
 import { ChoiceButton } from '../components/ChoiceButton'
 import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
 import { useState } from 'react'
@@ -31,7 +31,7 @@ export const AssessmentView = ({ navigation }) => {
           <VStack px={5} marginBottom={5}>
             <Heading color={primaryTextColor}>What brings you to Seven?</Heading>
             <Text style={{ fontSize: 17, color: '#DBD9D0', margin: 5 }}>
-              We'll personalize recommendations based on your goals.
+              We will personalize recommendations based on your goals.
             </Text>
           </VStack>
 
@@ -53,7 +53,7 @@ export const AssessmentView = ({ navigation }) => {
             borderRadius="90"
             bgColor="white"
             width="90%"
-            onPress={() => navigation.navigate('HomeView')}
+            onPress={() => navigation.navigate('HomeStack')}
           >
             <Text>Continue</Text>
           </Button>

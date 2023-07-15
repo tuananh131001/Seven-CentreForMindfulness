@@ -1,4 +1,4 @@
-import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig'
+import { FIREBASE_AUTH } from '../../firebaseConfig'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AlertToast } from '../components/Toast'
 

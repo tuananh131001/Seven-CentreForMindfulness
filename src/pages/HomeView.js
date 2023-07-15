@@ -44,7 +44,7 @@ export const HomeView = ({ navigation }) => {
         />
       </HStack>
       <HStack space={2}>
-        {CATEGORIES.map((category, index) => (
+        {CATEGORIES.map((category) => (
           <Button
             key={category}
             bg={category == selectedCategory ? primaryColor : secondaryColor}
