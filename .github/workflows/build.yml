@@ -13,14 +13,11 @@ on:
         description: Platform to build for
         options:
           - android
-          - ios
       profile:
         type: choice
         description: Build profile to use
         options:
-          - development
-          - preview
-          - production
+          - preview-android
 jobs:
   build:
     runs-on: ${{ github.event.inputs.os }}
