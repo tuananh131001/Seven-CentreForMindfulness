@@ -2,7 +2,7 @@ import * as React from 'react'
 import { VStack, Box, Image, Heading, Text } from 'native-base'
 import { audioPrimaryColor } from '../../assets/ColorConst'
 
-export const AudioThumbnailCard = () => {
+export const AudioThumbnailCard = ({ title }) => {
   return (
     <VStack>
       <Box borderRadius="full" borderColor={audioPrimaryColor} borderWidth="4">
@@ -19,7 +19,7 @@ export const AudioThumbnailCard = () => {
         </Box>
       </Box>
       <VStack margin="5" alignItems="center" space="2">
-        <Heading fontWeight="medium">Zen Meditation</Heading>
+        <Heading fontWeight="medium">{title}</Heading>
         <Text fontWeight="thin">Inner Peace</Text>
       </VStack>
     </VStack>

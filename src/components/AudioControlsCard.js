@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { HStack, VStack, IconButton, View, Flex, Text, Slider } from 'native-base'
+import { HStack, VStack, IconButton, View, Flex, Text, Slider, Button } from 'native-base'
 import {
   primaryColor,
   secondaryColor,
@@ -8,10 +7,20 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 
-export const AudioControlsCard = ({ sound, playSound, isPaused, setIsPaused }) => {
+export const AudioControlsCard = ({
+  sound,
+  duration,
+  playSound,
+  isPlayed,
+  setIsPlayed,
+  activeTime,
+  startUsageTimer,
+  pauseUsageTimer,
+}) => {
   const toggleAudioStatus = () => {
-    setIsPaused(!isPaused)
-    isPaused ? sound.unloadAsync() : playSound()
+    setIsPlayed(!isPlayed)
+    isPlayed ? sound.unloadAsync() : playSound()
+    isPlayed ? pauseUsageTimer() : startUsageTimer()
   }
 
   return (
@@ -24,7 +33,7 @@ export const AudioControlsCard = ({ sound, playSound, isPaused, setIsPaused }) =
         <IconButton
           icon={
             <MaterialIcons
-              name={isPaused ? 'play-arrow' : 'pause'}
+              name={isPlayed ? 'pause' : 'play-arrow'}
               size={60}
               onPress={toggleAudioStatus}
               color={secondaryColor}
@@ -47,8 +56,8 @@ export const AudioControlsCard = ({ sound, playSound, isPaused, setIsPaused }) =
             size="md"
             minValue={0}
             maxValue={100}
-            defaultValue={50}
-            step={5}
+            defaultValue={0}
+            step={1}
             marginX={2.5}
           >
             <Slider.Track bg={audioAccentColor}>
@@ -57,8 +66,9 @@ export const AudioControlsCard = ({ sound, playSound, isPaused, setIsPaused }) =
             <Slider.Thumb bg={primaryColor} />
           </Slider>
         </View>
-        <Text>20:00</Text>
+        <Text>{parseInt(duration)}:00</Text>
       </Flex>
+      <Text>{activeTime}</Text>
     </VStack>
   )
 }
