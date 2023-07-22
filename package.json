@@ -29,7 +29,6 @@
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
     "@react-navigation/bottom-tabs": "^6.5.8",
-    "@react-navigation/native": "^6.1.7",
     "@react-navigation/core": "react-navigation/core",
     "@react-navigation/native-stack": "^6.9.12",
     "@react-navigation/stack": "^6.3.17",
@@ -37,7 +36,9 @@
     "expo": "^49.0.0",
     "expo-av": "~13.4.1",
     "expo-dev-client": "~2.4.6",
+    "expo-device": "~5.4.0",
     "expo-localization": "^14.3.0",
+    "expo-notifications": "~0.20.1",
     "expo-status-bar": "~1.6.0",
     "firebase": "^9.22.2",
     "i18next": "^23.2.7",

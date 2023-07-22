@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NativeBaseProvider } from 'native-base'
+import { NativeBaseProvider, useToast } from 'native-base'
 import { store } from './app/store'
 import { HomeView } from './src/pages/HomeView'
 import { LoginPage } from './src/pages/LoginPage'
 import { Ionicons } from '@expo/vector-icons'
+import * as Notifications from 'expo-notifications'
 
 import { Provider } from 'react-redux'
 import { I18nextProvider, useTranslation } from 'react-i18next'
@@ -17,6 +18,9 @@ import { ProgressView } from './src/pages/ProgressView'
 import { AssessmentView } from './src/pages/AssessmentView'
 import { useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { scheduleDailyNotification } from './src/services/scheduleDailyNotification'
+import { SettingsPage } from './src/pages/SettingPages'
+import { checkNotificationPermissions } from './src/utils/checkNotificationPermissions'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -49,9 +53,14 @@ const HomeStack = () => (
       name="Progress"
       component={ProgressView}
       options={{
-        tabBarIcon: ({ color, size }) => (
-          <Ionicons name="bar-chart" color={color} size={size} />
-        ),
+        tabBarIcon: ({ color, size }) => <Ionicons name="bar-chart" color={color} size={size} />,
+      }}
+    />
+    <Tab.Screen
+      name="Setting"
+      component={SettingsPage}
+      options={{
+        tabBarIcon: ({ color, size }) => <Ionicons name="settings" color={color} size={size} />,
       }}
     />
   </Tab.Navigator>
@@ -85,6 +94,12 @@ const AppNavigator = () => {
 }
 
 const App = () => {
+  const toast = useToast()
+  useEffect(() => {
+    checkNotificationPermissions(toast)
+    scheduleDailyNotification()
+  }, [])
+
   const { i18n } = useTranslation()
 
   return (
