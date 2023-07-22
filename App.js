@@ -50,7 +50,7 @@ const HomeStack = () => (
       component={ProgressView}
       options={{
         tabBarIcon: ({ color, size }) => (
-          <Ionicons name="person-circle-sharp" color={color} size={size} />
+          <Ionicons name="bar-chart" color={color} size={size} />
         ),
       }}
     />

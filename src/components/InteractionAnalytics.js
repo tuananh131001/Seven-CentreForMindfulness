@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { VStack, HStack, Flex, Heading, Text } from 'native-base'
 
 import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'

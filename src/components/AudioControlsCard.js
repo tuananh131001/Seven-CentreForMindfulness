@@ -1,4 +1,4 @@
-import { HStack, VStack, IconButton, View, Flex, Text, Slider, Button } from 'native-base'
+import { HStack, VStack, IconButton, View, Flex, Text, Slider } from 'native-base'
 import {
   primaryColor,
   secondaryColor,

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Flex, Heading, Text } from 'native-base'
 import { LineChart } from 'react-native-chart-kit'
-import { Dimensions } from 'react-native'
 
 import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
 
