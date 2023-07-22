@@ -54,7 +54,7 @@ export const HomeView = ({ navigation }) => {
           onPress={() => {
             navigation.navigate('AudioView', {
               itemId: 86,
-              fileName: audio.fileName,
+              link: audio.link,
               title: audio.title,
               duration: audio.duration,
             })
