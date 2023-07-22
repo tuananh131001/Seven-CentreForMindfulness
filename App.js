@@ -12,6 +12,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { RegisterPage } from './src/pages/RegisterPage'
 import { ProfilePage } from './src/pages/ProfilePage'
 import { AudioView } from './src/pages/AudioView'
+import { ProgressView } from './src/pages/ProgressView'
 
 import { AssessmentView } from './src/pages/AssessmentView'
 import { useEffect, useState } from 'react'
@@ -38,6 +39,15 @@ const HomeStack = () => (
     <Tab.Screen
       name="Profile"
       component={ProfilePage}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="person-circle-sharp" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Progress"
+      component={ProgressView}
       options={{
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="person-circle-sharp" color={color} size={size} />
