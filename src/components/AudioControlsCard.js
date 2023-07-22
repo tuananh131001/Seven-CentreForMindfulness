@@ -11,6 +11,7 @@ export const AudioControlsCard = ({
   sound,
   duration,
   playSound,
+  currentTimestamp,
   isPlayed,
   setIsPlayed,
   activeTime,
@@ -22,7 +23,11 @@ export const AudioControlsCard = ({
     isPlayed ? sound.unloadAsync() : playSound()
     isPlayed ? pauseUsageTimer() : startUsageTimer()
   }
-
+  function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000)
+    var seconds = ((millis % 60000) / 1000).toFixed(0)
+    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+  }
   return (
     <VStack space="5" alignItems="center">
       <HStack space="5">
@@ -49,15 +54,15 @@ export const AudioControlsCard = ({
         />
       </HStack>
       <Flex direction="row" justifyContent="space-between" alignItems="center">
-        <Text>0:00</Text>
+        <Text>{millisToMinutesAndSeconds(currentTimestamp)}</Text>
         <View>
           <Slider
             width="250"
             size="md"
             minValue={0}
-            maxValue={100}
+            value={currentTimestamp}
+            maxValue={duration}
             defaultValue={0}
-            step={1}
             marginX={2.5}
           >
             <Slider.Track bg={audioAccentColor}>
@@ -66,7 +71,7 @@ export const AudioControlsCard = ({
             <Slider.Thumb bg={primaryColor} />
           </Slider>
         </View>
-        <Text>{parseInt(duration)}:00</Text>
+        <Text>{millisToMinutesAndSeconds(duration)}</Text>
       </Flex>
       <Text>{activeTime}</Text>
     </VStack>

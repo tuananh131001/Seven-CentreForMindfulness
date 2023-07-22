@@ -12,25 +12,31 @@ import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { AlertToast } from '../components/Toast'
 import { collection, addDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
+import { use } from 'i18next'
 
 export const AudioView = ({ route, navigation }) => {
   const [isPlayed, setIsPlayed] = useState(false)
-  const { fileName, title, duration } = route.params
+  const [durationAudio, setDurationAudio] = useState(0)
+  const [currentTimestamp, setCurrentTimestamp] = useState(0)
+  const { fileName, title } = route.params
   const [sound, setSound] = useState()
   const toast = useToast()
   const [activeTime, setActiveTime] = useState(0)
   const [usageTimerRun, setUsageTimerRun] = useState(false)
 
   const appState = useRef(AppState.currentState)
+  const soundObject = new Audio.Sound()
 
   async function playSound() {
     const storage = getStorage(FIREBASE_APP)
     const url = await getDownloadURL(ref(storage, fileName))
     await Audio.setAudioModeAsync({ playsInSilentModeIOS: true })
-    const soundObject = new Audio.Sound()
     try {
       await soundObject.loadAsync({ uri: url })
       setSound(soundObject)
+      soundObject.getStatusAsync().then(function (result) {
+        setDurationAudio(result.durationMillis)
+      })
       await soundObject.playAsync()
     } catch (error) {
       AlertToast(toast, error)
@@ -69,8 +75,16 @@ export const AudioView = ({ route, navigation }) => {
         setActiveTime((prev) => prev + 1)
       }, 1000)
     }
+
     return () => clearInterval(interval)
   }, [usageTimerRun])
+
+  useEffect(() => {
+    sound &&
+      sound.getStatusAsync().then((result) => {
+        setCurrentTimestamp(result.positionMillis)
+      })
+  }, [activeTime])
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
@@ -118,7 +132,8 @@ export const AudioView = ({ route, navigation }) => {
         <AudioThumbnailCard title={JSON.stringify(title).replaceAll('"', '')} />
         <AudioControlsCard
           sound={sound}
-          duration={JSON.stringify(duration).replaceAll('"', '')}
+          currentTimestamp={currentTimestamp}
+          duration={durationAudio}
           isPlayed={isPlayed}
           setIsPlayed={setIsPlayed}
           playSound={playSound}
