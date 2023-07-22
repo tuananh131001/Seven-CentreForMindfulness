@@ -5,10 +5,11 @@ import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState } from 'react'
-
-const CATEGORIES = ['Audios', 'Inner Peace', 'Stress']
+import { useTranslation } from 'react-i18next'
 
 export const HomeView = ({ navigation }) => {
+  const { t } = useTranslation()
+  const CATEGORIES = [t('Audio'), t('InnerPeace'), t('Stress')]
   const [audioList, setAudioList] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('Audios')
 

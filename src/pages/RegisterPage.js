@@ -31,9 +31,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
 import { registerWithEmailAndPassword } from '../services/register'
-import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 export const RegisterPage = ({ navigation }) => {
+  const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const toast = useToast()
@@ -60,10 +61,10 @@ export const RegisterPage = ({ navigation }) => {
       <Center w="100%" bg={primaryColor}>
         <Box safeArea py="10" w="100%" maxW="340">
           <Heading size="lg" fontWeight="800" color={primaryTextColor}>
-            Create an account
+            {t('CreateAccount')}
           </Heading>
           <Heading mt="2" color={subTextColor} fontWeight="medium" size="xs">
-            Sign up to get started!
+            {t('SignupContinue')}
           </Heading>
         </Box>
       </Center>
@@ -96,7 +97,7 @@ export const RegisterPage = ({ navigation }) => {
                   )}
                 </VStack>
 
-                <FormControl.Label>Name</FormControl.Label>
+                <FormControl.Label>{t('Name')}</FormControl.Label>
                 <VStack>
                   <Controller
                     control={control}
@@ -122,7 +123,7 @@ export const RegisterPage = ({ navigation }) => {
                           selectedValue={value}
                           minWidth="150"
                           accessibilityLabel="Choose Gender"
-                          placeholder="Choose Gender"
+                          placeholder={t('ChooseGender')}
                           _selectedItem={{
                             bg: 'teal.600',
                             endIcon: <CheckIcon size="1" />,
@@ -143,7 +144,7 @@ export const RegisterPage = ({ navigation }) => {
                     )}
                   </Flex>
                   <VStack>
-                    <FormControl.Label>Age</FormControl.Label>
+                    <FormControl.Label>{t('Age')}</FormControl.Label>
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
@@ -165,7 +166,7 @@ export const RegisterPage = ({ navigation }) => {
                 </Flex>
                 <FormControl>
                   <Flex>
-                    <FormControl.Label>Password</FormControl.Label>
+                    <FormControl.Label>{t('Password')}</FormControl.Label>
                   </Flex>
                   <Flex width="100%" height={8} direction="row">
                     <Controller
@@ -199,7 +200,7 @@ export const RegisterPage = ({ navigation }) => {
                 </FormControl>
                 <FormControl>
                   <Flex>
-                    <FormControl.Label>Confirm Password</FormControl.Label>
+                    <FormControl.Label>{t('ConfirmPassword')}</FormControl.Label>
                   </Flex>
                   <Flex width="100%" h={8} direction="row">
                     <Controller
