@@ -1,0 +1,14 @@
+{
+  "greeting": "Xin chào!",
+  "LoginWelcomeTitle": "Chào mừng trở lại,",
+  "SignIn": "Đăng nhập",
+  "SignOut": "Đăng xuất",
+  "Password": "Mật khẩu",
+  "RememberMe": "Ghi nhớ đăng nhập",
+  "ForgotPassword": "Quên mật khẩu?",
+  "SigninContinue": "Đăng nhập để tiếp tục",
+  "Or": "Hoặc",
+  "NoAccount": "Chưa có tài khoản?",
+  "SignUp": "Đăng ký",
+  "Gender": "Giới tính"
+}

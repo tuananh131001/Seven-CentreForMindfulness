@@ -31,6 +31,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
 import { registerWithEmailAndPassword } from '../services/register'
+import { t } from 'i18next'
 
 export const RegisterPage = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -112,7 +113,7 @@ export const RegisterPage = ({ navigation }) => {
                 </VStack>
                 <Flex direction="row" justify="space-between">
                   <Flex>
-                    <FormControl.Label>Gender</FormControl.Label>
+                    <FormControl.Label>{t('Gender')}</FormControl.Label>
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
@@ -181,12 +182,11 @@ export const RegisterPage = ({ navigation }) => {
                       name="password"
                     />
                     <IconButton
-                      icon={
-                        <MaterialIcons
-                          name={showPassword ? 'visibility' : 'visibility-off'}
-                          size={14}
-                        />
-                      }
+                      _icon={{
+                        as: MaterialIcons,
+                        name: showConfirmPassword ? 'visibility' : 'visibility-off',
+                        color: 'black',
+                      }}
                       variant="ghost"
                       onPress={toggleShowPassword}
                     />
@@ -216,12 +216,11 @@ export const RegisterPage = ({ navigation }) => {
                       name="confirmPassword"
                     />
                     <IconButton
-                      icon={
-                        <MaterialIcons
-                          name={showConfirmPassword ? 'visibility' : 'visibility-off'}
-                          size={14}
-                        />
-                      }
+                      _icon={{
+                        as: MaterialIcons,
+                        name: showConfirmPassword ? 'visibility' : 'visibility-off',
+                        color: 'black',
+                      }}
                       variant="ghost"
                       onPress={toggleShowConfirmPassword}
                     />
