@@ -44,10 +44,16 @@ export const HomeView = ({ navigation }) => {
             navigation.navigate('AudioView', {
               itemId: 86,
               fileName: audio.fileName,
+              title: audio.title,
+              duration: audio.duration,
             })
           }}
         >
-          <HorizontalCard title={audio.title} thumbnail={audio.thumbnail} />
+          <HorizontalCard
+            title={audio.title}
+            thumbnail={audio.thumbnail}
+            duration={audio.duration}
+          />
         </Pressable>
       ))}
     </VStack>
