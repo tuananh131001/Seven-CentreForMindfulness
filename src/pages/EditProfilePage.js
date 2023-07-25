@@ -19,7 +19,7 @@ export const EditProfilePage = ({ navigation }) => {
                     color: 'white',
                   }}
                   variant="ghost"
-                  onPress={() => navigation.navigate('ProfilePage')}
+                  onPress={() => navigation.goBack()}
                 />
                 <HStack space={4} alignItems="center">
                   <Avatar
