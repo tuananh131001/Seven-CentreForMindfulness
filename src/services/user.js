@@ -1,9 +1,5 @@
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig'
-import {
-  createUserWithEmailAndPassword,
-  signOut,
-  signInWithEmailAndPassword,
-} from 'firebase/auth'
+import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { AlertToast } from '../components/Toast'
 
