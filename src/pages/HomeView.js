@@ -1,5 +1,5 @@
 import { HorizontalCard } from '../components/HorizontalCard'
-import { Button, HStack, Heading, VStack, Text } from 'native-base'
+import { Button, HStack, Heading, VStack, Text, ScrollView } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'

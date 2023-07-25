@@ -1,9 +1,10 @@
-import { Text } from 'react-native'
-import { VStack, Flex, Button, Heading, HStack } from 'native-base'
+import { VStack, Flex, Button, Heading, Text, HStack } from 'native-base'
 import { ChoiceButton } from '../components/ChoiceButton'
 import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
 import { useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
+
 const ICONNAMES = [
   'leaf',
   'moon-outline',
@@ -37,7 +38,7 @@ export const AssessmentView = ({ navigation }) => {
             </Text>
           </VStack>
 
-          <VStack width="100%" space={2} alignItems="center">
+          <VStack width="100%" space="2" alignItems="center">
             {ICONNAMES.map((iconName, index) => (
               <ChoiceButton
                 selected={selected}
@@ -50,11 +51,11 @@ export const AssessmentView = ({ navigation }) => {
           </VStack>
         </Flex>
 
-        <HStack justifyContent={'center'} width={'100%'} marginBottom={5}>
+        <HStack justifyContent="center" padding="5">
           <Button
             borderRadius="90"
-            bgColor="white"
-            width="90%"
+            bg="white"
+            width="100%"
             onPress={() => navigation.navigate('HomeStack')}
           >
             <Text>{t('Continue')}</Text>

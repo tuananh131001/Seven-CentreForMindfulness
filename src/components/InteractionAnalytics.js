@@ -4,7 +4,7 @@ import { progressPrimaryColor, progressSecondaryColor } from '../../assets/Color
 
 export const InteractionAnalytics = () => {
   return (
-    <VStack space="10" width="100%">
+    <VStack space="10" width="100%" my="5">
       <HStack space="5" width="100%" justifyContent="space-between">
         <Flex
           bg={progressPrimaryColor}
@@ -36,7 +36,7 @@ export const InteractionAnalytics = () => {
           borderRadius="20"
         >
           <Heading>15</Heading>
-          <Text color={progressSecondaryColor}>audios completed</Text>
+          <Text color={progressSecondaryColor}>audio tracks completed</Text>
         </Flex>
         <Flex
           bg={progressPrimaryColor}
