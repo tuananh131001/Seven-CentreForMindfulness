@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View, Flex, Heading, ScrollView } from 'native-base'
+import { Flex, Heading, ScrollView } from 'native-base'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 

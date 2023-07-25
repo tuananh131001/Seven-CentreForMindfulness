@@ -27,13 +27,14 @@ export const AssessmentView = ({ navigation }) => {
     t('ReduceAnxiety'),
   ]
   const [selected, setSelected] = useState([])
+
   return (
     <Flex bg={primaryColor} height="100%" width="100%" justifyContent="center">
-      <VStack space={2} justifyContent={'space-between'} height={'100%'}>
-        <Flex justifyContent={'flex-end'} height={'75%'}>
-          <VStack px={5} marginBottom={5}>
+      <VStack space="2" justifyContent="space-between" height="100%">
+        <Flex height="80%">
+          <VStack padding="5" mt="10">
             <Heading color={primaryTextColor}>{t('AssessmentViewTitle')}</Heading>
-            <Text style={{ fontSize: 17, color: '#DBD9D0', margin: 5 }}>
+            <Text fontSize="sm" color={primaryTextColor}>
               {t('AssessmentViewDescription')}
             </Text>
           </VStack>
