@@ -1,5 +1,9 @@
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signOut,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { AlertToast } from '../components/Toast'
 
@@ -22,4 +26,17 @@ export const registerWithEmailAndPassword = async (data, toast) => {
   } catch (err) {
     AlertToast(toast, err.message)
   }
+}
+
+export const logInWithEmailAndPassword = async (data, toast) => {
+  try {
+    const { email, password } = data
+    return await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+  } catch (err) {
+    AlertToast(toast, err.message)
+  }
+}
+
+export const logout = () => {
+  signOut(FIREBASE_AUTH)
 }

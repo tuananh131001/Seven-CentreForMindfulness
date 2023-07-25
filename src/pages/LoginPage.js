@@ -27,7 +27,7 @@ import {
   signInButtonColor,
 } from '../../assets/ColorConst'
 import { signInSchema } from '../utils/ValidateUserInput'
-import { logInWithEmailAndPassword } from '../services/login'
+import { logInWithEmailAndPassword } from '../services/user'
 import { useState } from 'react'
 import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
 import { useTranslation } from 'react-i18next'

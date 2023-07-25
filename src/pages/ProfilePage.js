@@ -22,7 +22,7 @@ import {
   profileTextColor,
   placeholderTextColor,
 } from '../../assets/ColorConst'
-import { logout } from '../services/login'
+import { logout } from '../services/user'
 
 export const ProfilePage = ({ navigation }) => {
   const userInfo = [
