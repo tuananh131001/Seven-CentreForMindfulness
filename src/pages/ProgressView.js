@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View, Flex, Heading } from 'native-base'
+import { Flex, Heading, ScrollView } from 'native-base'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 
@@ -46,9 +46,9 @@ export const ProgressView = () => {
   }
 
   return (
-    <View bg="white" height="100%">
-      <Flex direction="row" width="100%" alignItems="center" mx="5" safeArea>
-        <Heading>Your Analytics</Heading>
+    <ScrollView bg="white" minHeight="100%">
+      <Flex direction="row" width="100%" alignItems="center" margin="5">
+        <Heading py="5">Your Analytics</Heading>
       </Flex>
       <Flex
         direction="column"
@@ -60,6 +60,6 @@ export const ProgressView = () => {
         <UsageTimeAnalytics formattedTime={formattedTime} />
         <InteractionAnalytics />
       </Flex>
-    </View>
+    </ScrollView>
   )
 }

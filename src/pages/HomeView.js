@@ -1,5 +1,5 @@
 import { HorizontalCard } from '../components/HorizontalCard'
-import { Button, HStack, Heading, VStack, Text } from 'native-base'
+import { Button, HStack, Heading, Text, ScrollView, VStack } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
@@ -30,44 +30,46 @@ export const HomeView = ({ navigation }) => {
   }, [selectedCategory])
 
   return (
-    <VStack safeArea m={5} space="5">
-      <HStack alignItems={'center'} justifyContent={'space-between'}>
-        <Heading>👋 Hi, Sir</Heading>
-      </HStack>
-      <HStack space={2}>
-        {CATEGORIES.map((category) => (
-          <Button
-            key={category}
-            bg={category == selectedCategory ? primaryColor : secondaryColor}
-            onPress={() => selectCategory(category)}
-            px={5}
-            borderRadius="15"
+    <ScrollView minHeight="100%" mt="10" padding="5">
+      <VStack space="5">
+        <HStack alignItems="center" justifyContent="space-between">
+          <Heading>👋 Hi, Sir</Heading>
+        </HStack>
+        <HStack space="2">
+          {CATEGORIES.map((category) => (
+            <Button
+              key={category}
+              bg={category == selectedCategory ? primaryColor : secondaryColor}
+              onPress={() => selectCategory(category)}
+              px="5"
+              borderRadius="15"
+            >
+              <Text color={category == selectedCategory ? 'white' : primaryColor} bold>
+                {category}
+              </Text>
+            </Button>
+          ))}
+        </HStack>
+        {audioList.map((audio, index) => (
+          <Pressable
+            key={index}
+            onPress={() => {
+              navigation.navigate('AudioView', {
+                itemId: 86,
+                link: audio.link,
+                title: audio.title,
+                duration: audio.duration,
+              })
+            }}
           >
-            <Text color={category == selectedCategory ? 'white' : primaryColor} bold>
-              {category}
-            </Text>
-          </Button>
+            <HorizontalCard
+              title={audio.title}
+              thumbnail={audio.thumbnail}
+              duration={audio.duration}
+            />
+          </Pressable>
         ))}
-      </HStack>
-      {audioList.map((audio, index) => (
-        <Pressable
-          key={index}
-          onPress={() => {
-            navigation.navigate('AudioView', {
-              itemId: 86,
-              link: audio.link,
-              title: audio.title,
-              duration: audio.duration,
-            })
-          }}
-        >
-          <HorizontalCard
-            title={audio.title}
-            thumbnail={audio.thumbnail}
-            duration={audio.duration}
-          />
-        </Pressable>
-      ))}
-    </VStack>
+      </VStack>
+    </ScrollView>
   )
 }

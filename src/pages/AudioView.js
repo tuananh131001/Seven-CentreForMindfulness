@@ -21,7 +21,6 @@ import {
   secondaryColor,
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
-import { AudioNavigationCard } from '../components/AudioNavigationCard'
 import { AlertToast } from '../components/Toast'
 import { collection, addDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
@@ -136,7 +135,7 @@ export const AudioView = ({ route, navigation }) => {
         mt="auto"
         pt="10"
       >
-        <VStack>
+        <Flex direction="column" alignItems="center">
           <Box borderRadius="full" borderColor={audioPrimaryColor} borderWidth="4">
             <Box borderRadius="full" bg={audioPrimaryColor} margin="3">
               <Image
@@ -154,7 +153,7 @@ export const AudioView = ({ route, navigation }) => {
             <Heading fontWeight="medium">{title}</Heading>
             <Text fontWeight="thin">Inner Peace</Text>
           </VStack>
-        </VStack>
+        </Flex>
         <VStack space="5" alignItems="center">
           <HStack space="5">
             <IconButton
@@ -202,7 +201,6 @@ export const AudioView = ({ route, navigation }) => {
           <Text>{activeTime}</Text>
         </VStack>
       </Flex>
-      <AudioNavigationCard />
     </View>
   )
 }
