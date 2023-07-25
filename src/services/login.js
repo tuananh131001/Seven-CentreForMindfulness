@@ -1,5 +1,5 @@
 import { FIREBASE_AUTH } from '../../firebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { AlertToast } from '../components/Toast'
 
 export const logInWithEmailAndPassword = async (data, toast) => {
@@ -9,4 +9,8 @@ export const logInWithEmailAndPassword = async (data, toast) => {
   } catch (err) {
     AlertToast(toast, err.message)
   }
+}
+
+export const logout = () => {
+  signOut(FIREBASE_AUTH)
 }
