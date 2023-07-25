@@ -30,7 +30,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
-import { registerWithEmailAndPassword } from '../services/register'
+import { registerWithEmailAndPassword } from '../services/user'
 import { useTranslation } from 'react-i18next'
 
 export const RegisterPage = ({ navigation }) => {

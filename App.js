@@ -4,6 +4,7 @@ import { NativeBaseProvider, useToast } from 'native-base'
 import { store } from './app/store'
 import { HomeView } from './src/pages/HomeView'
 import { LoginPage } from './src/pages/LoginPage'
+import { EditProfilePage } from './src/pages/EditProfilePage'
 import { Ionicons } from '@expo/vector-icons'
 import * as Notifications from 'expo-notifications'
 
@@ -72,6 +73,7 @@ const PrivateStack = () => (
     <Stack.Screen name="HomeStack" component={HomeStack} />
     <Stack.Screen name="ProfilePage" component={ProfilePage} />
     <Stack.Screen name="AudioView" component={AudioView} />
+    <Stack.Screen name="EditProfilePage" component={EditProfilePage}/>
   </Stack.Navigator>
 )
 
