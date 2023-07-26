@@ -59,12 +59,7 @@ export const AssessmentView = ({ navigation }) => {
         </Flex>
 
         <HStack justifyContent="center" padding="5">
-          <Button
-            borderRadius="90"
-            bg="white"
-            width="100%"
-            onPress={handleContinueButton}
-          >
+          <Button borderRadius="90" bg="white" width="100%" onPress={handleContinueButton}>
             <Text>{t('Continue')}</Text>
           </Button>
         </HStack>

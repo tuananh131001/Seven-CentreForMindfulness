@@ -1,6 +1,6 @@
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig'
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth'
-import { addDoc, collection, getDoc } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 import { AlertToast } from '../components/Toast'
 import * as SecureStore from 'expo-secure-store'
 
