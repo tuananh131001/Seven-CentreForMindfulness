@@ -4,6 +4,7 @@ import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
 import { useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
+import * as SecureStore from 'expo-secure-store'
 
 const ICONNAMES = [
   'leaf',
@@ -27,6 +28,11 @@ export const AssessmentView = ({ navigation }) => {
     t('ReduceAnxiety'),
   ]
   const [selected, setSelected] = useState([])
+
+  const handleContinueButton = async () => {
+    SecureStore.setItemAsync('assessmentStatus', 'completed').then()
+    navigation.navigate('HomeStack')
+  }
 
   return (
     <Flex bg={primaryColor} height="100%" width="100%" justifyContent="center">
@@ -57,7 +63,7 @@ export const AssessmentView = ({ navigation }) => {
             borderRadius="90"
             bg="white"
             width="100%"
-            onPress={() => navigation.navigate('HomeStack')}
+            onPress={handleContinueButton}
           >
             <Text>{t('Continue')}</Text>
           </Button>

@@ -23,8 +23,14 @@ import {
   placeholderTextColor,
 } from '../../assets/ColorConst'
 import { logout } from '../services/user'
+import { useContext } from 'react'
+import { SignInContext } from '../hooks/useAuthContext'
 
 export const ProfilePage = ({ navigation }) => {
+  const { dispatchSignedIn } = useContext(SignInContext)
+  const handleLogout = () => {
+    logout(dispatchSignedIn)
+  }
   const userInfo = [
     { icon_provider: EvilIcons, icon: 'user', title: 'Username', value: 'Sir' },
     { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: 'Sir@gmail.com' },
@@ -99,7 +105,7 @@ export const ProfilePage = ({ navigation }) => {
                 </HStack>
               ))}
             </VStack>
-            <Button bg={primaryColor} onPress={logout} my={2}>
+            <Button bg={primaryColor} onPress={handleLogout} my={2}>
               Log out
             </Button>
           </VStack>

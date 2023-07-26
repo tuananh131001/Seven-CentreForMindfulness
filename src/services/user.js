@@ -1,7 +1,8 @@
 import { FIREBASE_AUTH, FIREBASE_DB } from '../../firebaseConfig'
 import { createUserWithEmailAndPassword, signOut, signInWithEmailAndPassword } from 'firebase/auth'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, getDoc } from 'firebase/firestore'
 import { AlertToast } from '../components/Toast'
+import * as SecureStore from 'expo-secure-store'
 
 const DEFAULT_AVATAR = 'https://i.imgur.com/LZmjxxi.png'
 
@@ -24,15 +25,22 @@ export const registerWithEmailAndPassword = async (data, toast) => {
   }
 }
 
-export const logInWithEmailAndPassword = async (data, toast) => {
+export const logInWithEmailAndPassword = async (data, toast, dispatch) => {
   try {
     const { email, password } = data
-    return await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+    data = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
+    SecureStore.setItemAsync('uid', data.user.uid).then
+    console.log(data.user.uid)
+    if (data) {
+      dispatch({ type: 'SIGN_IN', payload: { uid: data.user.uid } })
+    }
   } catch (err) {
     AlertToast(toast, err.message)
   }
 }
 
-export const logout = () => {
+export const logout = (dispatch) => {
+  SecureStore.deleteItemAsync('uid')
+  dispatch({ type: 'SIGN_OUT' })
   signOut(FIREBASE_AUTH)
 }

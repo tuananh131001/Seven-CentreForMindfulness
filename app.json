@@ -6,7 +6,10 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "com.williama1pha.sevenproject"
+      "bundleIdentifier": "com.williama1pha.sevenproject",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.williama1pha.sevenproject"
