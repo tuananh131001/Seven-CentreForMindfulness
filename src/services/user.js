@@ -30,7 +30,6 @@ export const logInWithEmailAndPassword = async (data, toast, dispatch) => {
     const { email, password } = data
     data = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
     SecureStore.setItemAsync('uid', data.user.uid).then
-    console.log(data.user.uid)
     if (data) {
       dispatch({ type: 'SIGN_IN', payload: { uid: data.user.uid } })
     }

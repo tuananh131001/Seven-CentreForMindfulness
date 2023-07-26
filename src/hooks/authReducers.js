@@ -1,16 +1,3 @@
-import * as SecureStore from 'expo-secure-store'
-import { useState } from 'react'
-
-export const _retrieveData = async () => {
-  const [id, setUid] = useState(null)
-
-  SecureStore.getItemAsync('uid').then((response) => {
-    setUid(response)
-  })
-
-  console.log(id)
-}
-
 export const initialState = {
   isLoading: true,
   userName: null,

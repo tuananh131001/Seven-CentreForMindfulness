@@ -22,4 +22,3 @@ export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
   persistence: getReactNativePersistence(AsyncStorage)
 });
 
-console.log(FIREBASE_AUTH)
