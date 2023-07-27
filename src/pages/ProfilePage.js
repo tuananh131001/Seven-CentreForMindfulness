@@ -99,7 +99,7 @@ export const ProfilePage = ({ navigation }) => {
           <VStack py="2" space={2}>
             <VStack bg={secondaryColor}>
               {userInfo.map((item, index) => (
-                <HStack   key={index} space={4} alignItems="center">
+                <HStack key={index} space={4} alignItems="center">
                   <Icon
                     textAlign="center"
                     size="lg"

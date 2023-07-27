@@ -5,7 +5,7 @@ export const initialState = {
   avatar: null,
   age: null,
   gender: null,
-  location:null,
+  location: null,
   uid: null,
 }
 
@@ -32,7 +32,7 @@ export const SignInReducer = (state, action) => {
         avatar: action.payload.avatar,
         gender: action.payload.gender,
         age: action.payload.age,
-        location:action.payload.location ?? null
+        location: action.payload.location ?? null,
       }
     default:
       return state

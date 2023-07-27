@@ -45,10 +45,10 @@ export const logout = (dispatch) => {
 }
 
 export const getUserProfileByUID = async (uid, dispatch) => {
-  const q = query(collection(FIREBASE_DB, "users"), where("uid", "==", uid));
+  const q = query(collection(FIREBASE_DB, 'users'), where('uid', '==', uid))
 
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
     dispatch({ type: 'SET_USER', payload: doc.data() })
-  });
+  })
 }

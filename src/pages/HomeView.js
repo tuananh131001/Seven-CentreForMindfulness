@@ -34,8 +34,6 @@ export const HomeView = ({ navigation }) => {
     getUserProfileByUID(signedIn.uid, dispatchSignedIn)
   }, [selectedCategory])
 
-
-
   return (
     <ScrollView minHeight="100%" mt="10" padding="5">
       <VStack space="5">
