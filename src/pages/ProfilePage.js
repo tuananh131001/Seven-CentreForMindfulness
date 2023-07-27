@@ -29,16 +29,27 @@ import { useTranslation } from 'react-i18next'
 
 export const ProfilePage = ({ navigation }) => {
   const { t } = useTranslation()
-  const { dispatchSignedIn } = useContext(SignInContext)
+  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const handleLogout = () => {
     logout(dispatchSignedIn)
   }
   const userInfo = [
-    { icon_provider: EvilIcons, icon: 'user', title: 'Username', value: 'Sir' },
-    { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: 'Sir@gmail.com' },
-    { icon_provider: MaterialIcons, icon: 'cake', title: 'Age', value: 22 },
-    { icon_provider: FontAwesome, icon: 'genderless', title: 'Gender', value: 'Others' },
-    { icon_provider: EvilIcons, icon: 'location', title: 'Location', value: 'VN' },
+    { icon_provider: EvilIcons, icon: 'user', title: 'Name', value: signedIn?.name },
+    { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: signedIn?.email },
+    { icon_provider: MaterialIcons, icon: 'cake', title: 'Age', value: signedIn?.age },
+    { icon_provider: FontAwesome, icon: 'genderless', title: 'Gender', value: signedIn?.gender },
+    {
+      icon_provider: EvilIcons,
+      icon: 'location',
+      title: 'Location',
+      value: signedIn?.location ?? '',
+    },
+    {
+      icon_provider: FontAwesome,
+      icon: 'mobile-phone',
+      title: 'Phone number',
+      value: signedIn?.phone ?? '',
+    },
   ]
 
   return (
@@ -52,15 +63,15 @@ export const ProfilePage = ({ navigation }) => {
                   <Avatar
                     size="lg"
                     source={{
-                      uri: 'https://i.imgur.com/LZmjxxi.png',
+                      uri: signedIn?.avatar ?? 'https://i.imgur.com/LZmjxxi.png',
                     }}
                   ></Avatar>
                   <VStack>
                     <Text fontSize="xl" bold color={primaryTextColor}>
-                      Sir
+                      {signedIn?.name}
                     </Text>
                     <Text fontSize="xs" color={placeholderTextColor}>
-                      Sir123
+                      @{signedIn?.email}
                     </Text>
                   </VStack>
                 </HStack>
@@ -88,8 +99,9 @@ export const ProfilePage = ({ navigation }) => {
           <VStack py="2" space={2}>
             <VStack bg={secondaryColor}>
               {userInfo.map((item, index) => (
-                <HStack key={index} space={4} alignItems="center">
+                <HStack   key={index} space={4} alignItems="center">
                   <Icon
+                    textAlign="center"
                     size="lg"
                     as={item.icon_provider}
                     name={item.icon}

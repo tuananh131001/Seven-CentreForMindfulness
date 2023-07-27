@@ -4,13 +4,16 @@ import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
+import { getUserProfileByUID } from '../services/user'
+import { SignInContext } from '../hooks/useAuthContext'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const CATEGORIES = ['audios', 'guidedPractices', 'articles']
   const [audioList, setAudioList] = useState([])
+  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
 
   const getData = async () => {
@@ -28,13 +31,16 @@ export const HomeView = ({ navigation }) => {
 
   useEffect(() => {
     getData()
+    getUserProfileByUID(signedIn.uid, dispatchSignedIn)
   }, [selectedCategory])
+
+
 
   return (
     <ScrollView minHeight="100%" mt="10" padding="5">
       <VStack space="5">
         <HStack alignItems="center" justifyContent="space-between">
-          <Heading>👋 Hi, Sir</Heading>
+          <Heading>👋 Hi, {signedIn?.name}</Heading>
         </HStack>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
