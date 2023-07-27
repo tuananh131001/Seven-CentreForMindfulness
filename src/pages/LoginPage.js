@@ -13,14 +13,12 @@ import {
   Center,
   Spacer,
   Flex,
-  Checkbox,
   useToast,
 } from 'native-base'
 import {
   primaryColor,
   secondaryColor,
   primaryTextColor,
-  secondaryTextColor,
   subTextColor,
   boldTextColor,
   errorColor,
@@ -31,8 +29,12 @@ import { logInWithEmailAndPassword } from '../services/user'
 import { useState } from 'react'
 import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
 import { useTranslation } from 'react-i18next'
+import { useContext } from 'react'
+import { SignInContext } from '../hooks/useAuthContext'
 
 export const LoginPage = ({ navigation }) => {
+  const { dispatchSignedIn } = useContext(SignInContext)
+
   const { t } = useTranslation()
   const [loading, setLoading] = useState()
   const toast = useToast()
@@ -45,7 +47,7 @@ export const LoginPage = ({ navigation }) => {
   })
   const onSubmit = async (data) => {
     setLoading(true)
-    await logInWithEmailAndPassword(data, toast)
+    await logInWithEmailAndPassword(data, toast, dispatchSignedIn)
     setLoading(false)
   }
 
@@ -102,16 +104,6 @@ export const LoginPage = ({ navigation }) => {
                     {errors.password.message}
                   </Text>
                 )}
-                <HStack mt={2} space={2}>
-                  <Checkbox
-                    value="test"
-                    accessibilityLabel="This is a dummy checkbox"
-                    _checked={{ borderColor: boldTextColor, bg: boldTextColor }}
-                  />
-                  <Text fontSize="sm" color={secondaryTextColor}>
-                    {t('RememberMe')}
-                  </Text>
-                </HStack>
               </FormControl>
               <Link
                 _text={{
