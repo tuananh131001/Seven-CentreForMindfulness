@@ -110,8 +110,6 @@ const AppNavigator = () => {
     })
   }, [])
 
-  console.log(signedIn)
-  console.log(isCompletedAssessment)
   return (
     <NavigationContainer>
       {user != null ? (

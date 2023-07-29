@@ -62,6 +62,7 @@ export const ProfilePage = ({ navigation }) => {
                 <HStack space={4} alignItems="center">
                   <Avatar
                     size="lg"
+                    bg="transparent"
                     source={{
                       uri: signedIn?.avatar ?? 'https://i.imgur.com/LZmjxxi.png',
                     }}

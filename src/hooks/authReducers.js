@@ -7,6 +7,7 @@ export const initialState = {
   gender: null,
   location: null,
   uid: null,
+  phone: null,
 }
 
 export const SignInReducer = (state, action) => {
@@ -33,6 +34,13 @@ export const SignInReducer = (state, action) => {
         gender: action.payload.gender,
         age: action.payload.age,
         location: action.payload.location ?? null,
+        phone: action.payload.phone ?? null,
+      }
+    case 'SET_AVATAR':
+      return {
+        ...state,
+        isLoading: false,
+        avatar: action.payload.avatar,
       }
     default:
       return state
