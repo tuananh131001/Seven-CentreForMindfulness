@@ -9,23 +9,24 @@ import { useTranslation } from 'react-i18next'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
-  const CATEGORIES = [t('Audio'), t('InnerPeace'), t('Stress')]
+  const CATEGORIES = ['audios', 'guidedPractices', 'articles']
   const [audioList, setAudioList] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('Audios')
+  const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
+
+  const getData = async () => {
+    let audioListArr = []
+    const querySnapshot = await getDocs(collection(FIREBASE_DB, selectedCategory))
+    querySnapshot.forEach((doc) => {
+      audioListArr.push(doc.data())
+    })
+    setAudioList(audioListArr)
+  }
 
   const selectCategory = (category) => {
     setSelectedCategory(category)
   }
 
   useEffect(() => {
-    const getData = async () => {
-      let audioListArr = []
-      const querySnapshot = await getDocs(collection(FIREBASE_DB, selectedCategory.toLowerCase()))
-      querySnapshot.forEach((doc) => {
-        audioListArr.push(doc.data())
-      })
-      setAudioList(audioListArr)
-    }
     getData()
   }, [selectedCategory])
 
@@ -35,21 +36,24 @@ export const HomeView = ({ navigation }) => {
         <HStack alignItems="center" justifyContent="space-between">
           <Heading>👋 Hi, Sir</Heading>
         </HStack>
-        <HStack space="2">
-          {CATEGORIES.map((category) => (
-            <Button
-              key={category}
-              bg={category == selectedCategory ? primaryColor : secondaryColor}
-              onPress={() => selectCategory(category)}
-              px="5"
-              borderRadius="15"
-            >
-              <Text color={category == selectedCategory ? 'white' : primaryColor} bold>
-                {category}
-              </Text>
-            </Button>
-          ))}
-        </HStack>
+
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <HStack space="2">
+            {CATEGORIES.map((category) => (
+              <Button
+                key={category}
+                bg={category == selectedCategory ? primaryColor : secondaryColor}
+                onPress={() => selectCategory(category)}
+                px="5"
+                borderRadius="15"
+              >
+                <Text color={category == selectedCategory ? 'white' : primaryColor} bold>
+                  {t(category)}
+                </Text>
+              </Button>
+            ))}
+          </HStack>
+        </ScrollView>
         {audioList.map((audio, index) => (
           <Pressable
             key={index}
