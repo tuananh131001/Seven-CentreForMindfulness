@@ -1,7 +1,8 @@
-import { Box, Center, Text, useToast } from 'native-base'
+import { Box, Center, Text, VStack, useToast } from 'native-base'
 import * as Notifications from 'expo-notifications'
 import { useEffect, useState } from 'react'
 import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
+import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
 
 export const SettingsPage = () => {
   const toast = useToast()
@@ -20,13 +21,16 @@ export const SettingsPage = () => {
   return (
     <Center>
       <Box safeArea>
-        {scheduledNotifications.map((notification) => (
-          <Box key={notification.identifier} safeArea={5}>
-            <Text>ID: {notification.identifier}</Text>
-            <Text>Body:{notification.content.body}</Text>
-            <Text>Trigger in next: {Math.floor(notification.trigger.seconds / 3600)} hours</Text>
-          </Box>
-        ))}
+        <VStack safeArea>
+          {scheduledNotifications.map((notification) => (
+            <Box key={notification.identifier} safeArea={5}>
+              <Text>ID: {notification.identifier}</Text>
+              <Text>Body:{notification.content.body}</Text>
+              <Text>Trigger in next: {Math.floor(notification.trigger.seconds / 3600)} hours</Text>
+            </Box>
+          ))}
+          <LanguageSwitchButton />
+        </VStack>
       </Box>
     </Center>
   )
