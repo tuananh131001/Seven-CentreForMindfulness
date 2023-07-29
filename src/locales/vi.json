@@ -31,5 +31,8 @@
   "ChooseGender": "Chọn giới tính",
   "Age": "Tuổi",
   "ConfirmPassword": "Xác nhận mật khẩu",
-  "AlreadyHaveAccount": "Đã có tài khoản?"
+  "AlreadyHaveAccount": "Đã có tài khoản?",
+  "Location": "Địa điểm",
+  "Analytics": "Số liệu của bạn",
+  "LearnTime": "thời gian học"
 }

@@ -25,8 +25,10 @@ import {
 import { logout } from '../services/user'
 import { useContext } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
+import { useTranslation } from 'react-i18next'
 
 export const ProfilePage = ({ navigation }) => {
+  const { t } = useTranslation()
   const { dispatchSignedIn } = useContext(SignInContext)
   const handleLogout = () => {
     logout(dispatchSignedIn)
@@ -106,7 +108,7 @@ export const ProfilePage = ({ navigation }) => {
               ))}
             </VStack>
             <Button bg={primaryColor} onPress={handleLogout} my={2}>
-              Log out
+              {t('SignOut')}
             </Button>
           </VStack>
         </Center>
