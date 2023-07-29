@@ -24,44 +24,46 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
 import { collection, addDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
+import { millisToMinutesAndSeconds } from '../utils/helpers'
+import { HomeViewLoading } from '../components/HomeViewLoading'
 
 export const AudioView = ({ route, navigation }) => {
   const { title, link } = route.params
 
   const [isPlayed, setIsPlayed] = useState(false)
   const [durationAudio, setDurationAudio] = useState(0)
-  const [currentTimestamp, setCurrentTimestamp] = useState(0)
+  const [currentAudioTimestamp, setAudioTimestamp] = useState(0)
   const [sound, setSound] = useState()
   const [activeTime, setActiveTime] = useState(0)
   const [usageTimerRun, setUsageTimerRun] = useState(false)
   const toast = useToast()
   const appState = useRef(AppState.currentState)
-  const soundObject = new Audio.Sound()
 
-  async function playSound() {
-    await Audio.setAudioModeAsync({ playsInSilentModeIOS: true })
-    try {
-      await soundObject.loadAsync({ uri: link })
-      setSound(soundObject)
+  useEffect(() => {
+    const getAudio = async () => {
+      await Audio.setAudioModeAsync({ playsInSilentModeIOS: true })
+      const soundObject = new Audio.Sound()
+      try {
+        await soundObject.loadAsync({ uri: link })
+      } catch (error) {
+        AlertToast(toast, error)
+      }
       soundObject.getStatusAsync().then((result) => {
         setDurationAudio(result.durationMillis)
       })
-      await soundObject.playAsync()
-    } catch (error) {
-      AlertToast(toast, error)
+      setSound(soundObject)
     }
+    getAudio()
+  }, [])
+
+  async function playSound() {
+    await sound.playAsync()
   }
 
   const toggleAudioStatus = () => {
     setIsPlayed(!isPlayed)
     isPlayed ? sound.unloadAsync() : playSound()
     isPlayed ? setUsageTimerRun(false) : setUsageTimerRun(true)
-  }
-
-  function millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000)
-    var seconds = ((millis % 60000) / 1000).toFixed(0)
-    return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
   }
 
   const handleBackButtonClick = () => {
@@ -79,18 +81,15 @@ export const AudioView = ({ route, navigation }) => {
     if (usageTimerRun === false) return
 
     let interval = setInterval(() => {
+      sound &&
+        sound.getStatusAsync().then((result) => {
+          setAudioTimestamp(result.positionMillis)
+        })
       setActiveTime((prev) => prev + 1)
     }, 1000)
 
     return () => clearInterval(interval)
   }, [usageTimerRun])
-
-  useEffect(() => {
-    sound &&
-      sound.getStatusAsync().then((result) => {
-        setCurrentTimestamp(result.positionMillis)
-      })
-  }, [activeTime])
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
@@ -108,6 +107,10 @@ export const AudioView = ({ route, navigation }) => {
       subscription.remove()
     }
   }, [sound])
+
+  if (!sound) {
+    return <HomeViewLoading />
+  }
 
   return (
     <View bg={primaryColor} height="100%">
@@ -179,13 +182,13 @@ export const AudioView = ({ route, navigation }) => {
             />
           </HStack>
           <Flex direction="row" justifyContent="space-between" alignItems="center">
-            <Text>{millisToMinutesAndSeconds(currentTimestamp)}</Text>
+            <Text>{millisToMinutesAndSeconds(currentAudioTimestamp)}</Text>
             <View>
               <Slider
                 width="250"
                 size="md"
                 minValue={0}
-                value={currentTimestamp || 0}
+                value={currentAudioTimestamp || 0}
                 maxValue={durationAudio}
                 defaultValue={0}
                 marginX={2.5}
@@ -198,7 +201,6 @@ export const AudioView = ({ route, navigation }) => {
             </View>
             <Text>{millisToMinutesAndSeconds(durationAudio)}</Text>
           </Flex>
-          <Text>{activeTime}</Text>
         </VStack>
       </Flex>
     </View>
