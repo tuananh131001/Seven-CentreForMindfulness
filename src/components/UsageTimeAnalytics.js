@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 export const UsageTimeAnalytics = ({ formattedTime }) => {
   const [chartParentWidth, setChartParentWidth] = useState(0)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <Flex

@@ -8,7 +8,7 @@ import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
 
 export const ProgressView = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [timeData, setTimeData] = useState([])
   var totalTimeSpent = calculateTotalTimeSpent()
   var formattedTime = convertToTimeFormat()

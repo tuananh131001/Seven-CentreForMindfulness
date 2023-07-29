@@ -34,9 +34,8 @@ export const AssessmentView = ({ navigation }) => {
       SecureStore.setItemAsync('assessmentStatus', 'completed').then()
       navigation.navigate('HomeStack')
     } else {
-        alert('Please select at least one option before proceeding');
+      alert('Please select at least one option before proceeding')
     }
-    
   }
 
   return (
