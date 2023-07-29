@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import {
   Flex,
   View,
@@ -12,7 +12,6 @@ import {
   Image,
   Box,
 } from 'native-base'
-import { AppState } from 'react-native'
 import { Audio } from 'expo-av'
 import {
   audioAccentColor,
@@ -22,94 +21,114 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, where, query, getDocs, limit } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
+import { SignInContext } from '../hooks/useAuthContext'
 
 export const AudioView = ({ route, navigation }) => {
-  const { title, link } = route.params
+  const { id, title, link } = route.params
 
   const [isPlayed, setIsPlayed] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [durationAudio, setDurationAudio] = useState(0)
   const [currentAudioTimestamp, setAudioTimestamp] = useState(0)
-  const [sound, setSound] = useState()
-  const [activeTime, setActiveTime] = useState(0)
+  const [, setActiveTime] = useState(0)
+  const [attemptId, setAttemptId] = useState(null)
   const [usageTimerRun, setUsageTimerRun] = useState(false)
   const toast = useToast()
-  const appState = useRef(AppState.currentState)
+  const sound = useRef(new Audio.Sound())
+  const { signedIn } = useContext(SignInContext)
 
   useEffect(() => {
-    const getAudio = async () => {
+    getAudio()
+    findAudioOrCreate()
+  }, [])
+
+  const getAudio = async () => {
+    setLoading(true)
+    const checkLoading = await sound.current.getStatusAsync()
+    if (checkLoading.isLoaded === false) {
       await Audio.setAudioModeAsync({ playsInSilentModeIOS: true })
-      const soundObject = new Audio.Sound()
+
       try {
-        await soundObject.loadAsync({ uri: link })
+        await sound.current.loadAsync({ uri: link })
       } catch (error) {
         AlertToast(toast, error)
       }
-      soundObject.getStatusAsync().then((result) => {
-        setDurationAudio(result.durationMillis)
-      })
-      setSound(soundObject)
+      let updated_status = await sound.current.getStatusAsync()
+      setDurationAudio(updated_status.durationMillis)
+      setLoading(false)
+    } else {
+      setLoading(false)
     }
-    getAudio()
-  }, [])
+  }
 
-  async function playSound() {
-    await sound.playAsync()
+  const playSound = async () => {
+    try {
+      const result = await sound.current.getStatusAsync()
+      if (result.isLoaded) {
+        if (result.isPlaying === false) {
+          sound.current.playAsync()
+        }
+      }
+    } catch (error) {
+      AlertToast(toast, error)
+    }
+  }
+
+  const findAudioOrCreate = async () => {
+    const docRef = collection(FIREBASE_DB, 'userAttempts')
+    const q = query(docRef, where('exerciseId', '==', id), limit(1))
+    const querySnapshot = await getDocs(q)
+    if (querySnapshot.empty) {
+      const data = {
+        uid: signedIn.uid,
+        link: link,
+        exerciseId: id,
+        isCompleted: false,
+      }
+      const docRef = await addDoc(docRef, data)
+      setAttemptId(docRef.id)
+    }
   }
 
   const toggleAudioStatus = () => {
     setIsPlayed(!isPlayed)
-    isPlayed ? sound.unloadAsync() : playSound()
+    isPlayed ? sound.current.pauseAsync() : playSound()
     isPlayed ? setUsageTimerRun(false) : setUsageTimerRun(true)
   }
 
-  const handleBackButtonClick = () => {
+  const handleBackButtonClick = async () => {
     navigation.goBack()
 
     if (sound !== undefined) {
-      sound.unloadAsync()
+      sound.current.unloadAsync()
       setUsageTimerRun(false)
-      const docRef = collection(FIREBASE_DB, 'usageTime')
-      addDoc(docRef, { usageTime: activeTime })
+
+      // 60000 = 1 minute
+      if (currentAudioTimestamp > durationAudio - 120000) {
+        const docRef = collection(FIREBASE_DB, 'userAttempts')
+        await docRef.doc(attemptId).update({ isCompleted: true })
+      }
     }
   }
 
   useEffect(() => {
     if (usageTimerRun === false) return
 
-    let interval = setInterval(() => {
-      sound &&
-        sound.getStatusAsync().then((result) => {
-          setAudioTimestamp(result.positionMillis)
-        })
+    let interval = setInterval(async () => {
+      const result = await sound.current.getStatusAsync()
+      setAudioTimestamp(result.positionMillis)
       setActiveTime((prev) => prev + 1)
     }, 1000)
 
     return () => clearInterval(interval)
   }, [usageTimerRun])
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (appState.current.match(/active/) && nextAppState === 'background') {
-        sound.unloadAsync()
-        setUsageTimerRun(false)
-      } else if (appState.current.match(/background/) && nextAppState === 'active') {
-        playSound()
-        setUsageTimerRun(true)
-      }
-      appState.current = nextAppState
-    })
-
-    return () => {
-      subscription.remove()
-    }
-  }, [sound])
-
-  if (!sound) {
-    return <HomeViewLoading />
+  if (isLoading) {
+    return <HomeViewLoading handleBackButtonClick={handleBackButtonClick} />
   }
 
   return (
@@ -120,11 +139,6 @@ export const AudioView = ({ route, navigation }) => {
           variant="ghost"
           pl="2"
           onPress={handleBackButtonClick}
-        />
-        <IconButton
-          icon={<MaterialIcons name="save-alt" size={40} color="black" />}
-          variant="ghost"
-          ml="auto"
         />
       </Flex>
 
@@ -143,7 +157,7 @@ export const AudioView = ({ route, navigation }) => {
             <Box borderRadius="full" bg={audioPrimaryColor} margin="3">
               <Image
                 source={{
-                  uri: 'https://blush.design/api/download?shareUri=8rihonJGqaYdyiU_&c=Hair_0%7E0f0f0f_Skin_0%7Ef6cbc3&w=800&h=800&fm=png',
+                  uri: link,
                 }}
                 alt="Self-reflection"
                 size="175"

@@ -6,7 +6,7 @@ export const HorizontalCard = ({ title, thumbnail, duration }) => {
       <VStack>
         <HStack w="100%" rounded="md" alignItems="center" justifyContent="space-between">
           <Heading fontSize="xl">{title}</Heading>
-          <Text padding="2" bg="white" fontSize="xs" fontWeight="bold" borderRadius="16">
+          <Text padding=".4" bg="red" fontSize="xs" fontWeight="bold" borderRadius="16">
             {duration}
           </Text>
         </HStack>
@@ -15,7 +15,7 @@ export const HorizontalCard = ({ title, thumbnail, duration }) => {
             source={{
               uri: thumbnail,
             }}
-            alt="Zen Mediation"
+            alt="thumbnail"
             size="xl"
           />
         </HStack>
