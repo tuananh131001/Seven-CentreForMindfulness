@@ -30,8 +30,13 @@ export const AssessmentView = ({ navigation }) => {
   const [selected, setSelected] = useState([])
 
   const handleContinueButton = async () => {
-    SecureStore.setItemAsync('assessmentStatus', 'completed').then()
-    navigation.navigate('HomeStack')
+    if (selected.length > 0) {
+      SecureStore.setItemAsync('assessmentStatus', 'completed').then()
+      navigation.navigate('HomeStack')
+    } else {
+        alert('Please select at least one option before proceeding');
+    }
+    
   }
 
   return (

@@ -2,7 +2,7 @@
   "greeting": "Hello!",
   "LoginWelcomeTitle": "Welcome back,",
   "SignIn": "Sign In",
-  "SignOut": "Sign Out",
+  "SignOut": "Log Out",
   "Password": "Password",
   "RememberMe": "Remember me and keep me logged in",
   "ForgotPassword": "Forgot Password?",
@@ -31,5 +31,8 @@
   "ChooseGender": "Choose Gender",
   "Age": "Age",
   "ConfirmPassword": "Confirm Password",
-  "AlreadyHaveAccount": "Already have an account?"
+  "AlreadyHaveAccount": "Already have an account?",
+  "Location": "Location",
+  "Analytics": "Your Analytics",
+  "LearnTime": "time spent learning"
 }

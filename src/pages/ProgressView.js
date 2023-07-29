@@ -5,8 +5,10 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 
 import { UsageTimeAnalytics } from '../components/UsageTimeAnalytics'
 import { InteractionAnalytics } from '../components/InteractionAnalytics'
+import { useTranslation } from 'react-i18next'
 
 export const ProgressView = () => {
+  const {t} = useTranslation()
   const [timeData, setTimeData] = useState([])
   var totalTimeSpent = calculateTotalTimeSpent()
   var formattedTime = convertToTimeFormat()
@@ -48,7 +50,7 @@ export const ProgressView = () => {
   return (
     <ScrollView bg="white" minHeight="100%">
       <Flex direction="row" width="100%" alignItems="center" margin="5">
-        <Heading py="5">Your Analytics</Heading>
+        <Heading py="5">{t('Analytics')}</Heading>
       </Flex>
       <Flex
         direction="column"

@@ -3,9 +3,11 @@ import { Flex, Heading, Text } from 'native-base'
 import { LineChart } from 'react-native-chart-kit'
 
 import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
+import { useTranslation } from 'react-i18next'
 
 export const UsageTimeAnalytics = ({ formattedTime }) => {
   const [chartParentWidth, setChartParentWidth] = useState(0)
+  const {t} = useTranslation()
 
   return (
     <Flex
@@ -18,7 +20,7 @@ export const UsageTimeAnalytics = ({ formattedTime }) => {
     >
       <Flex direction="column" width="100%" px="5">
         <Heading>{formattedTime}</Heading>
-        <Text color={progressSecondaryColor}>time spent learning</Text>
+        <Text color={progressSecondaryColor}>{t('LearnTime')}</Text>
       </Flex>
       <Flex width="100%" my="5" borderColor={progressSecondaryColor} borderWidth="1"></Flex>
       <LineChart
