@@ -17,7 +17,7 @@ export const HomeView = ({ navigation }) => {
     let audioListArr = []
     const querySnapshot = await getDocs(collection(FIREBASE_DB, selectedCategory))
     querySnapshot.forEach((doc) => {
-      audioListArr.push(doc.data())
+      audioListArr.push({ id: doc.id, data: doc.data() })
     })
     setAudioList(audioListArr)
   }
@@ -54,22 +54,22 @@ export const HomeView = ({ navigation }) => {
             ))}
           </HStack>
         </ScrollView>
-        {audioList.map((audio, index) => (
+        {audioList.map((audio) => (
           <Pressable
-            key={index}
+            key={audio.id}
             onPress={() => {
               navigation.navigate('AudioView', {
-                itemId: 86,
-                link: audio.link,
-                title: audio.title,
-                duration: audio.duration,
+                id: audio.id,
+                link: audio.data.link,
+                title: audio.data.title,
+                duration: audio.data.duration,
               })
             }}
           >
             <HorizontalCard
-              title={audio.title}
-              thumbnail={audio.thumbnail}
-              duration={audio.duration}
+              title={audio.data.title}
+              thumbnail={audio.data.thumbnail}
+              duration={audio.data.duration}
             />
           </Pressable>
         ))}
