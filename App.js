@@ -68,7 +68,7 @@ const HomeStack = () => (
   </Tab.Navigator>
 )
 
-const PrivateStack = ({isCompletedAssessment}) =>
+const PrivateStack = ({ isCompletedAssessment }) =>
   isCompletedAssessment != null ? (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeStack" component={HomeStack} />
@@ -124,8 +124,12 @@ const AppNavigator = () => {
 const App = () => {
   const toast = useToast()
   useEffect(() => {
-    checkNotificationPermissions(toast)
-    scheduleDailyNotification()
+    try {
+      checkNotificationPermissions(toast)
+      scheduleDailyNotification(toast)
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   const { i18n } = useTranslation()

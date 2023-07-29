@@ -128,7 +128,7 @@ export const AudioView = ({ route, navigation }) => {
   }, [usageTimerRun])
 
   if (isLoading) {
-    return <HomeViewLoading handleBackButtonClick={handleBackButtonClick} />
+    return <HomeViewLoading handleBackButtonClick={() => navigation.goBack()} />
   }
 
   return (
