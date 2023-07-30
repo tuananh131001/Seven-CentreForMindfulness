@@ -157,7 +157,7 @@ export const AudioView = ({ route, navigation }) => {
             <Box borderRadius="full" bg={audioPrimaryColor} margin="3">
               <Image
                 source={{
-                  uri: link,
+                  uri: 'https://blush.design/api/download?shareUri=8rihonJGqaYdyiU_&c=Hair_0%7E0f0f0f_Skin_0%7Ef6cbc3&w=800&h=800&fm=png',
                 }}
                 alt="Self-reflection"
                 size="175"
