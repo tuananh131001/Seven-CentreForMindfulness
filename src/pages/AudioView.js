@@ -21,7 +21,7 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
-import { collection, doc } from 'firebase/firestore'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
