@@ -91,7 +91,6 @@ const AppNavigator = () => {
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [user, setUser] = useState(null)
   const [isCompletedAssessment, setIsCompletedAssessment] = useState(false)
-  console.log(isCompletedAssessment)
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       if (user) {
