@@ -1,11 +1,13 @@
 export const initialState = {
   isLoading: true,
-  userName: null,
-  userEmail: null,
-  userAvatar: null,
-  userAge: null,
-  userGender: null,
+  name: null,
+  email: null,
+  avatar: null,
+  age: null,
+  gender: null,
+  location: null,
   uid: null,
+  phone: null,
 }
 
 export const SignInReducer = (state, action) => {
@@ -22,15 +24,23 @@ export const SignInReducer = (state, action) => {
         isLoading: false,
         uid: null,
       }
-    case 'UPDATE_SIGN_IN':
+    case 'SET_USER':
       return {
         ...state,
         isLoading: false,
-        userName: action.payload.userName,
-        userEmail: action.payload.userEmail,
-        userAvatar: action.payload.userAvatar,
-        userAge: action.payload.userAge,
-        userGender: action.payload.userGender,
+        name: action.payload.name,
+        email: action.payload.email,
+        avatar: action.payload.avatar,
+        gender: action.payload.gender,
+        age: action.payload.age,
+        location: action.payload.location ?? null,
+        phone: action.payload.phone ?? null,
+      }
+    case 'SET_AVATAR':
+      return {
+        ...state,
+        isLoading: false,
+        avatar: action.payload.avatar,
       }
     default:
       return state

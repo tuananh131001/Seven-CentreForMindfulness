@@ -35,3 +35,21 @@ export const signUpSchema = yup.object().shape({
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
   gender: yup.string().required('Please enter a gender'),
 })
+
+export const updateProfileSchema = yup.object().shape({
+  name: yup.string().required('Please enter a name.'),
+  age: yup
+    .number()
+    .typeError('Must be number')
+    .required('Please enter an age')
+    .min(1, 'Min is 1')
+    .max(100, 'Max is 100'),
+  gender: yup.string().oneOf(['female', 'male', 'others']).required('Required'),
+  location: yup.string().nullable(),
+  phone: yup
+    .string()
+    .transform((value) => (value === '' ? null : value))
+    .nullable()
+    .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Invalid phone number format'),
+  avatar: yup.string(),
+})
