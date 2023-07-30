@@ -13,7 +13,6 @@ export const HomeView = ({ navigation }) => {
   const CATEGORIES = ['audios', 'guidedPractices', 'articles']
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
-  console.log(signedIn)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
   const getData = async () => {
     let audioListArr = []

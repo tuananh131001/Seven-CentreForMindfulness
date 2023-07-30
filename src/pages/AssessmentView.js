@@ -29,7 +29,6 @@ export const AssessmentView = ({ navigation }) => {
     t('ReduceAnxiety'),
   ]
   const [selected, setSelected] = useState([])
-  console.log(signedIn.uid)
 
   const handleContinueButton = async () => {
     if (selected.length > 0) {

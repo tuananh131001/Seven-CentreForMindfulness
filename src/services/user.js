@@ -37,9 +37,7 @@ export const logInWithEmailAndPassword = async (data, toast, dispatch) => {
     data = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
     SecureStore.setItemAsync('uid', data.user.uid).then
     if (data) {
-      console.log('hello ne')
       await dispatch({ type: 'SIGN_IN', payload: { uid: data.user.uid } })
-      console.log('hello xong')
       // getUserProfileByUID(data.user.uid, dispatch)
     }
   } catch (err) {
@@ -120,7 +118,6 @@ export const calculateNewUserStreak = async (uid, streakData, dispatch) => {
 }
 
 export const updateUserFields = async (uid, data) => {
-  console.log(data)
   const q = query(collection(FIREBASE_DB, 'users'), where('uid', '==', uid))
   const querySnapshot = await getDocs(q)
   if (!querySnapshot.empty) {
