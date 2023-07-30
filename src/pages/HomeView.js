@@ -6,16 +6,15 @@ import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getUserProfileByUID } from '../services/user'
 import { SignInContext } from '../hooks/useAuthContext'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const CATEGORIES = ['audios', 'guidedPractices', 'articles']
   const [audioList, setAudioList] = useState([])
-  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
+  const { signedIn } = useContext(SignInContext)
+  console.log(signedIn)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
-
   const getData = async () => {
     let audioListArr = []
     const querySnapshot = await getDocs(collection(FIREBASE_DB, selectedCategory))
@@ -24,14 +23,12 @@ export const HomeView = ({ navigation }) => {
     })
     setAudioList(audioListArr)
   }
-
   const selectCategory = (category) => {
     setSelectedCategory(category)
   }
 
   useEffect(() => {
     getData()
-    getUserProfileByUID(signedIn.uid, dispatchSignedIn)
   }, [selectedCategory])
 
   return (

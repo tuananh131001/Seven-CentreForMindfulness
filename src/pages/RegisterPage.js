@@ -32,11 +32,15 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { signUpSchema } from '../utils/ValidateUserInput'
 import { registerWithEmailAndPassword } from '../services/user'
 import { useTranslation } from 'react-i18next'
+import { useContext } from 'react'
+import { SignInContext } from '../hooks/useAuthContext'
 
 export const RegisterPage = ({ navigation }) => {
   const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const { dispatchSignedIn } = useContext(SignInContext)
+
   const toast = useToast()
   const {
     control,
@@ -46,7 +50,7 @@ export const RegisterPage = ({ navigation }) => {
     resolver: yupResolver(signUpSchema),
   })
   const onSubmit = (data) => {
-    registerWithEmailAndPassword(data, toast)
+    registerWithEmailAndPassword(data, toast, dispatchSignedIn)
   }
 
   const toggleShowPassword = () => {

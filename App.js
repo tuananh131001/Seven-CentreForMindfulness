@@ -23,6 +23,7 @@ import { SettingsPage } from './src/pages/SettingPages'
 import { checkNotificationPermissions } from './src/utils/checkNotificationPermissions'
 import { SignInContext, SignInContextProvider } from './src/hooks/useAuthContext'
 import { FIREBASE_AUTH } from './firebaseConfig'
+import { getUserProfileByUID } from './src/services/user'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -69,7 +70,7 @@ const HomeStack = () => (
 )
 
 const PrivateStack = ({ isCompletedAssessment }) =>
-  isCompletedAssessment != null ? (
+  isCompletedAssessment === true ? (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeStack" component={HomeStack} />
       <Stack.Screen name="ProfilePage" component={ProfilePage} />
@@ -90,7 +91,7 @@ const AppNavigator = () => {
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [user, setUser] = useState(null)
   const [isCompletedAssessment, setIsCompletedAssessment] = useState(false)
-
+  console.log(isCompletedAssessment)
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       if (user) {
@@ -105,10 +106,14 @@ const AppNavigator = () => {
     SecureStore.getItemAsync('uid').then((response) => {
       dispatchSignedIn({ type: 'SIGN_IN', payload: { uid: response } })
     })
-    SecureStore.getItemAsync('assessmentStatus').then((response) => {
-      setIsCompletedAssessment(response)
-    })
   }, [])
+
+  useEffect(() => {
+    if (signedIn?.uid) {
+      getUserProfileByUID(signedIn.uid, dispatchSignedIn)
+      setIsCompletedAssessment(signedIn.isCompletedTest)
+    }
+  }, [signedIn?.uid, signedIn?.isCompletedTest])
 
   return (
     <NavigationContainer>

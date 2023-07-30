@@ -1,10 +1,10 @@
 import { VStack, Flex, Button, Heading, Text, HStack } from 'native-base'
 import { ChoiceButton } from '../components/ChoiceButton'
 import { primaryColor, primaryTextColor } from '../../assets/ColorConst'
-import { useState } from 'react'
-
+import { useState, useContext } from 'react'
+import { SignInContext } from '../hooks/useAuthContext'
 import { useTranslation } from 'react-i18next'
-import * as SecureStore from 'expo-secure-store'
+import { updateUserFields } from '../services/user'
 
 const ICONNAMES = [
   'leaf',
@@ -18,6 +18,7 @@ const ICONNAMES = [
 
 export const AssessmentView = ({ navigation }) => {
   const { t } = useTranslation()
+  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const BUTTONTEXT = [
     t('DeveplopGratitude'),
     t('BetterSleep'),
@@ -28,10 +29,12 @@ export const AssessmentView = ({ navigation }) => {
     t('ReduceAnxiety'),
   ]
   const [selected, setSelected] = useState([])
+  console.log(signedIn.uid)
 
   const handleContinueButton = async () => {
     if (selected.length > 0) {
-      SecureStore.setItemAsync('assessmentStatus', 'completed').then()
+      updateUserFields(signedIn.uid, { isCompletedTest: true })
+      dispatchSignedIn({ type: 'SET_TEST_STATUS', payload: { isCompletedTest: true } })
       navigation.navigate('HomeStack')
     } else {
       alert('Please select at least one option before proceeding')
