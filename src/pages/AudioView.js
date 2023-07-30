@@ -21,7 +21,7 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
-import { collection, addDoc, where, query, getDocs, limit } from 'firebase/firestore'
+import { collection, doc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
@@ -29,7 +29,6 @@ import { SignInContext } from '../hooks/useAuthContext'
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
-
   const [isPlayed, setIsPlayed] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [durationAudio, setDurationAudio] = useState(0)
@@ -43,7 +42,6 @@ export const AudioView = ({ route, navigation }) => {
 
   useEffect(() => {
     getAudio()
-    findAudioOrCreate()
   }, [])
 
   const getAudio = async () => {
@@ -59,6 +57,7 @@ export const AudioView = ({ route, navigation }) => {
       }
       let updated_status = await sound.current.getStatusAsync()
       setDurationAudio(updated_status.durationMillis)
+      findAudioOrCreate()
       setLoading(false)
     } else {
       setLoading(false)
@@ -79,19 +78,13 @@ export const AudioView = ({ route, navigation }) => {
   }
 
   const findAudioOrCreate = async () => {
-    const docRef = collection(FIREBASE_DB, 'userAttempts')
-    const q = query(docRef, where('exerciseId', '==', id), limit(1))
-    const querySnapshot = await getDocs(q)
-    if (querySnapshot.empty) {
-      const data = {
-        uid: signedIn.uid,
-        link: link,
-        exerciseId: id,
-        isCompleted: false,
-      }
-      const docRef = await addDoc(docRef, data)
-      setAttemptId(docRef.id)
-    }
+    await setDoc(doc(FIREBASE_DB, 'userAttempts', id), {
+      uid: signedIn.uid,
+      link: link,
+      exerciseId: id,
+      isCompleted: false,
+    })
+    setAttemptId(id)
   }
 
   const toggleAudioStatus = () => {
