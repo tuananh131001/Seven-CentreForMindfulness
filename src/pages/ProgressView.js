@@ -48,8 +48,8 @@ export const ProgressView = () => {
   }
 
   return (
-    <ScrollView bg="white" minHeight="100%">
-      <Flex direction="row" width="100%" alignItems="center" margin="5">
+    <ScrollView bg="white" minHeight="100%" pb="10">
+      <Flex direction="row" width="100%" alignItems="center" mx="5" mt="16">
         <Heading py="5">{t('Analytics')}</Heading>
       </Flex>
       <Flex
