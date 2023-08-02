@@ -53,8 +53,11 @@ export const logout = (dispatch) => {
 
 export const getUserProfileByUID = async (uid, dispatch) => {
   const q = query(collection(FIREBASE_DB, 'users'), where('uid', '==', uid))
-
   const querySnapshot = await getDocs(q)
+  if (querySnapshot.empty) {
+    console.log('Invalid user UID')
+    return
+  }
   const userDoc = querySnapshot.docs[0]
 
   dispatch({ type: 'SET_USER', payload: userDoc.data() })
