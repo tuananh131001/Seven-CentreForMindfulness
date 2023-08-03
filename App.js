@@ -96,6 +96,7 @@ const AppNavigator = () => {
       if (user) {
         setUser(user)
       } else {
+        setIsCompletedAssessment(false)
         setUser(null)
       }
     })
@@ -106,6 +107,7 @@ const AppNavigator = () => {
       dispatchSignedIn({ type: 'SIGN_IN', payload: { uid: response } })
     })
   }, [])
+
 
   useEffect(() => {
     if (signedIn?.uid) {

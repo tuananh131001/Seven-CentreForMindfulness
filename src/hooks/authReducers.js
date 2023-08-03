@@ -42,6 +42,7 @@ export const SignInReducer = (state, action) => {
         currentStreak: null,
         lastUsageDate: null,
         longestStreak: null,
+        isCompletedTest: null,
       }
     case 'SET_USER':
       return {
