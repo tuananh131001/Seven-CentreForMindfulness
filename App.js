@@ -24,7 +24,6 @@ import { checkNotificationPermissions } from './src/utils/checkNotificationPermi
 import { SignInContext, SignInContextProvider } from './src/hooks/useAuthContext'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { getUserProfileByUID } from './src/services/user'
-import { SplashView } from './src/pages/SplashView'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -115,17 +114,17 @@ const AppNavigator = () => {
     }
   }, [signedIn?.uid, signedIn?.isCompletedTest])
 
-  const [isVisible, setIsVisible] = useState(true)
+  // const [isVisible, setIsVisible] = useState(true)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsVisible(false)
-    }, 3000)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsVisible(false)
+  //   }, 3000)
+  // }, [])
 
-  if (isVisible === true) {
-    return <SplashView isVisible={isVisible} setIsVisible={setIsVisible} />
-  }
+  // if (isVisible === true) {
+  //   return <SplashView isVisible={isVisible} setIsVisible={setIsVisible} />
+  // }
 
   return (
     <NavigationContainer>
