@@ -16,23 +16,21 @@ const ICONNAMES = [
   'water-outline',
 ]
 
+const OPTION_LIST = ['option1', 'option2', 'option3', 'option4', 'option5', 'option6', 'option7']
+
 export const AssessmentView = ({ navigation }) => {
   const { t } = useTranslation()
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
-  const BUTTONTEXT = [
-    t('DeveplopGratitude'),
-    t('BetterSleep'),
-    t('ImprovePerformance'),
-    t('ReduceStress'),
-    t('IncreaseHappiness'),
-    t('BuildSelfEsteem'),
-    t('ReduceAnxiety'),
-  ]
   const [selected, setSelected] = useState([])
+  const BUTTONTEXT = OPTION_LIST.map((option) => t(option))
 
   const handleContinueButton = async () => {
     if (selected.length > 0) {
-      updateUserFields(signedIn.uid, { isCompletedTest: true })
+      let score = selected.reduce(
+        (accumulator, currentValue) => accumulator + (currentValue + 1),
+        0,
+      )
+      updateUserFields(signedIn.uid, { isCompletedTest: true, assessmentScore: score })
       dispatchSignedIn({ type: 'SET_TEST_STATUS', payload: { isCompletedTest: true } })
       navigation.navigate('HomeStack')
     } else {
@@ -56,6 +54,7 @@ export const AssessmentView = ({ navigation }) => {
               <ChoiceButton
                 selected={selected}
                 setSelected={setSelected}
+                buttonIndex={index}
                 iconName={iconName}
                 buttonText={BUTTONTEXT[index]}
                 key={iconName}

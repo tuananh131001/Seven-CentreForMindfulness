@@ -12,6 +12,7 @@ export const initialState = {
   lastUsageDate: null,
   longestStreak: null,
   isCompletedTest: null,
+  assessmentScore: null,
 }
 
 export const SignInReducer = (state, action) => {

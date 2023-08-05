@@ -6,25 +6,25 @@ import { Ionicons } from '@expo/vector-icons'
 import { TouchableHighlight } from 'react-native'
 import { assessChoiceButtonBorder } from '../../assets/ColorConst'
 
-export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) => {
+export const ChoiceButton = ({ iconName, buttonText, selected, setSelected, buttonIndex }) => {
   const handlePress = () => {
-    if (selected.includes(buttonText)) {
-      setSelected(selected.filter((item) => item !== buttonText))
+    if (selected.includes(buttonIndex)) {
+      setSelected(selected.filter((item) => item !== buttonIndex))
     } else {
-      setSelected([...selected, buttonText])
+      setSelected([...selected, buttonIndex])
     }
   }
 
   return (
     <TouchableHighlight onPress={handlePress} underlayColor={'#transparent'}>
       <Box
-        bg={selected.includes(buttonText) ? 'white' : choiceButtonColor}
+        bg={selected.includes(buttonIndex) ? 'white' : choiceButtonColor}
         borderRadius="90"
         width="90%"
         px="5"
         py="2"
         borderWidth={2}
-        borderColor={selected.includes(buttonText) ? 'black' : { assessChoiceButtonBorder }}
+        borderColor={selected.includes(buttonIndex) ? 'black' : { assessChoiceButtonBorder }}
       >
         <Flex direction="row" alignItems="center" justifyContent="flex-start" space="5">
           <HStack>
@@ -32,12 +32,12 @@ export const ChoiceButton = ({ iconName, buttonText, selected, setSelected }) =>
               as={Ionicons}
               name={iconName}
               size={8}
-              color={selected.includes(buttonText) ? 'black' : 'white'}
+              color={selected.includes(buttonIndex) ? 'black' : 'white'}
               style={{ alignSelf: 'flex-start' }}
             />
             <Text
               fontSize="xl"
-              color={selected.includes(buttonText) ? 'black' : primaryTextColor}
+              color={selected.includes(buttonIndex) ? 'black' : primaryTextColor}
               px={5}
             >
               {buttonText}
