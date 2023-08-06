@@ -1,23 +1,40 @@
 {
   "expo": {
+    "name": "SevenProject",
+    "slug": "SevenProject",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/siu.png",
-      "backgroundColor": "#000000",
-      "resizeMode": "cover"
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
-    "extra": {
-      "eas": {
-        "projectId": "4f59ffe5-559e-45e9-9d30-64f57e294126"
-      }
-    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
+      "supportsTablet": true,
       "bundleIdentifier": "com.williama1pha.sevenproject",
       "config": {
         "usesNonExemptEncryption": false
       }
     },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
       "package": "com.williama1pha.sevenproject"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4f59ffe5-559e-45e9-9d30-64f57e294126"
+      }
     }
   }
 }
