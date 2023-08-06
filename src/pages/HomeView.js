@@ -54,7 +54,7 @@ export const HomeView = ({ navigation }) => {
             ))}
           </HStack>
         </ScrollView>
-        <VStack space="5" my="5">
+        <VStack space="5" mb="5">
           {audioList.map((audio) => (
             <Pressable
               key={audio.id}
