@@ -116,18 +116,6 @@ const AppNavigator = () => {
     }
   }, [signedIn?.uid, signedIn?.isCompletedTest])
 
-  // const [isVisible, setIsVisible] = useState(true)
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsVisible(false)
-  //   }, 3000)
-  // }, [])
-
-  // if (isVisible === true) {
-  //   return <SplashView isVisible={isVisible} setIsVisible={setIsVisible} />
-  // }
-
   return (
     <NavigationContainer>
       {user != null ? (
