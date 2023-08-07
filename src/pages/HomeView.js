@@ -31,9 +31,9 @@ export const HomeView = ({ navigation }) => {
   }, [selectedCategory])
 
   return (
-    <ScrollView minHeight="100%" mt="10" padding="5">
-      <VStack space="5">
-        <HStack alignItems="center" justifyContent="space-between">
+    <ScrollView minHeight="100%" px="5">
+      <VStack space="10">
+        <HStack width="100%" alignItems="center" justifyContent="space-between" mt="16">
           <Heading>👋 Hi, {signedIn?.name}</Heading>
         </HStack>
 
@@ -54,25 +54,27 @@ export const HomeView = ({ navigation }) => {
             ))}
           </HStack>
         </ScrollView>
-        {audioList.map((audio) => (
-          <Pressable
-            key={audio.id}
-            onPress={() => {
-              navigation.navigate('AudioView', {
-                id: audio.id,
-                link: audio.data.link,
-                title: audio.data.title,
-                duration: audio.data.duration,
-              })
-            }}
-          >
-            <HorizontalCard
-              title={audio.data.title}
-              thumbnail={audio.data.thumbnail}
-              duration={audio.data.duration}
-            />
-          </Pressable>
-        ))}
+        <VStack space="5" mb="5">
+          {audioList.map((audio) => (
+            <Pressable
+              key={audio.id}
+              onPress={() => {
+                navigation.navigate('AudioView', {
+                  id: audio.id,
+                  link: audio.data.link,
+                  title: audio.data.title,
+                  duration: audio.data.duration,
+                })
+              }}
+            >
+              <HorizontalCard
+                title={audio.data.title}
+                thumbnail={audio.data.thumbnail}
+                duration={audio.data.duration}
+              />
+            </Pressable>
+          ))}
+        </VStack>
       </VStack>
     </ScrollView>
   )

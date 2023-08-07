@@ -126,7 +126,7 @@ export const AudioView = ({ route, navigation }) => {
 
   return (
     <View bg={primaryColor} height="100%">
-      <Flex direction="row" width="100%" safeArea alignItems="center">
+      <Flex direction="row" width="100%" alignItems="center" mt="10">
         <IconButton
           icon={<MaterialIcons name="arrow-back" size={40} color="black" />}
           variant="ghost"
@@ -143,7 +143,7 @@ export const AudioView = ({ route, navigation }) => {
         height="85%"
         alignItems="center"
         mt="auto"
-        pt="10"
+        pt="5"
       >
         <Flex direction="column" alignItems="center">
           <Box borderRadius="full" borderColor={audioPrimaryColor} borderWidth="4">
@@ -160,7 +160,9 @@ export const AudioView = ({ route, navigation }) => {
             </Box>
           </Box>
           <VStack margin="5" alignItems="center" space="2">
-            <Heading fontWeight="medium">{title}</Heading>
+            <Heading fontWeight="medium" textAlign="center">
+              {title}
+            </Heading>
             <Text fontWeight="thin">Inner Peace</Text>
           </VStack>
         </Flex>

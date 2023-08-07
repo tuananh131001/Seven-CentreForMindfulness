@@ -5,7 +5,9 @@ export const HorizontalCard = ({ title, thumbnail, duration }) => {
     <Box shadow="1" borderRadius="16" padding="3" width="100%" bg="white">
       <VStack>
         <HStack w="100%" rounded="md" alignItems="center" justifyContent="space-between">
-          <Heading fontSize="xl">{title}</Heading>
+          <Heading fontSize="xl" numberOfLines={2} maxWidth="80%" ellipsizeMode="tail">
+            {title}
+          </Heading>
           <Text padding=".4" bg="red" fontSize="xs" fontWeight="bold" borderRadius="16">
             {duration}
           </Text>
