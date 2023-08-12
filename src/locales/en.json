@@ -13,6 +13,7 @@
   "Gender": "Gender",
   "audios": "Audios",
   "guidedPractices": "Guided Practices",
+  "guidedPracticeVn": "Guided Practices",
   "articles": "Articles",
   "Min": "Min",
   "option1": "Cannot focus easily",
@@ -34,5 +35,17 @@
   "AlreadyHaveAccount": "Already have an account?",
   "Location": "Location",
   "Analytics": "Your Analytics",
-  "LearnTime": "time spent learning"
+  "LearnTime": "time spent learning",
+  "CurrentStreak": "current streak",
+  "LongestStreak": "longest streak",
+  "AudioCompleted":"audio tracks completed",
+  "ActivityCompleted":"activities completed",
+  "EditProfile": "Edit Profile",
+  "Avatar": "Avatar",
+  "UserDetails": "User Details",
+  "YourEmail": "Your Email",
+  "YourLocation": "Your Location",
+  "YourPhone": "Your Phone",
+  "LocationHolder":"You have not add your location yet",
+  "PhoneHolder":"You have not add your phone number yet"
 }
