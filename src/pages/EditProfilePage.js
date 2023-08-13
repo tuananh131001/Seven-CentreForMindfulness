@@ -28,7 +28,7 @@ import { updateUserProfileByUID } from '../services/user'
 import { useTranslation } from 'react-i18next'
 
 export const EditProfilePage = ({ navigation }) => {
-  const { t} = useTranslation()
+  const { t } = useTranslation()
   const [modalVisible, setModalVisible] = useState(false)
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const toast = useToast()

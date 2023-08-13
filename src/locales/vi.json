@@ -38,14 +38,14 @@
   "LearnTime": "thời gian học",
   "CurrentStreak": "chuỗi học hiện tại",
   "LongestStreak": "chuỗi học dài nhất",
-  "AudioCompleted":"bài nghe đã hoàn thành",
-  "ActivityCompleted":"bài thực hành đã hoàn thành",
+  "AudioCompleted": "bài nghe đã hoàn thành",
+  "ActivityCompleted": "bài thực hành đã hoàn thành",
   "EditProfile": "Chỉnh sửa hồ sơ",
   "Avatar": "Ảnh đại diện",
   "UserDetails": "Thông tin người dùng",
   "YourEmail": "Email của bạn",
   "YourLocation": "Địa điểm của bạn",
   "YourPhone": "Số điện thoại của bạn",
-  "LocationHolder":"Bạn chưa thêm địa điểm",
-  "PhoneHolder":"Bạn chưa thêm số điện thoại"
+  "LocationHolder": "Bạn chưa thêm địa điểm",
+  "PhoneHolder": "Bạn chưa thêm số điện thoại"
 }

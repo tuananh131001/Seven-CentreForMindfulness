@@ -4,7 +4,7 @@ import { progressPrimaryColor, progressSecondaryColor } from '../../assets/Color
 import { useTranslation } from 'react-i18next'
 
 export const InteractionAnalytics = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <VStack space="10" width="100%" my="5">
       <HStack space="5" width="100%" justifyContent="space-between">

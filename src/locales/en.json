@@ -38,14 +38,14 @@
   "LearnTime": "time spent learning",
   "CurrentStreak": "current streak",
   "LongestStreak": "longest streak",
-  "AudioCompleted":"audio tracks completed",
-  "ActivityCompleted":"activities completed",
+  "AudioCompleted": "audio tracks completed",
+  "ActivityCompleted": "activities completed",
   "EditProfile": "Edit Profile",
   "Avatar": "Avatar",
   "UserDetails": "User Details",
   "YourEmail": "Your Email",
   "YourLocation": "Your Location",
   "YourPhone": "Your Phone",
-  "LocationHolder":"You have not add your location yet",
-  "PhoneHolder":"You have not add your phone number yet"
+  "LocationHolder": "You have not add your location yet",
+  "PhoneHolder": "You have not add your phone number yet"
 }
