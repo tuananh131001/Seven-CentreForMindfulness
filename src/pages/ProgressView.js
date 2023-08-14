@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next'
 export const ProgressView = () => {
   const { t } = useTranslation()
   const [timeData, setTimeData] = useState([])
-  var totalTimeSpent = calculateTotalTimeSpent()
-  var formattedTime = convertToTimeFormat()
+  let totalTimeSpent = calculateTotalTimeSpent()
+  let formattedTime = convertToTimeFormat()
 
   useEffect(() => {
     const getData = async () => {
@@ -28,7 +28,7 @@ export const ProgressView = () => {
   }, [])
 
   function calculateTotalTimeSpent() {
-    var totalTime = 0
+    let totalTime = 0
 
     timeData.map((time) => {
       totalTime += parseInt(time.usageTime)
@@ -38,11 +38,11 @@ export const ProgressView = () => {
   }
 
   function convertToTimeFormat() {
-    var totalMinutes = Math.floor(totalTimeSpent / 60)
+    let totalMinutes = Math.floor(totalTimeSpent / 60)
 
-    var hours = Math.floor(totalMinutes / 60)
-    var minutes = totalMinutes % 60
-    var seconds = totalTimeSpent % 60
+    let hours = Math.floor(totalMinutes / 60)
+    let minutes = totalMinutes % 60
+    let seconds = totalTimeSpent % 60
 
     return hours + 'h ' + minutes + 'm ' + seconds + 's '
   }

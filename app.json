@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1f1f1f"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -29,7 +29,7 @@
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
-        "backgroundColor": "#1f1f1f"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.williama1pha.sereneproject"
     },

@@ -15,6 +15,7 @@ import { ProfilePage } from './src/pages/ProfilePage'
 import { AudioView } from './src/pages/AudioView'
 import { ProgressView } from './src/pages/ProgressView'
 
+import { TermsAndConditionsView } from './src/pages/TermsAndConditionsView'
 import { AssessmentView } from './src/pages/AssessmentView'
 import { useEffect, useContext, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -107,7 +108,6 @@ const AppNavigator = () => {
       dispatchSignedIn({ type: 'SIGN_IN', payload: { uid: response } })
     })
   }, [])
-
 
   useEffect(() => {
     if (signedIn?.uid) {

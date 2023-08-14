@@ -47,5 +47,15 @@
   "YourLocation": "Your Location",
   "YourPhone": "Your Phone",
   "LocationHolder": "You have not add your location yet",
-  "PhoneHolder": "You have not add your phone number yet"
+  "PhoneHolder": "You have not add your phone number yet",
+  "TermsTitle1": "1. TERMS OF USE",
+  "TermsTitle2": "2. DEFINITIONS",
+  "TermsTitle3": "3. GENERAL ISSUES ABOUT THE MOBILE APPLICATION AND THE SERVICES",
+  "TermsSubtitle3.1": "3.1 Applicability of terms and conditions: ",
+  "TermsSubtitle3.2": "3.2 Location: ",
+  "TermsContent1": "By downloading, browsing, accessing or using this Sample Store mobile application (“Mobile Application”), you agree to be bound by these Terms and Conditions of Use. We reserve the right to amend these terms and conditions at any time. If you disagree with any of these Terms and Conditions of Use, you must immediately discontinue your access to the Mobile Application and your use of the services offered on the Mobile Application. Continued use of the Mobile Application will constitute acceptance of these Terms and Conditions of Use, as may be amended from time to time.",
+  "TermsContent2": "In these Terms and Conditions of Use, the following capitalised terms shall have the following meanings, except where the context otherwise requires: 'Account' means an account created by a User on the Mobile Application as part of Registration. 'Merchant' refers to any entity whose products or Samples can be purchased and/or redeemed (as the case may be) via the Mobile Application. 'Privacy Policy' means the privacy policy set out in Clause 14 of these Terms and Conditions of Use. 'Redeem' means to redeem a Merchant’s products or Samples on these Terms and Conditions of Use and 'Redemption' means the act of redeeming such products or Samples. 'Register' means to create an Account on the Mobile Application and 'Registration' means the act of creating such an Account. 'Samples' means samples of Merchant’s products and/or Merchant’s services, including without limitation, any vouchers for the redemption of such services, and 'Sample' means any one of them. 'Services' means all the services provided by Singapore Post Limited via the Mobile Application to Users, and 'Service' means any one of them, 'Users' means users of the Mobile Application, including you and 'User' means any one of them.",
+  "TermsContent3.1": "The use of any Services and/or the Mobile Application and the making of any Redemptions are subject to these Terms and Conditions of Use.",
+  "TermsContent3.2": "The Mobile Application, the Services and any Redemptions are intended solely for use by Users who access the Mobile Application in Singapore. We make no representation that the Services (or any goods or services) are available or otherwise suitable for use outside of Singapore. Notwithstanding the above, if you access the Mobile Application, use the Services or make any Redemptions from locations outside Singapore, you do so on your own initiative and are responsible for the consequences and for compliance with all applicable laws.",
+  "TermsAgree": "I agree with the Terms and Conditions of Use for this application"
 }
