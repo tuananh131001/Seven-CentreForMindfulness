@@ -25,8 +25,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AvatarModal } from '../components/AvatarModal'
 import { updateUserProfileByUID } from '../services/user'
+import { useTranslation } from 'react-i18next'
 
 export const EditProfilePage = ({ navigation }) => {
+  const { t } = useTranslation()
   const [modalVisible, setModalVisible] = useState(false)
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const toast = useToast()
@@ -67,7 +69,7 @@ export const EditProfilePage = ({ navigation }) => {
                   <Spacer />
                   <Spacer />
                   <Text fontSize="xl" bold color={primaryTextColor}>
-                    Edit profile
+                    {t('EditProfile')}
                   </Text>
                 </HStack>
               </VStack>
@@ -82,7 +84,7 @@ export const EditProfilePage = ({ navigation }) => {
               <VStack space={4} alignItems="center">
                 <HStack alignItems={'center'} w="100%" justifyContent={'space-between'}>
                   <Text fontSize="md" color={primaryColor}>
-                    Avatar
+                    {t('Avatar')}
                   </Text>
                   <IconButton
                     _icon={{
@@ -110,11 +112,11 @@ export const EditProfilePage = ({ navigation }) => {
                 )}
                 <VStack w="100%" space={4}>
                   <Text fontSize="md" color={primaryColor}>
-                    User Detail
+                    {t('UserDetails')}
                   </Text>
                   <FormControl>
                     <VStack>
-                      <FormControl.Label>Your name</FormControl.Label>
+                      <FormControl.Label>{t('Name')}</FormControl.Label>
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
@@ -135,7 +137,7 @@ export const EditProfilePage = ({ navigation }) => {
                     </VStack>
                   </FormControl>
                   <FormControl>
-                    <FormControl.Label>Your email</FormControl.Label>
+                    <FormControl.Label>{t('YourEmail')}</FormControl.Label>
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
@@ -152,12 +154,12 @@ export const EditProfilePage = ({ navigation }) => {
                   </FormControl>
                   <FormControl>
                     <VStack>
-                      <FormControl.Label>Your location</FormControl.Label>
+                      <FormControl.Label>{t('YourLocation')}</FormControl.Label>
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
                           <Input
-                            placeholder="You have not add your location yet"
+                            placeholder={t('LocationHolder')}
                             defaultValue={signedIn.location}
                             onBlur={onBlur}
                             onChangeText={onChange}
@@ -175,14 +177,14 @@ export const EditProfilePage = ({ navigation }) => {
                   </FormControl>
                   <FormControl>
                     <VStack>
-                      <FormControl.Label>Your phone</FormControl.Label>
+                      <FormControl.Label>{t('YourPhone')}</FormControl.Label>
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
                           <Input
                             defaultValue={signedIn.phone}
                             onBlur={onBlur}
-                            placeholder="You have not add your phone number yet"
+                            placeholder={t('PhoneHolder')}
                             keyboardType="phone-pad"
                             onChangeText={onChange}
                             value={value}
@@ -199,7 +201,7 @@ export const EditProfilePage = ({ navigation }) => {
                   </FormControl>
                   <HStack width="100%" alignItems={'center'} justifyContent="space-between">
                     <FormControl width="45%">
-                      <FormControl.Label>Age</FormControl.Label>
+                      <FormControl.Label>{t('Age')}</FormControl.Label>
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
@@ -221,7 +223,7 @@ export const EditProfilePage = ({ navigation }) => {
                     </FormControl>
                     <FormControl width="45%">
                       <VStack>
-                        <FormControl.Label>Gender</FormControl.Label>
+                        <FormControl.Label>{t('Gender')}</FormControl.Label>
                         <Controller
                           control={control}
                           render={({ field: { onChange, onBlur, value } }) => (

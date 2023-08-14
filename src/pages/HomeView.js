@@ -1,5 +1,5 @@
 import { HorizontalCard } from '../components/HorizontalCard'
-import { Button, HStack, Heading, Text, ScrollView, VStack } from 'native-base'
+import { Button, HStack, Heading, Text, ScrollView, VStack, useToast } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
@@ -7,10 +7,18 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SignInContext } from '../hooks/useAuthContext'
+import i18n from '../utils/i18n'
+import { AlertToast } from '../components/Toast'
+import * as Linking from 'expo-linking'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
-  const CATEGORIES = ['audios', 'guidedPractices', 'articles']
+  const toast = useToast()
+  const CATEGORIES = [
+    'audios',
+    i18n.language === 'vi' ? 'guidedPracticeVn' : 'guidedPractices',
+    'articles',
+  ]
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
@@ -24,6 +32,14 @@ export const HomeView = ({ navigation }) => {
   }
   const selectCategory = (category) => {
     setSelectedCategory(category)
+  }
+
+  const handleOpenURL = (url) => {
+    try {
+      Linking.openURL(url)
+    } catch (error) {
+      AlertToast(toast, error)
+    }
   }
 
   useEffect(() => {
@@ -59,12 +75,21 @@ export const HomeView = ({ navigation }) => {
             <Pressable
               key={audio.id}
               onPress={() => {
-                navigation.navigate('AudioView', {
-                  id: audio.id,
-                  link: audio.data.link,
-                  title: audio.data.title,
-                  duration: audio.data.duration,
-                })
+                if (
+                  selectedCategory === 'guidedPractices' ||
+                  selectedCategory === 'guidedPracticeVn'
+                ) {
+                  navigation.navigate('AudioView', {
+                    id: audio.id,
+                    link: audio.data.link,
+                    title: audio.data.title,
+                    duration: audio.data.duration,
+                  })
+                } else if (selectedCategory === 'articles') {
+                  handleOpenURL(audio.data.link)
+                } else {
+                  console.log('audio')
+                }
               }}
             >
               <HorizontalCard
