@@ -1,4 +1,4 @@
-# Seven-CentreForMindfulness
+# SereneProject-CentreForMindfulness
 
 # Pettier and ESLint
 
