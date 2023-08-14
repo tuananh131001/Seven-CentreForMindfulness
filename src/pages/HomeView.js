@@ -1,16 +1,19 @@
 import { HorizontalCard } from '../components/HorizontalCard'
-import { Button, HStack, Heading, Text, ScrollView, VStack } from 'native-base'
+import { Button, HStack, Heading, Text, ScrollView, VStack, useToast } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
-import { Linking, Pressable } from 'react-native'
+import { Pressable } from 'react-native'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SignInContext } from '../hooks/useAuthContext'
 import i18n from '../utils/i18n'
+import { AlertToast } from '../components/Toast'
+import * as Linking from 'expo-linking'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
+  const toast = useToast()
   const CATEGORIES = [
     'audios',
     i18n.language === 'vi' ? 'guidedPracticeVn' : 'guidedPractices',
@@ -32,10 +35,10 @@ export const HomeView = ({ navigation }) => {
   }
 
   const handleOpenURL = (url) => {
-    if (Linking.canOpenURL(url)) {
+    try {
       Linking.openURL(url)
-    } else {
-      alert('Cannot open URL: ' + url)
+    } catch (error) {
+      AlertToast(toast, error)
     }
   }
 
