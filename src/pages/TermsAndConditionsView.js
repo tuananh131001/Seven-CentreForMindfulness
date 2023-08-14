@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { ScrollView, Flex, Heading, Text, VStack, Checkbox, HStack, Button } from 'native-base'
+import { ScrollView, Heading, Text, VStack, Checkbox, HStack, Button } from 'native-base'
 import { useTranslation } from 'react-i18next'
 
 import { SignInContext } from '../hooks/useAuthContext'
