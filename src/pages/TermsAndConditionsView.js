@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { ScrollView, Flex, Heading, Text, VStack, Checkbox, HStack, Button } from 'native-base'
 import { useTranslation } from 'react-i18next'
 
+import { SignInContext } from '../hooks/useAuthContext'
+import { updateUserFields } from '../services/user'
+
 export const TermsAndConditionsView = ({ navigation }) => {
   const { t } = useTranslation()
+  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [agreed, setAgreed] = useState(false)
 
   const handleCheckbox = () => {
@@ -14,9 +18,9 @@ export const TermsAndConditionsView = ({ navigation }) => {
   const handleContinueButton = () => {
     if (agreed === true) {
       console.log('continued')
-      navigation.navigate('AssessmentView')
-    } else {
-      console.log('you shall not pass')
+      updateUserFields(signedIn.uid, { isAgreedTerms: true })
+      dispatchSignedIn({ type: 'SET_AGREED_TERMS_STATUS', payload: { isAgreedTerms: true } })
+      navigation.navigate('HomeStack')
     }
   }
 
@@ -51,7 +55,14 @@ export const TermsAndConditionsView = ({ navigation }) => {
             {t('TermsAgree')}
           </Text>
         </HStack>
-        <Button borderRadius="90" bg="black" width="100%" onPress={handleContinueButton}>
+        <Button
+          width="100%"
+          borderRadius="90"
+          bg="black"
+          opacity={agreed ? 1 : 0.25}
+          disabled={agreed ? false : true}
+          onPress={handleContinueButton}
+        >
           <Text color="white">{t('Continue')}</Text>
         </Button>
       </VStack>

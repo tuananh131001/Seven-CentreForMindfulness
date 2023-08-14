@@ -19,6 +19,7 @@ export const registerWithEmailAndPassword = async (data, toast, dispatch) => {
       email,
       gender,
       isCompletedTest: false,
+      isAgreedTerms: false,
       age,
       avatar: DEFAULT_AVATAR,
     })
