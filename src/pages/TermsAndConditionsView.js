@@ -16,12 +16,11 @@ export const TermsAndConditionsView = ({ navigation }) => {
   }
 
   const handleContinueButton = () => {
-    if (agreed === true) {
-      console.log('continued')
-      updateUserFields(signedIn.uid, { isAgreedTerms: true })
-      dispatchSignedIn({ type: 'SET_AGREED_TERMS_STATUS', payload: { isAgreedTerms: true } })
-      navigation.navigate('HomeStack')
-    }
+    if (agreed === false) return
+    console.log('continued')
+    updateUserFields(signedIn.uid, { isAgreedTerms: true })
+    dispatchSignedIn({ type: 'SET_AGREED_TERMS_STATUS', payload: { isAgreedTerms: true } })
+    navigation.navigate('HomeStack')
   }
 
   return (
