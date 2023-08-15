@@ -1,17 +1,29 @@
 import { useState, useEffect } from 'react'
-import { Flex, Heading, ScrollView } from 'native-base'
+import { Flex, Heading, ScrollView, Link, Text, HStack } from 'native-base'
 import { collection, getDocs } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 
 import { UsageTimeAnalytics } from '../components/UsageTimeAnalytics'
 import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
+import { updateUserFields } from '../services/user'
+import { boldTextColor } from '../../assets/ColorConst'
+import { useContext } from 'react'
+import { SignInContext } from '../hooks/useAuthContext'
 
-export const ProgressView = () => {
+export const ProgressView = ({ navigation }) => {
   const { t } = useTranslation()
+  const { signedIn, dispatchSignedIn } = useContext(SignInContext)
+
   const [timeData, setTimeData] = useState([])
   var totalTimeSpent = calculateTotalTimeSpent()
   var formattedTime = convertToTimeFormat()
+
+  const handleRedoTest = async () => {
+    await updateUserFields(signedIn.uid, { isCompletedTest: false })
+    await dispatchSignedIn({ type: 'SET_COMPLETED_TEST' })
+    navigation.navigate('AssessmentView')
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -61,6 +73,17 @@ export const ProgressView = () => {
       >
         <UsageTimeAnalytics formattedTime={formattedTime} />
         <InteractionAnalytics />
+        <HStack alignSelf={'flex-start'} mb={4} space={1}>
+          <Text fontSize="md" fontWeight="300" color="coolGray.600">
+            Feeling better?
+          </Text>
+
+          <Link isUnderlined={false} onPress={handleRedoTest}>
+            <Text fontSize="md" fontWeight="700" color={boldTextColor}>
+              Retake the test here!
+            </Text>
+          </Link>
+        </HStack>
       </Flex>
     </ScrollView>
   )

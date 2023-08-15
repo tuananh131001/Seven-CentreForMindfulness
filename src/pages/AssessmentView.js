@@ -32,7 +32,7 @@ export const AssessmentView = ({ navigation }) => {
       )
       updateUserFields(signedIn.uid, { isCompletedTest: true, assessmentScore: score })
       dispatchSignedIn({ type: 'SET_TEST_STATUS', payload: { isCompletedTest: true } })
-      navigation.navigate('HomeStack')
+      navigation.navigate('HomeStack', { screen: 'Home' })
     } else {
       alert('Please select at least one option before proceeding')
     }

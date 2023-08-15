@@ -67,6 +67,12 @@ export const SignInReducer = (state, action) => {
         isLoading: false,
         avatar: action.payload.avatar,
       }
+    case 'SET_COMPLETED_TEST':
+      return {
+        ...state,
+        isLoading: false,
+        isCompletedTest: false,
+      }
     case 'SET_USER_STREAK':
       return {
         ...state,
