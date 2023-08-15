@@ -12,12 +12,10 @@ export const TermsAndConditionsView = ({ navigation }) => {
 
   const handleCheckbox = () => {
     setAgreed(!agreed)
-    console.log('checked!')
   }
 
   const handleContinueButton = () => {
     if (agreed === false) return
-    console.log('continued')
     updateUserFields(signedIn.uid, { isAgreedTerms: true })
     dispatchSignedIn({ type: 'SET_AGREED_TERMS_STATUS', payload: { isAgreedTerms: true } })
     navigation.navigate('AssessmentView')
