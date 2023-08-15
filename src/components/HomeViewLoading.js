@@ -5,9 +5,9 @@ import { MaterialIcons } from '@expo/vector-icons'
 export const HomeViewLoading = ({ handleBackButtonClick }) => {
   return (
     <View bg={primaryColor} height="100%">
-      <Flex direction="row" width="100%" safeArea alignItems="center">
+      <Flex direction="row" width="100%" alignItems="center" mt="10">
         <IconButton
-          icon={<MaterialIcons name="arrow-back" size={40} color="black" />}
+          icon={<MaterialIcons name="arrow-back" size={40} color="white" />}
           variant="ghost"
           pl="2"
           onPress={handleBackButtonClick}
