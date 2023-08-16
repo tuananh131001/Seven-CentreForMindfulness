@@ -7,11 +7,11 @@ import { UsageTimeAnalytics } from '../components/UsageTimeAnalytics'
 import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
 
+import { secondsToHours, secondsToMinutes } from 'date-fns'
+
 export const ProgressView = () => {
   const { t } = useTranslation()
   const [timeData, setTimeData] = useState([])
-  let totalTimeSpent = calculateTotalTimeSpent()
-  let formattedTime = convertToTimeFormat()
 
   useEffect(() => {
     const getData = async () => {
@@ -38,11 +38,9 @@ export const ProgressView = () => {
   }
 
   function convertToTimeFormat() {
-    let totalMinutes = Math.floor(totalTimeSpent / 60)
-
-    let hours = Math.floor(totalMinutes / 60)
-    let minutes = totalMinutes % 60
-    let seconds = totalTimeSpent % 60
+    let hours = secondsToHours(calculateTotalTimeSpent())
+    let minutes = secondsToMinutes(calculateTotalTimeSpent())
+    let seconds = calculateTotalTimeSpent() % 60
 
     return hours + 'h ' + minutes + 'm ' + seconds + 's '
   }
@@ -59,7 +57,7 @@ export const ProgressView = () => {
         justifyContent="space-between"
         px="5"
       >
-        <UsageTimeAnalytics formattedTime={formattedTime} />
+        <UsageTimeAnalytics convertToTimeFormat={convertToTimeFormat} />
         <InteractionAnalytics />
       </Flex>
     </ScrollView>
