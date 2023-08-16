@@ -15,6 +15,7 @@ import { ProfilePage } from './src/pages/ProfilePage'
 import { AudioView } from './src/pages/AudioView'
 import { ProgressView } from './src/pages/ProgressView'
 
+import { TermsAndConditionsView } from './src/pages/TermsAndConditionsView'
 import { AssessmentView } from './src/pages/AssessmentView'
 import { useEffect, useContext, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -69,8 +70,8 @@ const HomeStack = () => (
   </Tab.Navigator>
 )
 
-const PrivateStack = ({ isCompletedAssessment }) =>
-  isCompletedAssessment === true ? (
+const PrivateStack = ({ isCompletedAssessment, isAgreedTermsAndConditions }) =>
+  isCompletedAssessment === true && isAgreedTermsAndConditions === true ? (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeStack" component={HomeStack} />
       <Stack.Screen name="ProfilePage" component={ProfilePage} />
@@ -79,6 +80,7 @@ const PrivateStack = ({ isCompletedAssessment }) =>
     </Stack.Navigator>
   ) : (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="TermsAndConditionsView" component={TermsAndConditionsView} />
       <Stack.Screen name="AssessmentView" component={AssessmentView} />
       <Stack.Screen name="HomeStack" component={HomeStack} />
       <Stack.Screen name="ProfilePage" component={ProfilePage} />
@@ -90,12 +92,15 @@ const PrivateStack = ({ isCompletedAssessment }) =>
 const AppNavigator = () => {
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [user, setUser] = useState(null)
+  const [isAgreedTermsAndConditions, setIsAgreedTermsAndConditions] = useState(false)
   const [isCompletedAssessment, setIsCompletedAssessment] = useState(false)
+
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       if (user) {
         setUser(user)
       } else {
+        setIsAgreedTermsAndConditions(false)
         setIsCompletedAssessment(false)
         setUser(null)
       }
@@ -108,18 +113,21 @@ const AppNavigator = () => {
     })
   }, [])
 
-
   useEffect(() => {
     if (signedIn?.uid) {
       getUserProfileByUID(signedIn.uid, dispatchSignedIn)
+      setIsAgreedTermsAndConditions(signedIn.isAgreedTerms)
       setIsCompletedAssessment(signedIn.isCompletedTest)
     }
-  }, [signedIn?.uid, signedIn?.isCompletedTest])
+  }, [signedIn?.uid, signedIn?.isCompletedTest, signedIn?.isAgreedTerms])
 
   return (
     <NavigationContainer>
       {user != null ? (
-        <PrivateStack isCompletedAssessment={isCompletedAssessment} />
+        <PrivateStack
+          isAgreedTermsAndConditions={isAgreedTermsAndConditions}
+          isCompletedAssessment={isCompletedAssessment}
+        />
       ) : (
         <PublicStack />
       )}

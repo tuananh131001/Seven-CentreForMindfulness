@@ -128,7 +128,7 @@ export const AudioView = ({ route, navigation }) => {
     <View bg={primaryColor} height="100%">
       <Flex direction="row" width="100%" alignItems="center" mt="10">
         <IconButton
-          icon={<MaterialIcons name="arrow-back" size={40} color="black" />}
+          icon={<MaterialIcons name="arrow-back" size={40} color="white" />}
           variant="ghost"
           pl="2"
           onPress={handleBackButtonClick}
@@ -143,7 +143,7 @@ export const AudioView = ({ route, navigation }) => {
         height="85%"
         alignItems="center"
         mt="auto"
-        pt="5"
+        pt="20"
       >
         <Flex direction="column" alignItems="center">
           <Box borderRadius="full" borderColor={audioPrimaryColor} borderWidth="4">

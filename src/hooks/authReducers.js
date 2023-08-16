@@ -13,6 +13,7 @@ export const initialState = {
   longestStreak: null,
   isCompletedTest: null,
   assessmentScore: null,
+  isAgreedTerms: null,
 }
 
 export const SignInReducer = (state, action) => {
@@ -27,6 +28,11 @@ export const SignInReducer = (state, action) => {
       return {
         ...state,
         isCompletedTest: true,
+      }
+    case 'SET_AGREED_TERMS_STATUS':
+      return {
+        ...state,
+        isAgreedTerms: true,
       }
     case 'SIGN_OUT':
       return {
@@ -44,6 +50,7 @@ export const SignInReducer = (state, action) => {
         lastUsageDate: null,
         longestStreak: null,
         isCompletedTest: null,
+        isAgreedTerms: null,
       }
     case 'SET_USER':
       return {
@@ -60,6 +67,7 @@ export const SignInReducer = (state, action) => {
         lastUsageDate: action.payload.lastUsageDate ?? null,
         longestStreak: action.payload.longestStreak ?? null,
         isCompletedTest: action.payload.isCompletedTest ?? null,
+        isAgreedTerms: action.payload.isAgreedTerms ?? null,
       }
     case 'SET_AVATAR':
       return {

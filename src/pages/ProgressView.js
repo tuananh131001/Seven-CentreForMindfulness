@@ -11,13 +11,13 @@ import { boldTextColor } from '../../assets/ColorConst'
 import { useContext } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
 
+import { secondsToHours, secondsToMinutes } from 'date-fns'
+
 export const ProgressView = ({ navigation }) => {
   const { t } = useTranslation()
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
 
   const [timeData, setTimeData] = useState([])
-  var totalTimeSpent = calculateTotalTimeSpent()
-  var formattedTime = convertToTimeFormat()
 
   const handleRedoTest = async () => {
     await updateUserFields(signedIn.uid, { isCompletedTest: false })
@@ -40,7 +40,7 @@ export const ProgressView = ({ navigation }) => {
   }, [])
 
   function calculateTotalTimeSpent() {
-    var totalTime = 0
+    let totalTime = 0
 
     timeData.map((time) => {
       totalTime += parseInt(time.usageTime)
@@ -50,11 +50,9 @@ export const ProgressView = ({ navigation }) => {
   }
 
   function convertToTimeFormat() {
-    var totalMinutes = Math.floor(totalTimeSpent / 60)
-
-    var hours = Math.floor(totalMinutes / 60)
-    var minutes = totalMinutes % 60
-    var seconds = totalTimeSpent % 60
+    let hours = secondsToHours(calculateTotalTimeSpent())
+    let minutes = secondsToMinutes(calculateTotalTimeSpent())
+    let seconds = calculateTotalTimeSpent() % 60
 
     return hours + 'h ' + minutes + 'm ' + seconds + 's '
   }
@@ -71,7 +69,7 @@ export const ProgressView = ({ navigation }) => {
         justifyContent="space-between"
         px="5"
       >
-        <UsageTimeAnalytics formattedTime={formattedTime} />
+        <UsageTimeAnalytics convertToTimeFormat={convertToTimeFormat} />
         <InteractionAnalytics />
         <HStack alignSelf={'flex-start'} mb={4} space={1}>
           <Text fontSize="md" fontWeight="300" color="coolGray.600">

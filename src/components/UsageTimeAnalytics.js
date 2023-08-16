@@ -5,7 +5,7 @@ import { LineChart } from 'react-native-chart-kit'
 import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
 
-export const UsageTimeAnalytics = ({ formattedTime }) => {
+export const UsageTimeAnalytics = ({ convertToTimeFormat }) => {
   const [chartParentWidth, setChartParentWidth] = useState(0)
   const { t } = useTranslation()
 
@@ -19,7 +19,7 @@ export const UsageTimeAnalytics = ({ formattedTime }) => {
       onLayout={({ nativeEvent }) => setChartParentWidth(nativeEvent.layout.width)}
     >
       <Flex direction="column" width="100%" px="5">
-        <Heading>{formattedTime}</Heading>
+        <Heading>{convertToTimeFormat()}</Heading>
         <Text color={progressSecondaryColor}>{t('LearnTime')}</Text>
       </Flex>
       <Flex width="100%" my="5" borderColor={progressSecondaryColor} borderWidth="1"></Flex>
