@@ -85,10 +85,8 @@ export const HomeView = ({ navigation }) => {
                     title: audio.data.title,
                     duration: audio.data.duration,
                   })
-                } else if (selectedCategory === 'articles') {
-                  handleOpenURL(audio.data.link)
                 } else {
-                  console.log('audio')
+                  handleOpenURL(audio.data.link)
                 }
               }}
             >

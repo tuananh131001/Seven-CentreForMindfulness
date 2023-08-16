@@ -33,22 +33,32 @@ export const ProfilePage = ({ navigation }) => {
   const handleLogout = () => {
     logout(dispatchSignedIn)
   }
-
+  const userInfoTitle = [t('Name'), 'Email', t('Age'), t('Gender'), t('Location'), t('PhoneNumber')]
   const userInfo = [
-    { icon_provider: EvilIcons, icon: 'user', title: 'Name', value: signedIn?.name },
-    { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: signedIn?.email },
-    { icon_provider: MaterialIcons, icon: 'cake', title: 'Age', value: signedIn?.age },
-    { icon_provider: FontAwesome, icon: 'genderless', title: 'Gender', value: signedIn?.gender },
+    { icon_provider: EvilIcons, icon: 'user', title: userInfoTitle[0], value: signedIn?.name },
+    {
+      icon_provider: MaterialIcons,
+      icon: 'email',
+      title: userInfoTitle[1],
+      value: signedIn?.email,
+    },
+    { icon_provider: MaterialIcons, icon: 'cake', title: userInfoTitle[2], value: signedIn?.age },
+    {
+      icon_provider: FontAwesome,
+      icon: 'genderless',
+      title: userInfoTitle[3],
+      value: signedIn?.gender,
+    },
     {
       icon_provider: EvilIcons,
       icon: 'location',
-      title: 'Location',
+      title: userInfoTitle[4],
       value: signedIn?.location ?? '',
     },
     {
       icon_provider: FontAwesome,
       icon: 'mobile-phone',
-      title: 'Phone number',
+      title: userInfoTitle[5],
       value: signedIn?.phone ?? '',
     },
   ]
