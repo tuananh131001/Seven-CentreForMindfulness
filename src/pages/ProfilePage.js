@@ -33,6 +33,7 @@ export const ProfilePage = ({ navigation }) => {
   const handleLogout = () => {
     logout(dispatchSignedIn)
   }
+
   const userInfo = [
     { icon_provider: EvilIcons, icon: 'user', title: 'Name', value: signedIn?.name },
     { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: signedIn?.email },
