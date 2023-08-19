@@ -3,8 +3,10 @@ import { Modal, Button, Avatar, HStack, VStack } from 'native-base'
 import { primaryColor } from '../../assets/ColorConst'
 import { useContext, useState } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
+import { useTranslation } from 'react-i18next'
 
 export const AvatarModal = ({ setModalVisible, modalVisible }) => {
+  const { t } = useTranslation()
   const AVATARS = [
     'https://i.imgur.com/5VbLiMH.png',
     'https://i.imgur.com/Kru9mtG.png',
@@ -48,7 +50,7 @@ export const AvatarModal = ({ setModalVisible, modalVisible }) => {
       <Modal size="lg" isOpen={modalVisible} onClose={setModalVisible} avoidKeyboard>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>Choose your avatar</Modal.Header>
+          <Modal.Header>{t('ChooseAvatar')}</Modal.Header>
           <Modal.Body>
             <VStack space={3} width="100%">
               {Array.from({ length: Math.ceil(AVATARS.length / 2) }).map((_, index) =>
@@ -67,7 +69,7 @@ export const AvatarModal = ({ setModalVisible, modalVisible }) => {
                 setModalVisible(!modalVisible)
               }}
             >
-              SAVE
+              {t('Save')}
             </Button>
           </Modal.Footer>
         </Modal.Content>

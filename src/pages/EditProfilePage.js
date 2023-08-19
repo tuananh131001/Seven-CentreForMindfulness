@@ -254,7 +254,7 @@ export const EditProfilePage = ({ navigation }) => {
                   width={'100%'}
                   alignSelf={'flex-start'}
                 >
-                  {'Save your profile'}
+                  {t('SaveProfile')}
                 </Button>
               </VStack>
             </Box>

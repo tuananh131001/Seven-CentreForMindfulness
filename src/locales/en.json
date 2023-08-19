@@ -9,7 +9,7 @@
   "SigninContinue": "Sign in to continue",
   "Or": "Or",
   "NoAccount": "Don't have an account?",
-  "SignUp": "Sign Up",
+  "SignUp": "SIGN UP",
   "Gender": "Gender",
   "audios": "Audios",
   "guidedPractices": "Guided Practices",
@@ -58,5 +58,11 @@
   "TermsContent3.1": "The use of any Services and/or the Mobile Application and the making of any Redemptions are subject to these Terms and Conditions of Use.",
   "TermsContent3.2": "The Mobile Application, the Services and any Redemptions are intended solely for use by Users who access the Mobile Application in Singapore. We make no representation that the Services (or any goods or services) are available or otherwise suitable for use outside of Singapore. Notwithstanding the above, if you access the Mobile Application, use the Services or make any Redemptions from locations outside Singapore, you do so on your own initiative and are responsible for the consequences and for compliance with all applicable laws.",
   "TermsAgree": "I agree with the Terms and Conditions of Use for this application",
-  "Phone Number": "Phone number"
+  "Phone Number": "Phone number",
+  "ChooseAvatar": "Choose your avatar",
+  "Save": "SAVE",
+  "SaveProfile": "Save your profile",
+  "Male": "Male",
+  "Female": "Female",
+  "Other": "Others"
 }
