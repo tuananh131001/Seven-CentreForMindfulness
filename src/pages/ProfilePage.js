@@ -33,12 +33,21 @@ export const ProfilePage = ({ navigation }) => {
   const handleLogout = () => {
     logout(dispatchSignedIn)
   }
-
   const userInfo = [
     { icon_provider: EvilIcons, icon: 'user', title: 'Name', value: signedIn?.name },
-    { icon_provider: MaterialIcons, icon: 'email', title: 'Email', value: signedIn?.email },
+    {
+      icon_provider: MaterialIcons,
+      icon: 'email',
+      title: 'Email',
+      value: signedIn?.email,
+    },
     { icon_provider: MaterialIcons, icon: 'cake', title: 'Age', value: signedIn?.age },
-    { icon_provider: FontAwesome, icon: 'genderless', title: 'Gender', value: signedIn?.gender },
+    {
+      icon_provider: FontAwesome,
+      icon: 'genderless',
+      title: 'Gender',
+      value: signedIn?.gender,
+    },
     {
       icon_provider: EvilIcons,
       icon: 'location',
@@ -48,7 +57,7 @@ export const ProfilePage = ({ navigation }) => {
     {
       icon_provider: FontAwesome,
       icon: 'mobile-phone',
-      title: 'Phone number',
+      title: 'Phone Number',
       value: signedIn?.phone ?? '',
     },
   ]
@@ -111,7 +120,7 @@ export const ProfilePage = ({ navigation }) => {
                   ></Icon>
                   <VStack w="80%" safeArea="3">
                     <Text fontSize="xs" color={primaryColor}>
-                      {item.title}
+                      {t(item.title)}
                     </Text>
                     <Text fontSize="md" color={profileTextColor}>
                       {item.value}
