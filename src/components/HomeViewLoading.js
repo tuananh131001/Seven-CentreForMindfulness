@@ -9,7 +9,6 @@ export const HomeViewLoading = ({ handleBackButtonClick }) => {
         <IconButton
           icon={<MaterialIcons name="arrow-back" size={40} color="white" />}
           variant="ghost"
-          pl="2"
           onPress={handleBackButtonClick}
         />
       </Flex>
@@ -22,7 +21,7 @@ export const HomeViewLoading = ({ handleBackButtonClick }) => {
         height="85%"
         alignItems="center"
         mt="auto"
-        pt="10"
+        pt="5"
       >
         <Center safeArea w="100%">
           <VStack
