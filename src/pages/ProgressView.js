@@ -73,12 +73,12 @@ export const ProgressView = ({ navigation }) => {
         <InteractionAnalytics />
         <HStack alignSelf={'flex-start'} mb={4} space={1}>
           <Text fontSize="md" fontWeight="300" color="coolGray.600">
-            Feeling better?
+            {t('FeelingBetter')}
           </Text>
 
           <Link isUnderlined={false} onPress={handleRedoTest}>
             <Text fontSize="md" fontWeight="700" color={boldTextColor}>
-              Retake the test here!
+              {t('TakeTest')}
             </Text>
           </Link>
         </HStack>
