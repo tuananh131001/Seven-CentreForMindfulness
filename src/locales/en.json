@@ -64,5 +64,7 @@
   "SaveProfile": "Save your profile",
   "Male": "Male",
   "Female": "Female",
-  "Other": "Others"
+  "Other": "Others",
+  "FeelingBetter": "Feeling better?",
+  "TakeTest": "Retake the test here!"
 }
