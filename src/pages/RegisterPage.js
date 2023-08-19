@@ -134,9 +134,9 @@ export const RegisterPage = ({ navigation }) => {
                           }}
                           onValueChange={onChange}
                         >
-                          <Select.Item label="Male" value="male" />
-                          <Select.Item label="Female" value="female" />
-                          <Select.Item label="Others" value="others" />
+                          <Select.Item label={t('Male')} value="male" />
+                          <Select.Item label={t('Female')} value="female" />
+                          <Select.Item label={t('Other')} value="others" />
                         </Select>
                       )}
                       name="gender"
@@ -238,7 +238,7 @@ export const RegisterPage = ({ navigation }) => {
                 </FormControl>
               </FormControl>
               <Button onPress={handleSubmit(onSubmit)} my={2} bg={signInButtonColor}>
-                SIGN UP
+                {t('SignUp')}
               </Button>
             </VStack>
             <Spacer />
@@ -255,12 +255,12 @@ export const RegisterPage = ({ navigation }) => {
                   color: 'warmGray.200',
                 }}
               >
-                Already have an account?
+                {t('AlreadyHaveAccount')}
               </Text>
 
               <Link isUnderlined={false} onPress={() => navigation.navigate('LoginPage')}>
                 <Text fontWeight="700" color={boldTextColor}>
-                  Sign In
+                  {t('SignIn')}
                 </Text>
               </Link>
             </HStack>

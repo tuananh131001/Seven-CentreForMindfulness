@@ -9,7 +9,7 @@
   "SigninContinue": "Đăng nhập để tiếp tục",
   "Or": "Hoặc",
   "NoAccount": "Chưa có tài khoản?",
-  "SignUp": "Đăng ký",
+  "SignUp": "ĐĂNG KÝ",
   "Gender": "Giới tính",
   "audios": "Bài nghe",
   "guidedPractices": "Thực hành",
@@ -40,7 +40,7 @@
   "LongestStreak": "chuỗi học dài nhất",
   "AudioCompleted": "bài nghe đã hoàn thành",
   "ActivityCompleted": "bài thực hành đã hoàn thành",
-  "EditProfile": "Chỉnh sửa hồ sơ",
+  "EditProfile": "Chỉnh sửa",
   "Avatar": "Ảnh đại diện",
   "UserDetails": "Thông tin người dùng",
   "YourEmail": "Email của bạn",
@@ -58,5 +58,13 @@
   "TermsContent3.1": "Việc sử dụng bất kỳ Dịch vụ và/hoặc Ứng dụng Di động và việc thực hiện bất kỳ Việc quy đổi nào đều phải tuân thủ những Điều khoản và Điều kiện sử dụng này.",
   "TermsContent3.2": "Ứng dụng Di động, Dịch vụ và bất kỳ Việc quy đổi nào đều dành riêng cho việc sử dụng của Người dùng truy cập Ứng dụng Di động tại Singapore. Chúng tôi không đưa ra bất kỳ sự mô tả nào rằng Dịch vụ (hoặc bất kỳ hàng hóa hoặc dịch vụ nào) có sẵn hoặc phù hợp để sử dụng bên ngoài Singapore. Tuy nhiên, nếu bạn truy cập Ứng dụng Di động, sử dụng Dịch vụ hoặc thực hiện bất kỳ Việc đổi nào tại các địa điểm ngoài Singapore, bạn làm điều này theo chính sự khởi xướng của bạn và bạn chịu trách nhiệm về hậu quả và tuân thủ tất cả các luật pháp liên quan.",
   "TermsAgree": "Tôi đồng ý với các Điều khoản & Điều kiện sử dụng của ứng dụng này",
-  "Phone Number": "Số điện thoại"
+  "Phone Number": "Số điện thoại",
+  "ChooseAvatar": "Chọn ảnh đại diện",
+  "Save": "LƯU",
+  "SaveProfile": "Lưu hồ sơ",
+  "Male": "Nam",
+  "Female": "Nữ",
+  "Other": "Khác",
+  "FeelingBetter": "Cảm thấy tốt hơn?",
+  "TakeTest": "Kiểm tra lại!"
 }
