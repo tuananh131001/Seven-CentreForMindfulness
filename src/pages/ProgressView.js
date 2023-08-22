@@ -3,7 +3,7 @@ import { Flex, Heading, ScrollView, Link, Text, VStack, HStack } from 'native-ba
 import { UsageTimeAnalytics } from '../components/UsageTimeAnalytics'
 import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
-import { updateUserFields, getUserProfileByUID } from '../services/user'
+import { updateUserFields } from '../services/user'
 import { boldTextColor } from '../../assets/ColorConst'
 import { useContext } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'

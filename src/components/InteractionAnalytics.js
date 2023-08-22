@@ -1,4 +1,4 @@
-import { VStack, HStack, Flex, Image, Heading, Text, Icon } from 'native-base'
+import { VStack, HStack, Flex, Heading, Text } from 'native-base'
 
 import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
