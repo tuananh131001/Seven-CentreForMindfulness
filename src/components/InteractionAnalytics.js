@@ -1,6 +1,14 @@
 import { VStack, HStack, Flex, Heading, Text } from 'native-base'
 
-import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
+import {
+  progressPrimaryColor,
+  progressSecondaryColor,
+  progressRedColor,
+  progressYellowColor,
+  progressBlueColor,
+  progressGreenColor,
+  progressOrangeColor,
+} from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
 
 import { FontAwesome, Feather, MaterialIcons, Octicons, Entypo } from '@expo/vector-icons'
@@ -18,7 +26,7 @@ export const InteractionAnalytics = ({ currentStreak, longestStreak }) => {
           borderRadius="20"
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
-            <Feather name="target" size={30} color="red" />
+            <Feather name="target" size={30} color={progressRedColor} />
             <Heading size="xl">{currentStreak}d</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('CurrentStreak')}</Text>
@@ -31,7 +39,7 @@ export const InteractionAnalytics = ({ currentStreak, longestStreak }) => {
           borderRadius="20"
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
-            <FontAwesome name="star" size={30} color="gold" />
+            <FontAwesome name="star" size={30} color={progressYellowColor} />
             <Heading size="xl">{longestStreak}d</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('LongestStreak')}</Text>
@@ -46,7 +54,7 @@ export const InteractionAnalytics = ({ currentStreak, longestStreak }) => {
           borderRadius="20"
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
-            <MaterialIcons name="multitrack-audio" size={30} color="blue" />
+            <MaterialIcons name="multitrack-audio" size={30} color={progressBlueColor} />
             <Heading size="xl">10</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('AudioCompleted')}</Text>
@@ -59,7 +67,7 @@ export const InteractionAnalytics = ({ currentStreak, longestStreak }) => {
           borderRadius="20"
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
-            <Octicons name="video" size={30} color="green" />
+            <Octicons name="video" size={30} color={progressGreenColor} />
             <Heading size="xl">5</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('VideoCompleted')}</Text>
@@ -74,7 +82,7 @@ export const InteractionAnalytics = ({ currentStreak, longestStreak }) => {
           borderRadius="20"
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
-            <Entypo name="open-book" size={30} color="orange" />
+            <Entypo name="open-book" size={30} color={progressOrangeColor} />
             <Heading size="xl">3</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('ArticleCompleted')}</Text>

@@ -1,28 +1,35 @@
 import { Flex, VStack, Heading, Text } from 'native-base'
 
-import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
+import {
+  progressPrimaryColor,
+  progressSecondaryColor,
+  progressLimeColor,
+  progressYellowColor,
+  progressOrangeColor,
+  progressRedColor,
+} from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
 
 export const UsageTimeAnalytics = ({ assessmentScore }) => {
   const { t } = useTranslation()
 
-  const toggleSeverityColor = () => {
+  const returnSeverityColor = () => {
     let colorString = ''
 
     if (assessmentScore <= 7) {
-      colorString = 'lime.500'
+      colorString = progressLimeColor
     } else if (assessmentScore > 7 && assessmentScore <= 14) {
-      colorString = 'yellow.400'
+      colorString = progressYellowColor
     } else if (assessmentScore > 14 && assessmentScore <= 21) {
-      colorString = 'orange.400'
+      colorString = progressOrangeColor
     } else {
-      colorString = 'red.500'
+      colorString = progressRedColor
     }
 
     return colorString
   }
 
-  const toggleSeverityText = () => {
+  const returnSeverityText = () => {
     let textString = ''
 
     if (assessmentScore <= 7) {
@@ -49,11 +56,11 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
       borderRadius="20"
     >
       <VStack width="100%" space="5" alignItems="center">
-        <Heading size="4xl" color={toggleSeverityColor()}>
+        <Heading size="4xl" color={returnSeverityColor()}>
           {assessmentScore}/28
         </Heading>
-        <Heading size="xl" color={toggleSeverityColor()}>
-          {toggleSeverityText()}
+        <Heading size="xl" color={returnSeverityColor()}>
+          {returnSeverityText()}
         </Heading>
       </VStack>
       <Flex width="100%" my="5" borderColor={progressSecondaryColor} borderWidth="1"></Flex>
