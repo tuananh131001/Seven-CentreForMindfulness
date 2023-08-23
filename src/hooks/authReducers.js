@@ -68,6 +68,7 @@ export const SignInReducer = (state, action) => {
         longestStreak: action.payload.longestStreak ?? null,
         isCompletedTest: action.payload.isCompletedTest ?? null,
         isAgreedTerms: action.payload.isAgreedTerms ?? null,
+        assessmentScore: action.payload.assessmentScore ?? null,
       }
     case 'SET_AVATAR':
       return {

@@ -1,66 +1,70 @@
-import { useState } from 'react'
-import { Flex, Heading, Text } from 'native-base'
-import { LineChart } from 'react-native-chart-kit'
+import { Flex, VStack, Heading, Text } from 'native-base'
 
-import { progressPrimaryColor, progressSecondaryColor } from '../../assets/ColorConst'
+import {
+  progressPrimaryColor,
+  progressSecondaryColor,
+  progressLimeColor,
+  progressYellowColor,
+  progressOrangeColor,
+  progressRedColor,
+} from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
 
-export const UsageTimeAnalytics = ({ convertToTimeFormat }) => {
-  const [chartParentWidth, setChartParentWidth] = useState(0)
+export const UsageTimeAnalytics = ({ assessmentScore }) => {
   const { t } = useTranslation()
+
+  const returnSeverityColor = () => {
+    let colorString = ''
+
+    if (assessmentScore <= 7) {
+      colorString = progressLimeColor
+    } else if (assessmentScore > 7 && assessmentScore <= 14) {
+      colorString = progressYellowColor
+    } else if (assessmentScore > 14 && assessmentScore <= 21) {
+      colorString = progressOrangeColor
+    } else {
+      colorString = progressRedColor
+    }
+
+    return colorString
+  }
+
+  const returnSeverityText = () => {
+    let textString = ''
+
+    if (assessmentScore <= 7) {
+      textString = 'LOW SEVERITY!'
+    } else if (assessmentScore > 7 && assessmentScore <= 14) {
+      textString = 'MEDIUM SEVERITY!'
+    } else if (assessmentScore > 7 && assessmentScore <= 21) {
+      textString = 'HIGH SEVERITY!'
+    } else {
+      textString = 'CRITICAL SEVERITY!'
+    }
+
+    return textString
+  }
 
   return (
     <Flex
       bg={progressPrimaryColor}
       direction="column"
+      alignItems="center"
+      justifyContent="center"
       width="100%"
-      py="5"
+      padding="5"
       borderRadius="20"
-      onLayout={({ nativeEvent }) => setChartParentWidth(nativeEvent.layout.width)}
     >
-      <Flex direction="column" width="100%" px="5">
-        <Heading>{convertToTimeFormat()}</Heading>
-        <Text color={progressSecondaryColor}>{t('LearnTime')}</Text>
-      </Flex>
+      <VStack width="100%" space="5" alignItems="center">
+        <Heading size="4xl" color={returnSeverityColor()}>
+          {assessmentScore}/28
+        </Heading>
+        <Heading size="xl" color={returnSeverityColor()}>
+          {returnSeverityText()}
+        </Heading>
+      </VStack>
       <Flex width="100%" my="5" borderColor={progressSecondaryColor} borderWidth="1"></Flex>
-      <LineChart
-        data={{
-          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          datasets: [
-            {
-              data: [5, 10, 15, 20, 25, 30, 35],
-            },
-          ],
-        }}
-        width={chartParentWidth}
-        height={220}
-        yAxisLabel=""
-        yAxisSuffix="m"
-        yAxisInterval={1}
-        chartConfig={{
-          backgroundGradientFromOpacity: 0,
-          backgroundGradientToOpacity: 0,
-          // backgroundColor: '#FFFFFF',
-          // backgroundGradientFrom: '#ffffff',
-          // backgroundGradientTo: '#ffffff',
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: '6',
-            strokeWidth: '2',
-            stroke: '#ffa726',
-          },
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+      <Text color={progressSecondaryColor}>{t('AssessmentScore')}</Text>
     </Flex>
   )
 }
