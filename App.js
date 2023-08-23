@@ -5,7 +5,6 @@ import { HomeView } from './src/pages/HomeView'
 import { LoginPage } from './src/pages/LoginPage'
 import { EditProfilePage } from './src/pages/EditProfilePage'
 import { Ionicons } from '@expo/vector-icons'
-import * as Notifications from 'expo-notifications'
 import * as SecureStore from 'expo-secure-store'
 
 import { I18nextProvider, useTranslation } from 'react-i18next'
@@ -25,6 +24,8 @@ import { checkNotificationPermissions } from './src/utils/checkNotificationPermi
 import { SignInContext, SignInContextProvider } from './src/hooks/useAuthContext'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { getUserProfileByUID } from './src/services/user'
+import { LoadingBase } from './src/components/LoadingBase'
+import { set } from 'date-fns'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -70,67 +71,71 @@ const HomeStack = () => (
   </Tab.Navigator>
 )
 
-const PrivateStack = ({ isCompletedAssessment, isAgreedTermsAndConditions }) =>
-  isCompletedAssessment === true && isAgreedTermsAndConditions === true ? (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="HomeStack" component={HomeStack} />
-      <Stack.Screen name="ProfilePage" component={ProfilePage} />
-      <Stack.Screen name="AudioView" component={AudioView} />
-      <Stack.Screen name="EditProfilePage" component={EditProfilePage} />
-    </Stack.Navigator>
-  ) : (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="TermsAndConditionsView" component={TermsAndConditionsView} />
-      <Stack.Screen name="AssessmentView" component={AssessmentView} />
-      <Stack.Screen name="HomeStack" component={HomeStack} />
-      <Stack.Screen name="ProfilePage" component={ProfilePage} />
-      <Stack.Screen name="AudioView" component={AudioView} />
-      <Stack.Screen name="EditProfilePage" component={EditProfilePage} />
-    </Stack.Navigator>
-  )
+const PrivateStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="HomeStack" component={HomeStack} />
+    <Stack.Screen name="ProfilePage" component={ProfilePage} />
+    <Stack.Screen name="AudioView" component={AudioView} />
+    <Stack.Screen name="EditProfilePage" component={EditProfilePage} />
+  </Stack.Navigator>
+)
+
+const NewUserPrivateStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="TermsAndConditionsView" component={TermsAndConditionsView} />
+    <Stack.Screen name="AssessmentView" component={AssessmentView} />
+    <Stack.Screen name="HomeStack" component={HomeStack} />
+    <Stack.Screen name="ProfilePage" component={ProfilePage} />
+    <Stack.Screen name="AudioView" component={AudioView} />
+    <Stack.Screen name="EditProfilePage" component={EditProfilePage} />
+  </Stack.Navigator>
+)
 
 const AppNavigator = () => {
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
   const [user, setUser] = useState(null)
-  const [isAgreedTermsAndConditions, setIsAgreedTermsAndConditions] = useState(false)
-  const [isCompletedAssessment, setIsCompletedAssessment] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       if (user) {
+        setIsLoading(true) // Set to false when we got the user data
+        console.log('Found user')
         setUser(user)
       } else {
-        setIsAgreedTermsAndConditions(false)
-        setIsCompletedAssessment(false)
         setUser(null)
+        setIsLoading(false)
       }
     })
   }, [])
 
   useEffect(() => {
     SecureStore.getItemAsync('uid').then((response) => {
-      dispatchSignedIn({ type: 'SIGN_IN', payload: { uid: response } })
+      response && dispatchSignedIn({ type: 'SIGN_IN', payload: { uid: response } })
     })
   }, [])
 
   useEffect(() => {
     if (signedIn?.uid) {
       getUserProfileByUID(signedIn.uid, dispatchSignedIn)
-      setIsAgreedTermsAndConditions(signedIn.isAgreedTerms)
-      setIsCompletedAssessment(signedIn.isCompletedTest)
+      setIsLoading(false)
+      console.log('Get user information successful')
     }
   }, [signedIn?.uid, signedIn?.isCompletedTest, signedIn?.isAgreedTerms])
 
+  const handleAuthenticationStack = () => {
+    if (user != null && signedIn?.isAgreedTerms && signedIn?.isCompletedTest) {
+      return <PrivateStack />
+    } else if (user != null && (!signedIn?.isAgreedTerms || !signedIn?.isCompletedTest)) {
+      return <NewUserPrivateStack />
+    } else if (user == null) {
+      return <PublicStack />
+    }
+  }
+
   return (
     <NavigationContainer>
-      {user != null ? (
-        <PrivateStack
-          isAgreedTermsAndConditions={isAgreedTermsAndConditions}
-          isCompletedAssessment={isCompletedAssessment}
-        />
-      ) : (
-        <PublicStack />
-      )}
+      {isLoading ? <LoadingBase /> : handleAuthenticationStack()}
     </NavigationContainer>
   )
 }

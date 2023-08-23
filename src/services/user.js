@@ -128,7 +128,7 @@ export const updateUserFields = async (uid, data) => {
     const docRef = doc(FIREBASE_DB, 'users', querySnapshot.docs[0].id)
     updateDoc(docRef, data)
       .then(() => {
-        console.log('Document successfully updated!')
+        console.log('Update user information successfully!')
       })
       .catch((error) => {
         console.error('Error updating document: ', error)
