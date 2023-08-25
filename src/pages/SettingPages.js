@@ -1,4 +1,4 @@
-import { Box, VStack, Center, Flex, Heading, Text, useToast } from 'native-base'
+import { Box, VStack, Center, Heading, Text, useToast } from 'native-base'
 import * as Notifications from 'expo-notifications'
 import { useEffect, useState } from 'react'
 import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
