@@ -26,8 +26,6 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
 import { SignInContext } from '../hooks/useAuthContext'
-import { set } from 'date-fns'
-import { is } from 'date-fns/locale'
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
