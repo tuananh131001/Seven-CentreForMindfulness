@@ -26,6 +26,8 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
 import { SignInContext } from '../hooks/useAuthContext'
+import { set } from 'date-fns'
+import { is } from 'date-fns/locale'
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
@@ -41,7 +43,11 @@ export const AudioView = ({ route, navigation }) => {
   const { signedIn } = useContext(SignInContext)
 
   useEffect(() => {
-    getAudio()
+    const startPlayAudio = async () => {
+      await getAudio()
+      toggleAudioStatus()
+    }
+    startPlayAudio()
   }, [])
 
   const getAudio = async () => {
@@ -69,9 +75,20 @@ export const AudioView = ({ route, navigation }) => {
       const result = await sound.current.getStatusAsync()
       if (result.isLoaded) {
         if (result.isPlaying === false) {
-          sound.current.playAsync()
+          sound.current.playFromPositionAsync(currentAudioTimestamp)
         }
       }
+    } catch (error) {
+      AlertToast(toast, error)
+    }
+  }
+
+  const playFromPostition = async (position) => {
+    if (isPlayed === false) return
+    try {
+      await sound.current.setPositionAsync(position)
+      await sound.current.playAsync()
+      setAudioTimestamp(position)
     } catch (error) {
       AlertToast(toast, error)
     }
@@ -170,6 +187,7 @@ export const AudioView = ({ route, navigation }) => {
             <IconButton
               icon={<MaterialIcons name="fast-rewind" size={30} color={audioAccentColor} />}
               variant="ghost"
+              onPress={() => playFromPostition(currentAudioTimestamp - 10000)}
             />
             <IconButton
               icon={
@@ -186,6 +204,7 @@ export const AudioView = ({ route, navigation }) => {
             />
             <IconButton
               icon={<MaterialIcons name="fast-forward" size={30} color={audioAccentColor} />}
+              onPress={() => playFromPostition(currentAudioTimestamp + 10000)}
               variant="ghost"
             />
           </HStack>
@@ -196,7 +215,9 @@ export const AudioView = ({ route, navigation }) => {
                 width="250"
                 size="md"
                 minValue={0}
-                value={currentAudioTimestamp || 0}
+                value={currentAudioTimestamp}
+                onChange={(value) => setAudioTimestamp(value)}
+                onChangeEnd={(value) => playFromPostition(value)}
                 maxValue={durationAudio}
                 defaultValue={0}
                 marginX={2.5}
