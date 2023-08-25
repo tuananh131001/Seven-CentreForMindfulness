@@ -67,5 +67,6 @@
   "Female": "Female",
   "Other": "Others",
   "FeelingBetter": "Feeling better?",
-  "TakeTest": "Retake the test here!"
+  "TakeTest": "Retake the test here!",
+  "SelectLanguage": "Choose language"
 }

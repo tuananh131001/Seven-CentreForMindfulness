@@ -1,11 +1,13 @@
-import { Box, Center, Text, VStack, useToast } from 'native-base'
+import { Box, VStack, Center, Heading, Text, useToast } from 'native-base'
 import * as Notifications from 'expo-notifications'
 import { useEffect, useState } from 'react'
 import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
 import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
+import { useTranslation } from 'react-i18next'
 
 export const SettingsPage = () => {
   const toast = useToast()
+  const { t } = useTranslation()
 
   useEffect(() => {
     checkNotificationPermissions(toast)
@@ -19,17 +21,20 @@ export const SettingsPage = () => {
   }
 
   return (
-    <Center>
-      <Box safeArea>
-        <VStack safeArea>
+    <Center mt="20">
+      <Box>
+        <VStack space="5">
           {scheduledNotifications.map((notification) => (
-            <Box key={notification.identifier} safeArea={5}>
+            <Box key={notification.identifier}>
               <Text>ID: {notification.identifier}</Text>
               <Text>Body:{notification.content.body}</Text>
               <Text>Trigger in next: {Math.floor(notification.trigger.seconds / 3600)} hours</Text>
             </Box>
           ))}
-          <LanguageSwitchButton />
+          <VStack space="5" width="100%" alignItems="center">
+            <Heading>{t('SelectLanguage')}</Heading>
+            <LanguageSwitchButton />
+          </VStack>
         </VStack>
       </Box>
     </Center>
