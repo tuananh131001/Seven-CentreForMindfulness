@@ -21,7 +21,7 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
-import { collection, doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, updateDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
@@ -116,9 +116,10 @@ export const AudioView = ({ route, navigation }) => {
       setUsageTimerRun(false)
 
       // 60000 = 1 minute
-      if (currentAudioTimestamp > durationAudio - 120000) {
-        const docRef = collection(FIREBASE_DB, 'userAttempts')
-        await docRef.doc(attemptId).update({ isCompleted: true })
+      if (currentAudioTimestamp > durationAudio - 60000) {
+        const docRef = doc(FIREBASE_DB, 'userAttempts', attemptId)
+        await updateDoc(docRef, { isCompleted: true })
+        console.log('Attempt', attemptId, ' is completed')
       }
     }
   }
