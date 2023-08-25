@@ -26,7 +26,6 @@ export const HomeView = ({ navigation }) => {
         ? 'guidedPracticeVn'
         : selectedCategory
 
-    console.log('category', category)
     const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
     querySnapshot.forEach((doc) => {
       audioListArr.push({ id: doc.id, data: doc.data() })
