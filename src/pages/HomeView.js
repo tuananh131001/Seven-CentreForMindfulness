@@ -7,18 +7,13 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SignInContext } from '../hooks/useAuthContext'
-import i18n from '../utils/i18n'
 import { AlertToast } from '../components/Toast'
 import * as Linking from 'expo-linking'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const toast = useToast()
-  const CATEGORIES = [
-    'audios',
-    i18n.language === 'vi' ? 'guidedPracticeVn' : 'guidedPractices',
-    'articles',
-  ]
+  const CATEGORIES = ['audios', 'guidedPractices', 'articles']
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
