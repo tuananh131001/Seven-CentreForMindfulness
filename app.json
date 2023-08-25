@@ -35,12 +35,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "04e4dd30-9e8a-47e1-983e-7b31d2f17923"
-      }
-    },
-    "owner": "williama1pha"
+    }
   }
 }
