@@ -2,7 +2,7 @@ import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, Text, ScrollView, VStack, useToast } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import * as Linking from 'expo-linking'
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const toast = useToast()
-  const CATEGORIES = ['audios', 'guidedPractices', 'articles']
+  const CATEGORIES = ['audios', 'guidedPractices', 'articles'] // TODO: audios is Videos , will change latter
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
@@ -27,6 +27,29 @@ export const HomeView = ({ navigation }) => {
   }
   const selectCategory = (category) => {
     setSelectedCategory(category)
+  }
+
+  const handlePressCard = async (audio) => {
+    if (selectedCategory === 'guidedPractices' || selectedCategory === 'guidedPracticeVn') {
+      navigation.navigate('AudioView', {
+        id: audio.id,
+        link: audio.data.link,
+        title: audio.data.title,
+        duration: audio.data.duration,
+      })
+    } else {
+      handleOpenURL(audio.data.link)
+    }
+    await findAudioOrCreate(audio.id)
+  }
+
+  const findAudioOrCreate = async (exerciseId) => {
+    await setDoc(doc(FIREBASE_DB, 'userAttempts', exerciseId), {
+      uid: signedIn.uid,
+      exerciseId: exerciseId,
+      isCompleted: false,
+      type: selectedCategory,
+    })
   }
 
   const handleOpenURL = (url) => {
@@ -70,19 +93,7 @@ export const HomeView = ({ navigation }) => {
             <Pressable
               key={audio.id}
               onPress={() => {
-                if (
-                  selectedCategory === 'guidedPractices' ||
-                  selectedCategory === 'guidedPracticeVn'
-                ) {
-                  navigation.navigate('AudioView', {
-                    id: audio.id,
-                    link: audio.data.link,
-                    title: audio.data.title,
-                    duration: audio.data.duration,
-                  })
-                } else {
-                  handleOpenURL(audio.data.link)
-                }
+                handlePressCard(audio)
               }}
             >
               <HorizontalCard

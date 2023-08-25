@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   Flex,
   View,
@@ -21,11 +21,10 @@ import {
 } from '../../assets/ColorConst'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AlertToast } from '../components/Toast'
-import { doc, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
-import { SignInContext } from '../hooks/useAuthContext'
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
@@ -38,7 +37,6 @@ export const AudioView = ({ route, navigation }) => {
   const [usageTimerRun, setUsageTimerRun] = useState(false)
   const toast = useToast()
   const sound = useRef(new Audio.Sound())
-  const { signedIn } = useContext(SignInContext)
 
   useEffect(() => {
     const startPlayAudio = async () => {
@@ -61,7 +59,7 @@ export const AudioView = ({ route, navigation }) => {
       }
       let updated_status = await sound.current.getStatusAsync()
       setDurationAudio(updated_status.durationMillis)
-      findAudioOrCreate()
+      setAttemptId(id)
       setLoading(false)
     } else {
       setLoading(false)
@@ -90,16 +88,6 @@ export const AudioView = ({ route, navigation }) => {
     } catch (error) {
       AlertToast(toast, error)
     }
-  }
-
-  const findAudioOrCreate = async () => {
-    await setDoc(doc(FIREBASE_DB, 'userAttempts', id), {
-      uid: signedIn.uid,
-      link: link,
-      exerciseId: id,
-      isCompleted: false,
-    })
-    setAttemptId(id)
   }
 
   const toggleAudioStatus = () => {
