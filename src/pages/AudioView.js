@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import {
   Flex,
   View,
@@ -32,7 +32,6 @@ export const AudioView = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState(false)
   const [durationAudio, setDurationAudio] = useState(0)
   const [currentAudioTimestamp, setAudioTimestamp] = useState(0)
-  const [, setActiveTime] = useState(0)
   const [attemptId, setAttemptId] = useState(null)
   const [usageTimerRun, setUsageTimerRun] = useState(false)
   const toast = useToast()
@@ -118,7 +117,6 @@ export const AudioView = ({ route, navigation }) => {
     let interval = setInterval(async () => {
       const result = await sound.current.getStatusAsync()
       setAudioTimestamp(result.positionMillis)
-      setActiveTime((prev) => prev + 1)
     }, 1000)
 
     return () => clearInterval(interval)

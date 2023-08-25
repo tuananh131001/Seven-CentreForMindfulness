@@ -4,11 +4,13 @@ import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SignInContext } from '../hooks/useAuthContext'
 import { AlertToast } from '../components/Toast'
 import * as Linking from 'expo-linking'
+import i18n from '../utils/i18n'
+import { useFocusEffect } from '@react-navigation/native'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
@@ -19,7 +21,13 @@ export const HomeView = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
   const getData = async () => {
     let audioListArr = []
-    const querySnapshot = await getDocs(collection(FIREBASE_DB, selectedCategory))
+    const category =
+      i18n.language === 'vi' && selectedCategory == 'guidedPractices'
+        ? 'guidedPracticeVn'
+        : selectedCategory
+
+    console.log('category', category)
+    const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
     querySnapshot.forEach((doc) => {
       audioListArr.push({ id: doc.id, data: doc.data() })
     })
@@ -30,7 +38,7 @@ export const HomeView = ({ navigation }) => {
   }
 
   const handlePressCard = async (audio) => {
-    if (selectedCategory === 'guidedPractices' || selectedCategory === 'guidedPracticeVn') {
+    if (selectedCategory === 'guidedPractices') {
       navigation.navigate('AudioView', {
         id: audio.id,
         link: audio.data.link,
@@ -59,6 +67,16 @@ export const HomeView = ({ navigation }) => {
       AlertToast(toast, error)
     }
   }
+  useFocusEffect(
+    useCallback(() => {
+      getData()
+
+      return () => {
+        setAudioList([]) // cleanup function
+        setSelectedCategory(CATEGORIES[1])
+      }
+    }, []),
+  )
 
   useEffect(() => {
     getData()
