@@ -5,6 +5,7 @@ export const checkNotificationPermissions = async (toast) => {
   const settings = await Notifications.getPermissionsAsync()
   if (settings.status !== 'granted') {
     AlertToast(toast, 'Notification permissions not granted.')
+    await Notifications.requestPermissionsAsync()
     return
   } else {
     return (
