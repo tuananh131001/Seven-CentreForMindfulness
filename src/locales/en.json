@@ -1,5 +1,6 @@
 {
   "greeting": "Hello!",
+  "username": "👋 Hi,",
   "LoginWelcomeTitle": "Welcome back,",
   "SignIn": "Sign In",
   "SignOut": "Log Out",

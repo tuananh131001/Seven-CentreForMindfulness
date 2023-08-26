@@ -95,7 +95,9 @@ export const HomeView = ({ navigation }) => {
     <ScrollView minHeight="100%" px="5">
       <VStack space="10">
         <HStack width="100%" alignItems="center" justifyContent="space-between" mt="16">
-          <Heading>👋 Hi, {signedIn?.name}</Heading>
+          <Heading>
+            {t('username')} {signedIn?.name}
+          </Heading>
         </HStack>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
