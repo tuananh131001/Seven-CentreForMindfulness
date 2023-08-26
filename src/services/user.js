@@ -6,6 +6,8 @@ import * as SecureStore from 'expo-secure-store'
 import { differenceInCalendarDays, parseISO } from 'date-fns'
 
 const DEFAULT_AVATAR = 'https://i.imgur.com/LZmjxxi.png'
+const DEFAULT_NOTIFICATION_HOUR = 20
+const DEFAULT_NOTIFICATION_MINUTE = 0
 
 export const registerWithEmailAndPassword = async (data, toast, dispatch) => {
   const { name, email, password, age, gender } = data
@@ -22,6 +24,8 @@ export const registerWithEmailAndPassword = async (data, toast, dispatch) => {
       isAgreedTerms: false,
       age,
       avatar: DEFAULT_AVATAR,
+      notificationHour: DEFAULT_NOTIFICATION_HOUR,
+      notificationMinute: DEFAULT_NOTIFICATION_MINUTE,
     })
     SecureStore.setItemAsync('uid', user.uid).then
     if (user) {

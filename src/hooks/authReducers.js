@@ -14,6 +14,8 @@ export const initialState = {
   isCompletedTest: null,
   assessmentScore: null,
   isAgreedTerms: null,
+  notificationHour: 20,
+  notificationMinute: 0,
 }
 
 export const SignInReducer = (state, action) => {
@@ -51,6 +53,7 @@ export const SignInReducer = (state, action) => {
         longestStreak: null,
         isCompletedTest: null,
         isAgreedTerms: null,
+        notificationTime: null,
       }
     case 'SET_USER':
       return {
@@ -69,6 +72,8 @@ export const SignInReducer = (state, action) => {
         isCompletedTest: action.payload.isCompletedTest ?? null,
         isAgreedTerms: action.payload.isAgreedTerms ?? null,
         assessmentScore: action.payload.assessmentScore ?? null,
+        notificationHour: action.payload.notificationHour ?? null,
+        notificationMinute: action.payload.notificationMinute ?? null,
       }
     case 'SET_AVATAR':
       return {

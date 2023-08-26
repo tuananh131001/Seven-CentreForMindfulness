@@ -2,7 +2,7 @@ import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, Text, ScrollView, VStack, useToast } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +11,8 @@ import { AlertToast } from '../components/Toast'
 import * as Linking from 'expo-linking'
 import i18n from '../utils/i18n'
 import { useFocusEffect } from '@react-navigation/native'
+import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
+import { scheduleDailyNotification } from '../services/notification'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
@@ -37,6 +39,7 @@ export const HomeView = ({ navigation }) => {
   }
 
   const handlePressCard = async (audio) => {
+    await findAudioOrCreate(audio.id)
     if (selectedCategory === 'guidedPractices') {
       navigation.navigate('AudioView', {
         id: audio.id,
@@ -45,9 +48,8 @@ export const HomeView = ({ navigation }) => {
         duration: audio.data.duration,
       })
     } else {
-      handleOpenURL(audio.data.link)
+      handleOpenURL(audio.data.link, audio.id)
     }
-    await findAudioOrCreate(audio.id)
   }
 
   const findAudioOrCreate = async (exerciseId) => {
@@ -59,8 +61,11 @@ export const HomeView = ({ navigation }) => {
     })
   }
 
-  const handleOpenURL = (url) => {
+  const handleOpenURL = async (url, attemptId) => {
     try {
+      const docRef = doc(FIREBASE_DB, 'userAttempts', attemptId)
+      await updateDoc(docRef, { isCompleted: true })
+      console.log('Attempt', attemptId, ' is completed')
       Linking.openURL(url)
     } catch (error) {
       AlertToast(toast, error)
@@ -76,6 +81,11 @@ export const HomeView = ({ navigation }) => {
       }
     }, []),
   )
+
+  useEffect(() => {
+    checkNotificationPermissions(toast)
+    scheduleDailyNotification(toast, signedIn?.notificationHour, signedIn?.notificationMinute)
+  }, [signedIn?.notificationHour, signedIn?.notificationMinute])
 
   useEffect(() => {
     getData()
