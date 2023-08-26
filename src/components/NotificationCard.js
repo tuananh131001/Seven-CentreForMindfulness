@@ -54,7 +54,6 @@ export const NotificationCard = () => {
           </Text>
         </Box>
       ))}
-      <Text>selected: {date.toLocaleString()}</Text>
       <Center>
         {' '}
         <DateTimePicker
