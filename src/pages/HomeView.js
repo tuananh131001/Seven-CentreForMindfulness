@@ -2,7 +2,7 @@ import { HorizontalCard } from '../components/HorizontalCard'
 import { Button, HStack, Heading, Text, ScrollView, VStack, useToast } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 import { Pressable } from 'react-native'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { useEffect, useState, useContext, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -39,6 +39,7 @@ export const HomeView = ({ navigation }) => {
   }
 
   const handlePressCard = async (audio) => {
+    await findAudioOrCreate(audio.id)
     if (selectedCategory === 'guidedPractices') {
       navigation.navigate('AudioView', {
         id: audio.id,
@@ -47,9 +48,8 @@ export const HomeView = ({ navigation }) => {
         duration: audio.data.duration,
       })
     } else {
-      handleOpenURL(audio.data.link)
+      handleOpenURL(audio.data.link, audio.id)
     }
-    await findAudioOrCreate(audio.id)
   }
 
   const findAudioOrCreate = async (exerciseId) => {
@@ -61,8 +61,11 @@ export const HomeView = ({ navigation }) => {
     })
   }
 
-  const handleOpenURL = (url) => {
+  const handleOpenURL = async (url, attemptId) => {
     try {
+      const docRef = doc(FIREBASE_DB, 'userAttempts', attemptId)
+      await updateDoc(docRef, { isCompleted: true })
+      console.log('Attempt', attemptId, ' is completed')
       Linking.openURL(url)
     } catch (error) {
       AlertToast(toast, error)
