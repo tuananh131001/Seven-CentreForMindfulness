@@ -11,6 +11,8 @@ import { AlertToast } from '../components/Toast'
 import * as Linking from 'expo-linking'
 import i18n from '../utils/i18n'
 import { useFocusEffect } from '@react-navigation/native'
+import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
+import { scheduleDailyNotification } from '../services/notification'
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
@@ -76,6 +78,11 @@ export const HomeView = ({ navigation }) => {
       }
     }, []),
   )
+
+  useEffect(() => {
+    checkNotificationPermissions(toast)
+    scheduleDailyNotification(toast, signedIn?.notificationHour, signedIn?.notificationMinute)
+  }, [signedIn?.notificationHour, signedIn?.notificationMinute])
 
   useEffect(() => {
     getData()
