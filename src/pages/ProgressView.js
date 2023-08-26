@@ -29,7 +29,6 @@ export const ProgressView = ({ navigation }) => {
     const collectionRef = collection(FIREBASE_DB, 'userAttempts')
 
     const docsSnap = await getDocs(collectionRef)
-    if ((docsSnap.docs.length = 0)) return
 
     docsSnap.forEach((doc) => {
       if (doc.data().uid === signedIn.uid && doc.data().isCompleted === true) {
