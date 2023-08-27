@@ -65,7 +65,9 @@ export const ProgressView = ({ navigation }) => {
       getUserAttempts()
 
       return () => {
-        setAttempts([])
+        setCompletedAudios([])
+        setCompletedVideos([])
+        setCompletedArticles([])
       }
     }, []),
   )
