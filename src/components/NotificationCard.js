@@ -8,6 +8,7 @@ import { clearAllScheduledNotifications, scheduleDailyNotification } from '../se
 import { updateUserFields } from '../services/user'
 import { SignInContext } from '../hooks/useAuthContext'
 import { getHours, getMinutes } from 'date-fns'
+import { Platform } from 'react-native'
 export const NotificationCard = () => {
   const toast = useToast()
   const { signedIn } = useContext(SignInContext)
@@ -18,7 +19,7 @@ export const NotificationCard = () => {
     const allScheduledNotifications = await Notifications.getAllScheduledNotificationsAsync()
     setScheduledNotifications(allScheduledNotifications)
     const nextTrigger = add(Date.now(), {
-      hours: allScheduledNotifications[0]?.trigger.dateComponents.hour,
+      hours: handleCrossPlatfromDate(allScheduledNotifications[0]?.trigger).hour,
     })
 
     setDate(nextTrigger)
@@ -37,6 +38,14 @@ export const NotificationCard = () => {
     }
   }
 
+  const handleCrossPlatfromDate = (trigger) => {
+    if (Platform.OS === 'ios') {
+      return trigger.dateComponents
+    } else {
+      return trigger
+    }
+  }
+
   useEffect(() => {
     checkNotificationPermissions(toast)
     checkScheduledNotifications()
@@ -49,8 +58,8 @@ export const NotificationCard = () => {
           <Text>ID: {notification.identifier}</Text>
           <Text>Body:{notification.content.body}</Text>
           <Text>
-            Trigger at: {notification.trigger.dateComponents.hour} hours{' '}
-            {notification.trigger.dateComponents.minute} minutes
+            Trigger at: {handleCrossPlatfromDate(notification.trigger).hour} hours{' '}
+            {handleCrossPlatfromDate(notification.trigger).minute} minutes
           </Text>
         </Box>
       ))}
