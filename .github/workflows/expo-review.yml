@@ -30,9 +30,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn
 
-      - name: 🏗 Build
-        run: yarn streamline:build
-
       - name: 💬 Comment in preview
         uses: expo/expo-github-action/preview@v8
         with:
