@@ -29,9 +29,9 @@ export const HomeView = ({ navigation }) => {
     let audioListArr = []
     try {
       const category =
-          i18n.language === 'vi' && selectedCategory === 'guidedPractices'
-            ? 'guidedPracticeVn'
-            : selectedCategory
+        i18n.language === 'vi' && selectedCategory === 'guidedPractices'
+          ? 'guidedPracticeVn'
+          : selectedCategory
       const cacheKey = `audioList_${category}`
       const cachedData = await AsyncStorage.getItem(cacheKey)
 

@@ -28,7 +28,7 @@ import { HomeViewLoading } from '../components/HomeViewLoading'
 import { useFocusEffect } from '@react-navigation/native'
 import { audioViewImages } from '../../assets/ImageConst'
 
-const THUMBNAIL = audioViewImages[audioViewImages.length * Math.random() | 0]
+const THUMBNAIL = audioViewImages[(audioViewImages.length * Math.random()) | 0]
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
