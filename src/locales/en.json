@@ -1,5 +1,6 @@
 {
   "greeting": "Hello!",
+  "username": "👋 Hi,",
   "LoginWelcomeTitle": "Welcome back,",
   "SignIn": "Sign In",
   "SignOut": "Log Out",
@@ -36,6 +37,10 @@
   "Location": "Location",
   "Analytics": "Your Analytics",
   "AssessmentScore": "Your ADHD Assessment Score",
+  "LowSeverity": "Low Severity!",
+  "ModerateSeverity": "Moderate Severity!",
+  "HighSeverity": "High Severity!",
+  "CriticalSeverity": "Critical Severity!",
   "CurrentStreak": "current learning streak",
   "LongestStreak": "longest learning streak",
   "AudioCompleted": "audio tracks completed",
@@ -68,6 +73,8 @@
   "Other": "Others",
   "FeelingBetter": "Feeling better?",
   "TakeTest": "Retake the test here!",
-  "SelectLanguage": "Choose language",
-  "AdjustNotificationTimer": "Adjust Notification Timer"
+  "SelectLanguage": "Choose Language",
+  "AdjustNotificationTimer": "Adjust Notification Timer",
+  "CheckNoti": "Check Notification",
+  "ClearNoti": "Clear Notification"
 }

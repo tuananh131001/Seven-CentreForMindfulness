@@ -13,6 +13,9 @@ import i18n from '../utils/i18n'
 import { useFocusEffect } from '@react-navigation/native'
 import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
 import { scheduleDailyNotification } from '../services/notification'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const CACHE_EXPIRY_TIME = 60 * 60 * 1000 // 1 hour in milliseconds
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
@@ -21,19 +24,40 @@ export const HomeView = ({ navigation }) => {
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
+
   const getData = async () => {
     let audioListArr = []
-    const category =
-      i18n.language === 'vi' && selectedCategory == 'guidedPractices'
-        ? 'guidedPracticeVn'
-        : selectedCategory
+    try {
+      const category =
+        i18n.language === 'vi' && selectedCategory === 'guidedPractices'
+          ? 'guidedPracticeVn'
+          : selectedCategory
+      const cacheKey = `audioList_${category}`
+      const cachedData = await AsyncStorage.getItem(cacheKey)
 
-    const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
-    querySnapshot.forEach((doc) => {
-      audioListArr.push({ id: doc.id, data: doc.data() })
-    })
-    setAudioList(audioListArr)
+      if (cachedData) {
+        const { data, timestamp } = JSON.parse(cachedData)
+
+        if (Date.now() - timestamp < CACHE_EXPIRY_TIME) setAudioList(data)
+      } else {
+        const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
+
+        querySnapshot.forEach((doc) => {
+          audioListArr.push({ id: doc.id, data: doc.data() })
+        })
+
+        setAudioList(audioListArr)
+
+        await AsyncStorage.setItem(
+          cacheKey,
+          JSON.stringify({ data: audioListArr, timestamp: Date.now() }),
+        )
+      }
+    } catch (error) {
+      AlertToast(toast, error)
+    }
   }
+
   const selectCategory = (category) => {
     setSelectedCategory(category)
   }
@@ -71,6 +95,7 @@ export const HomeView = ({ navigation }) => {
       AlertToast(toast, error)
     }
   }
+
   useFocusEffect(
     useCallback(() => {
       getData()
@@ -95,7 +120,9 @@ export const HomeView = ({ navigation }) => {
     <ScrollView minHeight="100%" px="5">
       <VStack space="10">
         <HStack width="100%" alignItems="center" justifyContent="space-between" mt="16">
-          <Heading>👋 Hi, {signedIn?.name}</Heading>
+          <Heading>
+            {t('username')} {signedIn?.name}
+          </Heading>
         </HStack>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

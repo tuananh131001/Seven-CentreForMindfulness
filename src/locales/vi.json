@@ -1,5 +1,6 @@
 {
   "greeting": "Xin chào!",
+  "username": "👋 Chào,",
   "LoginWelcomeTitle": "Chào mừng trở lại,",
   "SignIn": "Đăng nhập",
   "SignOut": "Đăng xuất",
@@ -36,6 +37,10 @@
   "Location": "Địa điểm",
   "Analytics": "Số liệu của bạn",
   "AssessmentScore": "Điểm bài đánh giá ADHD của bạn",
+  "LowSeverity": "Mức thấp!",
+  "ModerateSeverity": "Mức trung bình!",
+  "HighSeverity": "Mức cao!",
+  "CriticalSeverity": "Mức trầm trọng!",
   "CurrentStreak": "chuỗi học hiện tại",
   "LongestStreak": "chuỗi học dài nhất",
   "AudioCompleted": "bài nghe đã hoàn thành",
@@ -69,5 +74,7 @@
   "FeelingBetter": "Cảm thấy tốt hơn?",
   "TakeTest": "Kiểm tra lại!",
   "SelectLanguage": "Chọn ngôn ngữ",
-  "AdjustNotificationTimer": "Chọn thời gian nhắc nhở"
+  "AdjustNotificationTimer": "Chọn thời gian nhắc nhở",
+  "CheckNoti": "Kiểm tra thông báo",
+  "ClearNoti": "Gỡ bỏ thông báo"
 }
