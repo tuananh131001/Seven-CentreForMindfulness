@@ -1,5 +1,4 @@
 import { Flex, VStack, Heading, Text } from 'native-base'
-
 import {
   progressPrimaryColor,
   progressSecondaryColor,
@@ -33,13 +32,13 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
     let textString = ''
 
     if (assessmentScore <= 7) {
-      textString = 'LOW SEVERITY!'
+      textString = t('LowSeverity')
     } else if (assessmentScore > 7 && assessmentScore <= 14) {
-      textString = 'MEDIUM SEVERITY!'
+      textString = t('ModerateSeverity')
     } else if (assessmentScore > 7 && assessmentScore <= 21) {
-      textString = 'HIGH SEVERITY!'
+      textString = t('HighSeverity')
     } else {
-      textString = 'CRITICAL SEVERITY!'
+      textString = t('CriticalSeverity')
     }
 
     return textString
@@ -59,7 +58,7 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
         <Heading size="4xl" color={returnSeverityColor()}>
           {assessmentScore}/28
         </Heading>
-        <Heading size="xl" color={returnSeverityColor()}>
+        <Heading textTransform="uppercase" size="xl" color={returnSeverityColor()}>
           {returnSeverityText()}
         </Heading>
       </VStack>
