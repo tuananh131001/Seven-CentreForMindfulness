@@ -15,6 +15,8 @@ import { checkNotificationPermissions } from '../utils/checkNotificationPermissi
 import { scheduleDailyNotification } from '../services/notification'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const CACHE_EXPIRY_TIME = 60 * 60 * 1000 // 1 hour in milliseconds
+
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const toast = useToast()
@@ -30,7 +32,9 @@ export const HomeView = ({ navigation }) => {
       const cachedData = await AsyncStorage.getItem(cacheKey)
 
       if (cachedData) {
-        setAudioList(JSON.parse(cachedData))
+        const { data, timestamp } = JSON.parse(cachedData)
+
+        if (Date.now() - timestamp < CACHE_EXPIRY_TIME) setAudioList(data)
       } else {
         const category =
           i18n.language === 'vi' && selectedCategory === 'guidedPractices'
@@ -38,12 +42,17 @@ export const HomeView = ({ navigation }) => {
             : selectedCategory
 
         const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
+
         querySnapshot.forEach((doc) => {
           audioListArr.push({ id: doc.id, data: doc.data() })
         })
 
         setAudioList(audioListArr)
-        await AsyncStorage.setItem(cacheKey, JSON.stringify(audioListArr))
+
+        await AsyncStorage.setItem(
+          cacheKey,
+          JSON.stringify({ data: audioListArr, timestamp: Date.now() }),
+        )
       }
     } catch (error) {
       AlertToast(toast, error)
