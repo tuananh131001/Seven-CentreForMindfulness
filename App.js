@@ -19,13 +19,10 @@ import { AssessmentView } from './src/pages/AssessmentView'
 import { useEffect, useContext, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { SettingsPage } from './src/pages/SettingPages'
-import { checkNotificationPermissions } from './src/utils/checkNotificationPermissions'
 import { SignInContext, SignInContextProvider } from './src/hooks/useAuthContext'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { getUserProfileByUID } from './src/services/user'
 import { LoadingBase } from './src/components/LoadingBase'
-import { set } from 'date-fns'
-import { scheduleDailyNotification } from './src/services/notification'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
