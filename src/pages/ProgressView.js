@@ -5,18 +5,72 @@ import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
 import { updateUserFields } from '../services/user'
 import { boldTextColor } from '../../assets/ColorConst'
-import { useContext } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
+
+import { FIREBASE_DB } from '../../firebaseConfig'
+import { collection, query, where, getDocs } from 'firebase/firestore'
+
+import { useFocusEffect } from '@react-navigation/native'
 
 export const ProgressView = ({ navigation }) => {
   const { t } = useTranslation()
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
+  const [completedAudios, setCompletedAudios] = useState([])
+  const [completedVideos, setCompletedVideos] = useState([])
+  const [completedArticles, setCompletedArticles] = useState([])
 
   const handleRedoTest = async () => {
     await updateUserFields(signedIn.uid, { isCompletedTest: false })
     await dispatchSignedIn({ type: 'SET_COMPLETED_TEST' })
     navigation.navigate('AssessmentView')
   }
+
+  const getUserAttempts = async () => {
+    let attemptsArray = []
+    let audiosType = []
+    let videosType = []
+    let articlesType = []
+
+    const collectionRef = collection(FIREBASE_DB, 'userAttempts')
+
+    const q = query(
+      collectionRef,
+      where('uid', '==', signedIn.uid),
+      where('isCompleted', '==', true),
+    )
+
+    const docsSnap = await getDocs(q)
+
+    docsSnap.forEach((doc) => {
+      attemptsArray.push(doc.data().type)
+    })
+
+    attemptsArray.forEach((attempt) => {
+      if (attempt === 'guidedPractices' || attempt === 'guidedPracticeVn') {
+        audiosType.push(attempt)
+      } else if (attempt === 'audios') {
+        videosType.push(attempt)
+      } else {
+        articlesType.push(attempt)
+      }
+    })
+    setCompletedAudios(audiosType)
+    setCompletedVideos(videosType)
+    setCompletedArticles(articlesType)
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserAttempts()
+
+      return () => {
+        setCompletedAudios([])
+        setCompletedVideos([])
+        setCompletedArticles([])
+      }
+    }, []),
+  )
 
   return (
     <ScrollView bg="white" minHeight="100%" pb="10">
@@ -28,6 +82,9 @@ export const ProgressView = ({ navigation }) => {
         <InteractionAnalytics
           currentStreak={signedIn.currentStreak}
           longestStreak={signedIn.longestStreak}
+          completedAudios={completedAudios.length}
+          completedVideos={completedVideos.length}
+          completedArticles={completedArticles.length}
         />
         <HStack width="100%" mb="5" space="1" justifyContent="center">
           <Text fontSize="md" fontWeight="300" color="coolGray.600">
