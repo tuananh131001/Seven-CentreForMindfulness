@@ -28,7 +28,11 @@ export const HomeView = ({ navigation }) => {
   const getData = async () => {
     let audioListArr = []
     try {
-      const cacheKey = `audioList_${selectedCategory}`
+      const category =
+          i18n.language === 'vi' && selectedCategory === 'guidedPractices'
+            ? 'guidedPracticeVn'
+            : selectedCategory
+      const cacheKey = `audioList_${category}`
       const cachedData = await AsyncStorage.getItem(cacheKey)
 
       if (cachedData) {
@@ -36,11 +40,6 @@ export const HomeView = ({ navigation }) => {
 
         if (Date.now() - timestamp < CACHE_EXPIRY_TIME) setAudioList(data)
       } else {
-        const category =
-          i18n.language === 'vi' && selectedCategory === 'guidedPractices'
-            ? 'guidedPracticeVn'
-            : selectedCategory
-
         const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
 
         querySnapshot.forEach((doc) => {
