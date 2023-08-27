@@ -10,36 +10,24 @@ jobs:
     name: Install and build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
 
-      - name: Reconfigure git to use HTTP authentication
-        run: >
-          git config --global url."https://github.com/".insteadOf
-          ssh://git@github.com/
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: ${{ matrix.node }}
+          cache: yarn
 
-      - name: Setup Expo
-        uses: expo/expo-github-action@v6
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v8
         with:
-          expo-version: 4.x
           token: ${{ secrets.EXPO_TOKEN }}
-          expo-cache: true
+          expo-version: latest
+          eas-version: latest
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Authenticate git name
-        run: git config --global user.name "Sakshya Arora"
-
-      - name: Authenticate git email
-        run: git config --global user.email "sakshya@geekyants.com"
+      - name: 📦 Install dependencies
+        run: yarn
 
       - name: Build on EAS
         run: EAS_BUILD_AUTOCOMMIT=${{1}} npx eas-cli build --platform all --non-interactive
