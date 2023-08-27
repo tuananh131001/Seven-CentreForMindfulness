@@ -26,6 +26,9 @@ import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
 import { useFocusEffect } from '@react-navigation/native'
+import { audioViewImages } from '../../assets/ImageConst'
+
+const THUMBNAIL = audioViewImages[audioViewImages.length * Math.random() | 0]
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
@@ -163,7 +166,7 @@ export const AudioView = ({ route, navigation }) => {
             <Box borderRadius="full" bg={audioPrimaryColor} margin="3">
               <Image
                 source={{
-                  uri: 'https://blush.design/api/download?shareUri=8rihonJGqaYdyiU_&c=Hair_0%7E0f0f0f_Skin_0%7Ef6cbc3&w=800&h=800&fm=png',
+                  uri: THUMBNAIL,
                 }}
                 alt="Self-reflection"
                 size="175"
