@@ -26,9 +26,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn
 
-      - name: 🚀 Publish preview
-        run: expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
-
       - name: 🚀 Create preview
         uses: expo/expo-github-action/preview@v8
         with:
