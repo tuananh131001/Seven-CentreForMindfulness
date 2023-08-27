@@ -37,29 +37,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
 
-      - name: Reconfigure git to use HTTP authentication
-        run: >
-          git config --global url."https://github.com/".insteadOf
-          ssh://git@github.com/
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: yarn
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v8
         with:
-          node-version: 14.x
-      - name: Setup Expo
-        uses: expo/expo-github-action@v6
-        with:
-          expo-version: 4.x
           token: ${{ secrets.EXPO_TOKEN }}
-          expo-cache: true
+          expo-version: latest
+          eas-version: latest
 
-      - name: Install dependencies
-        run: npm ci
+      - name: 📦 Install dependencies
+        run: yarn
 
       - name: Submit to testflight
         run: EXPO_APPLE_APP_SPECIFIC_PASSWORD=${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }} npx eas-cli submit -p ios --latest --non-interactive
