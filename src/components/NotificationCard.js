@@ -8,12 +8,15 @@ import { clearAllScheduledNotifications, scheduleDailyNotification } from '../se
 import { updateUserFields } from '../services/user'
 import { SignInContext } from '../hooks/useAuthContext'
 import { getHours, getMinutes } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
+
 export const NotificationCard = () => {
   const toast = useToast()
   const { signedIn } = useContext(SignInContext)
   const [date, setDate] = useState(new Date(1693022411243.0166))
   const [scheduledNotifications, setScheduledNotifications] = useState([])
+  const { t } = useTranslation()
 
   const checkScheduledNotifications = async () => {
     const allScheduledNotifications = await Notifications.getAllScheduledNotificationsAsync()
@@ -80,7 +83,7 @@ export const NotificationCard = () => {
           checkScheduledNotifications()
         }}
       >
-        Check Notification
+        {t('CheckNoti')}
       </Button>
 
       <Button
@@ -91,7 +94,7 @@ export const NotificationCard = () => {
         }}
         colorScheme="secondary"
       >
-        Clear Notification
+        {t('ClearNoti')}
       </Button>
     </Box>
   )
