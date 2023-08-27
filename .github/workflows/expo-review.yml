@@ -28,7 +28,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
-        run: yarn install
+        run: yarn
 
       - name: 🏗 Build
         run: yarn streamline:build
