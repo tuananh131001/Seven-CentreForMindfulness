@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   Flex,
   View,
@@ -25,25 +25,51 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { FIREBASE_DB } from '../../firebaseConfig'
 import { millisToMinutesAndSeconds } from '../utils/helpers'
 import { HomeViewLoading } from '../components/HomeViewLoading'
+import { useFocusEffect } from '@react-navigation/native'
 
 export const AudioView = ({ route, navigation }) => {
   const { id, title, link } = route.params
   const [isPlayed, setIsPlayed] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [durationAudio, setDurationAudio] = useState(0)
-  const [currentAudioTimestamp, setAudioTimestamp] = useState(0)
-  const [attemptId, setAttemptId] = useState(null)
-  const [usageTimerRun, setUsageTimerRun] = useState(false)
+  const [currentTimestamp, setCurrentTimestamp] = useState(0)
   const toast = useToast()
   const sound = useRef(new Audio.Sound())
 
-  useEffect(() => {
-    const startPlayAudio = async () => {
-      await getAudio()
-      toggleAudioStatus()
-    }
-    startPlayAudio()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      const startPlayAudio = async () => {
+        await getAudio()
+        toggleAudioStatus()
+      }
+
+      startPlayAudio()
+
+      return () => {
+        sound.current.unloadAsync()
+        setIsPlayed(false)
+      }
+    }, []),
+  )
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', () => {
+        if (durationAudio > 0 && currentTimestamp >= durationAudio - 60000) {
+          saveUserAttempt(currentTimestamp, durationAudio)
+        }
+      }),
+    [navigation, currentTimestamp],
+  )
+
+  const saveUserAttempt = async (currentTimestamp, durationAudio) => {
+    console.log('c', currentTimestamp, 'd', durationAudio - 60000)
+
+    const docRef = doc(FIREBASE_DB, 'userAttempts', id)
+    await updateDoc(docRef, { isCompleted: true })
+    AlertToast(toast, 'You have completed this exercise!', 'success')
+    console.log('completed')
+  }
 
   const getAudio = async () => {
     setLoading(true)
@@ -58,7 +84,6 @@ export const AudioView = ({ route, navigation }) => {
       }
       let updated_status = await sound.current.getStatusAsync()
       setDurationAudio(updated_status.durationMillis)
-      setAttemptId(id)
       setLoading(false)
     } else {
       setLoading(false)
@@ -70,7 +95,7 @@ export const AudioView = ({ route, navigation }) => {
       const result = await sound.current.getStatusAsync()
       if (result.isLoaded) {
         if (result.isPlaying === false) {
-          sound.current.playFromPositionAsync(currentAudioTimestamp)
+          sound.current.playFromPositionAsync(currentTimestamp)
         }
       }
     } catch (error) {
@@ -81,9 +106,9 @@ export const AudioView = ({ route, navigation }) => {
   const playFromPostition = async (position) => {
     if (isPlayed === false) return
     try {
+      setCurrentTimestamp(position)
       await sound.current.setPositionAsync(position)
       await sound.current.playAsync()
-      setAudioTimestamp(position)
     } catch (error) {
       AlertToast(toast, error)
     }
@@ -92,35 +117,22 @@ export const AudioView = ({ route, navigation }) => {
   const toggleAudioStatus = () => {
     setIsPlayed(!isPlayed)
     isPlayed ? sound.current.pauseAsync() : playSound()
-    isPlayed ? setUsageTimerRun(false) : setUsageTimerRun(true)
-  }
-
-  const handleBackButtonClick = async () => {
-    navigation.goBack()
-
-    if (sound !== undefined) {
-      sound.current.unloadAsync()
-      setUsageTimerRun(false)
-
-      // 60000 = 1 minute
-      if (currentAudioTimestamp > durationAudio - 60000) {
-        const docRef = doc(FIREBASE_DB, 'userAttempts', attemptId)
-        await updateDoc(docRef, { isCompleted: true })
-        console.log('Attempt', attemptId, ' is completed')
-      }
-    }
   }
 
   useEffect(() => {
-    if (usageTimerRun === false) return
+    if (isPlayed === false) return
 
-    let interval = setInterval(async () => {
-      const result = await sound.current.getStatusAsync()
-      setAudioTimestamp(result.positionMillis)
-    }, 1000)
+    const updateStatus = async () => {
+      const status = await sound.current.getStatusAsync()
+      setCurrentTimestamp(status.positionMillis)
+    }
 
-    return () => clearInterval(interval)
-  }, [usageTimerRun])
+    const interval = setInterval(updateStatus, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [isPlayed])
 
   if (isLoading) {
     return <HomeViewLoading handleBackButtonClick={() => navigation.goBack()} />
@@ -132,7 +144,7 @@ export const AudioView = ({ route, navigation }) => {
         <IconButton
           icon={<MaterialIcons name="arrow-back" size={40} color="white" />}
           variant="ghost"
-          onPress={handleBackButtonClick}
+          onPress={() => navigation.goBack()}
         />
       </Flex>
 
@@ -172,7 +184,7 @@ export const AudioView = ({ route, navigation }) => {
             <IconButton
               icon={<MaterialIcons name="fast-rewind" size={30} color={audioAccentColor} />}
               variant="ghost"
-              onPress={() => playFromPostition(currentAudioTimestamp - 10000)}
+              onPress={() => playFromPostition(currentTimestamp - 10000)}
             />
             <IconButton
               icon={
@@ -189,19 +201,19 @@ export const AudioView = ({ route, navigation }) => {
             />
             <IconButton
               icon={<MaterialIcons name="fast-forward" size={30} color={audioAccentColor} />}
-              onPress={() => playFromPostition(currentAudioTimestamp + 10000)}
+              onPress={() => playFromPostition(currentTimestamp + 10000)}
               variant="ghost"
             />
           </HStack>
           <Flex direction="row" justifyContent="space-between" alignItems="center">
-            <Text>{millisToMinutesAndSeconds(currentAudioTimestamp)}</Text>
+            <Text>{millisToMinutesAndSeconds(currentTimestamp)}</Text>
             <View>
               <Slider
                 width="250"
                 size="md"
                 minValue={0}
-                value={currentAudioTimestamp}
-                onChange={(value) => setAudioTimestamp(value)}
+                value={currentTimestamp}
+                onChange={(value) => setCurrentTimestamp(value)}
                 onChangeEnd={(value) => playFromPostition(value)}
                 maxValue={durationAudio}
                 defaultValue={0}
