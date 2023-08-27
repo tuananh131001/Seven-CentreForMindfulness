@@ -9,14 +9,16 @@ import { useState, useContext, useCallback } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
 
 import { FIREBASE_DB } from '../../firebaseConfig'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, query, where, getDocs } from 'firebase/firestore'
 
 import { useFocusEffect } from '@react-navigation/native'
 
 export const ProgressView = ({ navigation }) => {
   const { t } = useTranslation()
   const { signedIn, dispatchSignedIn } = useContext(SignInContext)
-  const [attempts, setAttempts] = useState([])
+  const [completedAudios, setCompletedAudios] = useState([])
+  const [completedVideos, setCompletedVideos] = useState([])
+  const [completedArticles, setCompletedArticles] = useState([])
 
   const handleRedoTest = async () => {
     await updateUserFields(signedIn.uid, { isCompletedTest: false })
@@ -26,58 +28,42 @@ export const ProgressView = ({ navigation }) => {
 
   const getUserAttempts = async () => {
     let attemptsArray = []
+    let audiosType = []
+    let videosType = []
+    let articlesType = []
+
     const collectionRef = collection(FIREBASE_DB, 'userAttempts')
 
-    const docsSnap = await getDocs(collectionRef)
+    const q = query(
+      collectionRef,
+      where('uid', '==', signedIn.uid),
+      where('isCompleted', '==', true),
+    )
+
+    const docsSnap = await getDocs(q)
 
     docsSnap.forEach((doc) => {
-      if (doc.data().uid === signedIn.uid && doc.data().isCompleted === true) {
-        attemptsArray.push(doc.data().type)
-      }
+      attemptsArray.push(doc.data().type)
     })
 
-    setAttempts(attemptsArray)
-  }
-
-  const getCompletedAudios = () => {
-    let completedAudios = 0
-
-    attempts.forEach((attempt) => {
+    attemptsArray.forEach((attempt) => {
       if (attempt === 'guidedPractices' || attempt === 'guidedPracticeVn') {
-        completedAudios += 1
+        audiosType.push(attempt)
+      } else if (attempt === 'audios') {
+        videosType.push(attempt)
+      } else {
+        articlesType.push(attempt)
       }
     })
-
-    return completedAudios
-  }
-
-  const getCompletedVideos = () => {
-    let completedVideos = 0
-
-    attempts.forEach((attempt) => {
-      if (attempt === 'audios') {
-        completedVideos += 1
-      }
-    })
-
-    return completedVideos
-  }
-
-  const getCompletedArticles = () => {
-    let completedArticles = 0
-
-    attempts.forEach((attempt) => {
-      if (attempt === 'articles') {
-        completedArticles += 1
-      }
-    })
-
-    return completedArticles
+    setCompletedAudios(audiosType)
+    setCompletedVideos(videosType)
+    setCompletedArticles(articlesType)
   }
 
   useFocusEffect(
     useCallback(() => {
       getUserAttempts()
+
       return () => {
         setAttempts([])
       }
@@ -94,9 +80,9 @@ export const ProgressView = ({ navigation }) => {
         <InteractionAnalytics
           currentStreak={signedIn.currentStreak}
           longestStreak={signedIn.longestStreak}
-          getCompletedAudios={getCompletedAudios}
-          getCompletedVideos={getCompletedVideos}
-          getCompletedArticles={getCompletedArticles}
+          completedAudios={completedAudios.length}
+          completedVideos={completedVideos.length}
+          completedArticles={completedArticles.length}
         />
         <HStack width="100%" mb="5" space="1" justifyContent="center">
           <Text fontSize="md" fontWeight="300" color="coolGray.600">

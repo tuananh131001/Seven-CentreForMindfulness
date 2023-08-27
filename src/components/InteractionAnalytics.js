@@ -16,9 +16,9 @@ import { FontAwesome, Feather, MaterialIcons, Octicons, Entypo } from '@expo/vec
 export const InteractionAnalytics = ({
   currentStreak,
   longestStreak,
-  getCompletedAudios,
-  getCompletedVideos,
-  getCompletedArticles,
+  completedAudios,
+  completedVideos,
+  completedArticles,
 }) => {
   const { t } = useTranslation()
   return (
@@ -61,7 +61,7 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
             <MaterialIcons name="multitrack-audio" size={30} color={progressBlueColor} />
-            <Heading size="xl">{getCompletedAudios()}</Heading>
+            <Heading size="xl">{completedAudios}</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('AudioCompleted')}</Text>
         </Flex>
@@ -74,7 +74,7 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
             <Octicons name="video" size={30} color={progressGreenColor} />
-            <Heading size="xl">{getCompletedVideos()}</Heading>
+            <Heading size="xl">{completedVideos}</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('VideoCompleted')}</Text>
         </Flex>
@@ -89,7 +89,7 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
             <Entypo name="open-book" size={30} color={progressOrangeColor} />
-            <Heading size="xl">{getCompletedArticles()}</Heading>
+            <Heading size="xl">{completedArticles}</Heading>
           </HStack>
           <Text color={progressSecondaryColor}>{t('ArticleCompleted')}</Text>
         </Flex>
