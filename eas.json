@@ -10,6 +10,9 @@
     "preview": {
       "distribution": "internal"
     },
+    "preview-android-aab": {
+      "developmentClient" : true
+    },
     "preview-android": {
       "android": {
         "buildType": "apk"
