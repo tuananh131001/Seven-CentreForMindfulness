@@ -32,13 +32,13 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
     let textString = ''
 
     if (assessmentScore <= 7) {
-      textString = t('LowSeverity')
+      textString = 'LowSeverity'
     } else if (assessmentScore > 7 && assessmentScore <= 14) {
-      textString = t('ModerateSeverity')
+      textString = 'ModerateSeverity'
     } else if (assessmentScore > 7 && assessmentScore <= 21) {
-      textString = t('HighSeverity')
+      textString = 'HighSeverity'
     } else {
-      textString = t('CriticalSeverity')
+      textString = 'CriticalSeverity'
     }
 
     return textString
@@ -59,7 +59,7 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
           {assessmentScore}/28
         </Heading>
         <Heading textTransform="uppercase" size="xl" color={returnSeverityColor()}>
-          {returnSeverityText()}
+          {t(returnSeverityText())}
         </Heading>
       </VStack>
       <Flex width="100%" my="5" borderColor={progressSecondaryColor} borderWidth="1"></Flex>
