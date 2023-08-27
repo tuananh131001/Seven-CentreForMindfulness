@@ -55,9 +55,9 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn
-
-      - name: Submit to testflight
-        run: EXPO_APPLE_APP_SPECIFIC_PASSWORD=${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }} npx eas-cli submit -p ios --latest --non-interactive
+        
+      # - name: Submit to testflight
+      #   run: EXPO_APPLE_APP_SPECIFIC_PASSWORD=${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }} npx eas-cli submit -p ios --latest --non-interactive
 
       - name: Submit to playstore
         run: npx eas-cli submit -p android --latest --non-interactive
