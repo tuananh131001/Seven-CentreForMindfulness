@@ -24,7 +24,7 @@ jobs:
         uses: expo/expo-github-action@v8
         with:
           expo-version: latest
-          token: ${{ secrets.EXPO_CLI_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
         run: yarn install
