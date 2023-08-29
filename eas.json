@@ -1,6 +1,8 @@
 {
   "cli": {
-    "version": ">= 3.15.1"
+    "version": ">= 3.15.1",
+    "appVersionSource":"remote",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -11,7 +13,7 @@
       "distribution": "internal"
     },
     "preview-android-aab": {
-      "developmentClient" : true
+      "developmentClient": true
     },
     "preview-android": {
       "android": {
@@ -21,6 +23,15 @@
 
     "production": {
       "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "tangkwo1kr@gmail.com",
+        "ascAppId": "6462269277",
+        "appleTeamId": "7WQ793K38U"
+      }
     }
   }
 }
