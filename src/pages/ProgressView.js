@@ -66,7 +66,6 @@ export const ProgressView = ({ navigation }) => {
     setCompletedArticles(articlesScore)
   }
 
-
   useFocusEffect(
     useCallback(() => {
       const calculatePoints = async () => {
