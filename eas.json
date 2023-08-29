@@ -19,6 +19,8 @@
       }
     },
 
-    "production": {}
+    "production": {
+      "autoIncrement": true
+    }
   }
 }
