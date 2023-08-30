@@ -17,7 +17,8 @@
       "bundleIdentifier": "com.williama1pha.sereneproject",
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "buildNumber": "6"
     },
     "android": {
       "adaptiveIcon": {

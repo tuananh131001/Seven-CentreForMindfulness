@@ -4,8 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start --go",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "build:ios": "expo build:ios",
     "web": "expo start --web",
     "format": "prettier --check ./src",
@@ -64,7 +64,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-redux": "^8.1.0",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "expo-splash-screen": "~0.20.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
