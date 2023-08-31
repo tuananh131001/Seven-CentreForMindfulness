@@ -22,7 +22,7 @@ export const NotificationCard = () => {
     const allScheduledNotifications = await Notifications.getAllScheduledNotificationsAsync()
     setScheduledNotifications(allScheduledNotifications)
     const nextTrigger = add(Date.now(), {
-      hours: handleCrossPlatfromDate(allScheduledNotifications[0]?.trigger).hour,
+      hours: handleCrossPlatfromDate(allScheduledNotifications[0]?.trigger)?.hour,
     })
 
     setDate(nextTrigger)
@@ -43,7 +43,7 @@ export const NotificationCard = () => {
 
   const handleCrossPlatfromDate = (trigger) => {
     if (Platform.OS === 'ios') {
-      return trigger.dateComponents
+      return trigger?.dateComponents
     } else {
       return trigger
     }
