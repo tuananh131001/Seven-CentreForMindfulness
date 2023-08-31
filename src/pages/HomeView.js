@@ -25,42 +25,49 @@ export const HomeView = ({ navigation }) => {
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
 
-  const getData = async () => {
+  const getHomeViewData = async () => {
     let audioListArr = []
-    try {
-      const category =
-        i18n.language === 'vi' && selectedCategory === 'guidedPractices'
-          ? 'guidedPracticeVn'
-          : selectedCategory
-      const cacheKey = `audioList_${category}`
-      const cachedData = await AsyncStorage.getItem(cacheKey)
+    const category =
+      i18n.language === 'vi' && selectedCategory === 'guidedPractices'
+        ? 'guidedPracticeVn'
+        : selectedCategory
+    const cacheKey = `audioList_${category}`
+    const cachedData = await AsyncStorage.getItem(cacheKey)
 
+    try {
       if (cachedData) {
         const { data, timestamp } = JSON.parse(cachedData)
 
-        if (Date.now() - timestamp < CACHE_EXPIRY_TIME) setAudioList(data)
+        console.log("Get data from cache")
+        Date.now() - timestamp < CACHE_EXPIRY_TIME
+          ? setAudioList(data)
+          : await getDataFromFirebase(category, audioListArr, cacheKey)
       } else {
-        const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
-
-        querySnapshot.forEach((doc) => {
-          audioListArr.push({ id: doc.id, data: doc.data() })
-        })
-
-        setAudioList(audioListArr)
-
-        await AsyncStorage.setItem(
-          cacheKey,
-          JSON.stringify({ data: audioListArr, timestamp: Date.now() }),
-        )
+        await getDataFromFirebase(category, audioListArr, cacheKey)
       }
     } catch (error) {
       AlertToast(toast, error)
     }
   }
 
-  const selectCategory = (category) => {
-    setSelectedCategory(category)
+  const getDataFromFirebase = async (category, audioListArr, cacheKey) => {
+    console.log("Get data from Firebase")
+
+    const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
+
+    querySnapshot.forEach((doc) => {
+      audioListArr.push({ id: doc.id, data: doc.data() })
+    })
+
+    setAudioList(audioListArr)
+
+    await AsyncStorage.setItem(
+      cacheKey,
+      JSON.stringify({ data: audioListArr, timestamp: Date.now() }),
+    )
   }
+
+  const selectCategory = (category) => setSelectedCategory(category)
 
   const handlePressCard = async (audio) => {
     await findAudioOrCreate(audio.id)
@@ -98,7 +105,7 @@ export const HomeView = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      getData()
+      getHomeViewData()
 
       return () => {
         setAudioList([]) // cleanup function
@@ -113,7 +120,7 @@ export const HomeView = ({ navigation }) => {
   }, [signedIn?.notificationHour, signedIn?.notificationMinute])
 
   useEffect(() => {
-    getData()
+    getHomeViewData()
   }, [selectedCategory])
 
   return (
