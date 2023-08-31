@@ -38,7 +38,7 @@ export const HomeView = ({ navigation }) => {
       if (cachedData) {
         const { data, timestamp } = JSON.parse(cachedData)
 
-        console.log("Get data from cache")
+        console.log('Get data from cache')
         Date.now() - timestamp < CACHE_EXPIRY_TIME
           ? setAudioList(data)
           : await getDataFromFirebase(category, audioListArr, cacheKey)
@@ -51,7 +51,7 @@ export const HomeView = ({ navigation }) => {
   }
 
   const getDataFromFirebase = async (category, audioListArr, cacheKey) => {
-    console.log("Get data from Firebase")
+    console.log('Get data from Firebase')
 
     const querySnapshot = await getDocs(collection(FIREBASE_DB, category))
 
