@@ -31,12 +31,13 @@ import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'react'
 import { SignInContext } from '../hooks/useAuthContext'
+import { ForgetPasswordModal } from '../components/ForgetPasswordModal'
 
 export const LoginPage = ({ navigation }) => {
   const { dispatchSignedIn } = useContext(SignInContext)
-
   const { t } = useTranslation()
   const [loading, setLoading] = useState()
+  const [modalVisible, setModalVisible] = useState(false)
   const toast = useToast()
   const {
     control,
@@ -50,7 +51,6 @@ export const LoginPage = ({ navigation }) => {
     await logInWithEmailAndPassword(data, toast, dispatchSignedIn)
     setLoading(false)
   }
-
   return (
     <Flex direction="column" width="100%" h="100%">
       <Center w="100%" bg={primaryColor}>
@@ -111,6 +111,7 @@ export const LoginPage = ({ navigation }) => {
                   fontWeight: '700',
                   color: '#4C1D95',
                 }}
+                onPress={() => setModalVisible(true)}
                 isUnderlined={false}
                 alignSelf="flex-end"
                 my="1"
@@ -154,6 +155,9 @@ export const LoginPage = ({ navigation }) => {
             </HStack>
           </Flex>
         </Box>
+        {modalVisible && (
+          <ForgetPasswordModal setModalVisible={setModalVisible} modalVisible={modalVisible} />
+        )}
       </Center>
     </Flex>
   )
