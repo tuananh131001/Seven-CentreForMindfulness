@@ -53,3 +53,7 @@ export const updateProfileSchema = yup.object().shape({
     .matches(/^\+(?:[0-9] ?){6,14}[0-9]$/, 'Invalid phone number format'),
   avatar: yup.string(),
 })
+
+export const resetPasswordSchema = yup.object().shape({
+  email: yup.string().email('This is not an email.').required('Please enter an email.'),
+})
