@@ -1,10 +1,13 @@
-import { Box, VStack, Center, Heading } from 'native-base'
+import { Box, VStack, Center, Heading, Button } from 'native-base'
 import { LanguageSwitchButton } from '../components/LanguageSwitchButton'
 import { useTranslation } from 'react-i18next'
 import { NotificationCard } from '../components/NotificationCard'
+import { useState } from 'react'
+import { AlertModal } from '../components/AlertModal'
 
 export const SettingsPage = () => {
   const { t } = useTranslation()
+  const [modalVisible, setModalVisible] = useState(false)
 
   return (
     <Center mt="20">
@@ -15,9 +18,18 @@ export const SettingsPage = () => {
             <LanguageSwitchButton />
             <Heading>{t('AdjustNotificationTimer')}</Heading>
             <NotificationCard />
+            <Button
+              onPress={() => setModalVisible(true)}
+              colorScheme="danger"
+              accessibilityLabel="Change Language"
+              width="100%"
+            >
+              Delete Account
+            </Button>
           </VStack>
         </VStack>
       </Box>
+      {modalVisible && <AlertModal modalVisible={modalVisible} setModalVisible={setModalVisible} />}
     </Center>
   )
 }
