@@ -76,5 +76,14 @@
   "SelectLanguage": "Chọn ngôn ngữ",
   "AdjustNotificationTimer": "Chọn thời gian nhắc nhở",
   "CheckNoti": "Kiểm tra thông báo",
-  "ClearNoti": "Gỡ bỏ thông báo"
+  "ClearNoti": "Gỡ bỏ thông báo",
+  "EmailAlert": "Email không hợp lệ hoặc chưa được hỗ trợ",
+  "ResetPassword": "Đặt lại mật khẩu",
+  "SendEmail": "Gửi",
+  "DeleteAccount": "Xóa tài khoản",
+  "DeleteAccountWarning": "Hành động này sẽ xoá tài khoản và dữ liệu của bạn vĩnh viễn. Hãy nhập mật khẩu và bấm ĐỒNG Ý nếu bạn muốn tiếp tục.",
+  "Yes": "Đồng ý",
+  "No": "Không",
+  "UserProfileUpdateAlert": "Cập nhật hồ sơ thành công",
+  "ResetEmailSent": "Đã gửi email đặt lại mật khẩu"
 }
