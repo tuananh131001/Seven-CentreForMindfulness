@@ -22,6 +22,7 @@ import {
 import { AlertToast } from '../components/Toast'
 import * as SecureStore from 'expo-secure-store'
 import { differenceInCalendarDays, parseISO } from 'date-fns'
+import { t } from 'i18next'
 
 const DEFAULT_AVATAR = 'https://i.imgur.com/LZmjxxi.png'
 const DEFAULT_NOTIFICATION_HOUR = 20
@@ -108,7 +109,7 @@ export const updateUserProfileByUID = async (uid, updatedData, toast, dispatch) 
     const userDocRef = doc(FIREBASE_DB, 'users', querySnapshot.docs[0].id)
     await updateDoc(userDocRef, updatedData)
 
-    AlertToast(toast, 'User profile updated successfully!', 'success')
+    AlertToast(toast, t('UserProfileUpdateAlert'), 'success')
     dispatch({ type: 'SET_USER', payload: updatedData })
   } catch (error) {
     AlertToast(toast, error.message)
@@ -163,11 +164,11 @@ export const updateUserFields = async (uid, data) => {
 export const sendPasswordResetEmailToUser = async (email, toast, modalVisible, setModalVisible) => {
   await sendPasswordResetEmail(FIREBASE_AUTH, email)
     .then(() => {
-      AlertToast(toast, 'Password reset email sent successfully!', 'success')
+      AlertToast(toast, t('ResetEmailSent'), 'success')
       setModalVisible(false)
     })
     .catch(() => {
-      AlertToast(toast, 'This user email is not valid or not supported')
+      AlertToast(toast, t('EmailAlert'))
       setModalVisible(true)
     })
 }

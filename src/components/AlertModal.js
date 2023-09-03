@@ -7,8 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { errorColor } from '../../assets/ColorConst'
 import { useForm, Controller } from 'react-hook-form'
 import { reauthenticateSchema } from '../utils/ValidateUserInput'
+import { useTranslation } from 'react-i18next'
 
 export const AlertModal = ({ modalVisible, setModalVisible }) => {
+  const { t } = useTranslation()
   const { dispatchSignedIn } = useContext(SignInContext)
   const toast = useToast()
 
@@ -27,15 +29,11 @@ export const AlertModal = ({ modalVisible, setModalVisible }) => {
       <Modal size="lg" isOpen={modalVisible} onClose={setModalVisible} avoidKeyboard>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>Delete Account</Modal.Header>
+          <Modal.Header>{t('DeleteAccount')}</Modal.Header>
           <Modal.Body>
-            <Text>
-              Continuing with this action will lead to the permanent removal of your account as well
-              as all associated data. Please enter your password and click &apos;YES&apos; if you
-              wish to proceed.
-            </Text>
+            <Text>{t('DeleteAccountWarning')}</Text>
             <FormControl>
-              <FormControl.Label>Password</FormControl.Label>
+              <FormControl.Label>{t('Password')}</FormControl.Label>
               <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -58,7 +56,7 @@ export const AlertModal = ({ modalVisible, setModalVisible }) => {
               _text={{ color: 'white' }}
               onPress={handleSubmit(onSubmit)}
             >
-              {'Yes'}
+              {t('Yes')}
             </Button>
             <Button
               marginLeft={2}
@@ -67,7 +65,7 @@ export const AlertModal = ({ modalVisible, setModalVisible }) => {
               _text={{ color: 'white' }}
               onPress={() => setModalVisible(false)}
             >
-              {'No'}
+              {t('No')}
             </Button>
           </Modal.Footer>
         </Modal.Content>

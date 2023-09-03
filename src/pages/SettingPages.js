@@ -24,7 +24,7 @@ export const SettingsPage = () => {
               accessibilityLabel="Change Language"
               width="100%"
             >
-              Delete Account
+              {t('DeleteAccount')}
             </Button>
           </VStack>
         </VStack>

@@ -76,5 +76,14 @@
   "SelectLanguage": "Choose Language",
   "AdjustNotificationTimer": "Adjust Notification Timer",
   "CheckNoti": "Check Notification",
-  "ClearNoti": "Clear Notification"
+  "ClearNoti": "Clear Notification",
+  "EmailAlert": "This user email is not valid or not supported",
+  "ResetPassword": "Reset Password",
+  "SendEmail": "Send",
+  "DeleteAccount": "Delete Account",
+  "DeleteAccountWarning": "Continuing with this action will lead to the permanent removal of your account as well as all associated data. Please enter your password and click YES if you wish to proceed.",
+  "Yes": "YES",
+  "No": "NO",
+  "UserProfileUpdateAlert": "User profile updated successfully!",
+  "ResetEmailSent": "Reset password email sent successfully!"
 }

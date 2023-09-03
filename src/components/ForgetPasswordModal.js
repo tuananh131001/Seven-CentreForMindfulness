@@ -5,10 +5,12 @@ import { FormControl, Text, Input, useToast } from 'native-base'
 import { useForm, Controller } from 'react-hook-form'
 import { sendPasswordResetEmailToUser } from '../services/user'
 import { resetPasswordSchema } from '../utils/ValidateUserInput'
+import { useTranslation } from 'react-i18next'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { errorColor } from '../../assets/ColorConst'
 export const ForgetPasswordModal = ({ modalVisible, setModalVisible }) => {
+  const { t } = useTranslation()
   const {
     control,
     handleSubmit,
@@ -25,7 +27,7 @@ export const ForgetPasswordModal = ({ modalVisible, setModalVisible }) => {
       <Modal size="lg" isOpen={modalVisible} onClose={setModalVisible} avoidKeyboard>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>Reset password</Modal.Header>
+          <Modal.Header>{t('ResetPassword')}</Modal.Header>
           <Modal.Body>
             <FormControl>
               <FormControl.Label>Email</FormControl.Label>
@@ -51,7 +53,7 @@ export const ForgetPasswordModal = ({ modalVisible, setModalVisible }) => {
               _text={{ color: 'white' }}
               onPress={handleSubmit(onSubmit)}
             >
-              {'Send'}
+              {t('SendEmail')}
             </Button>
           </Modal.Footer>
         </Modal.Content>
