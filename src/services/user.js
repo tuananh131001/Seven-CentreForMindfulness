@@ -4,8 +4,21 @@ import {
   signOut,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  getAuth,
+  deleteUser,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from 'firebase/auth'
-import { addDoc, collection, query, getDocs, where, updateDoc, doc } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  query,
+  getDocs,
+  where,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { AlertToast } from '../components/Toast'
 import * as SecureStore from 'expo-secure-store'
 import { differenceInCalendarDays, parseISO } from 'date-fns'
@@ -155,7 +168,49 @@ export const sendPasswordResetEmailToUser = async (email, toast, modalVisible, s
     })
     .catch(() => {
       AlertToast(toast, 'This user email is not valid or not supported')
-      // alert('This user email is not valid or not supported')
       setModalVisible(true)
+    })
+}
+const deleteUserDocumentByUid = async (uid) => {
+  console.log(uid)
+  try {
+    const q = query(collection(FIREBASE_DB, 'users'), where('uid', '==', uid))
+
+    const querySnapshot = await getDocs(q)
+
+    if (!querySnapshot.empty) {
+      const docToDelete = querySnapshot.docs[0]
+      await deleteDoc(docToDelete.ref)
+      console.log(`Document with uid ${uid} deleted successfully.`)
+    } else {
+      console.log(`No document found with uid ${uid}.`)
+    }
+  } catch (error) {
+    console.error('Error deleting document:', error)
+  }
+}
+
+export const deleteUserAccount = async (dispatch, password, toast) => {
+  const user = getAuth().currentUser
+  const userId = user.uid
+  const credentials = EmailAuthProvider.credential(user.email, password)
+  reauthenticateWithCredential(user, credentials)
+    .then(() => {
+      console.log('User re-authenticated.')
+      deleteCurrentUser(user, dispatch, toast, userId)
+    })
+    .catch(() => {
+      AlertToast(toast, 'Wrong credentials, please try again')
+    })
+}
+
+const deleteCurrentUser = (user, dispatch, toast, uid) => {
+  deleteUser(user)
+    .then(async () => {
+      await deleteUserDocumentByUid(uid)
+      logout(dispatch)
+    })
+    .catch((error) => {
+      AlertToast(toast, error.message)
     })
 }

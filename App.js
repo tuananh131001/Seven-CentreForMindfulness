@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NativeBaseProvider, useToast } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import { HomeView } from './src/pages/HomeView'
 import { LoginPage } from './src/pages/LoginPage'
 import { EditProfilePage } from './src/pages/EditProfilePage'

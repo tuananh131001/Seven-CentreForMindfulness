@@ -57,3 +57,14 @@ export const updateProfileSchema = yup.object().shape({
 export const resetPasswordSchema = yup.object().shape({
   email: yup.string().email('This is not an email.').required('Please enter an email.'),
 })
+
+export const reauthenticateSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Please enter a password')
+    .min(7)
+    .matches(/^(?=.*[a-z])/, 'Must contain at least one lowercase character')
+    .matches(/^(?=.*[A-Z])/, 'Must contain at least one uppercase character')
+    .matches(/^(?=.*[0-9])/, 'Must contain at least one number')
+    .matches(/^(?=.*[!@#%&])/, 'Must contain at least one special character'),
+})
