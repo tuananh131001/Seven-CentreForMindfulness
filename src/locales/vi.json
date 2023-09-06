@@ -21,7 +21,7 @@
   "option2": "Dễ quên và bừa bộn",
   "option3": "Làm không suy nghĩ",
   "option4": "Không thể ngồi yên",
-  "option5": "Hay suy nghĩ vẩn vơ",
+  "option5": "Hay suy nghĩ linh tinh",
   "option6": "Hành động bất cẩn",
   "option7": "Khó điều khiển hành vi",
   "AssessmentViewTitle": "Bài đánh giá ADHD",
@@ -85,5 +85,9 @@
   "Yes": "Đồng ý",
   "No": "Không",
   "UserProfileUpdateAlert": "Cập nhật hồ sơ thành công",
-  "ResetEmailSent": "Đã gửi email đặt lại mật khẩu"
+  "ResetEmailSent": "Đã gửi email đặt lại mật khẩu",
+  "DailyNotification": "Thông báo hàng ngày",
+  "BodyNotification": "Đến giờ tập luyện rồi!👋",
+  "Day": "ngày",
+  "Days": "ngày"
 }

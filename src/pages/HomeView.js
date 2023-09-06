@@ -25,12 +25,24 @@ export const HomeView = ({ navigation }) => {
   const { signedIn } = useContext(SignInContext)
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
 
+  const getFirestoreTableKey = (selectedCategory) => {
+    if (i18n.language === 'vi') {
+      if (selectedCategory === 'guidedPractices') {
+        return 'guidedPracticeVn'
+      } else if (selectedCategory === 'audios') {
+        return 'videoVn'
+      } else {
+        return 'articlesVn'
+      }
+    } else {
+      return selectedCategory
+    }
+  }
+
   const getHomeViewData = async () => {
     let audioListArr = []
-    const category =
-      i18n.language === 'vi' && selectedCategory === 'guidedPractices'
-        ? 'guidedPracticeVn'
-        : selectedCategory
+    const category = getFirestoreTableKey(selectedCategory)
+    console.log(category)
     const cacheKey = `audioList_${category}`
     const cachedData = await AsyncStorage.getItem(cacheKey)
 
