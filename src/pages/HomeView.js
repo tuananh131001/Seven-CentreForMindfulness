@@ -42,7 +42,6 @@ export const HomeView = ({ navigation }) => {
   const getHomeViewData = async () => {
     let audioListArr = []
     const category = getFirestoreTableKey(selectedCategory)
-    console.log(category)
     const cacheKey = `audioList_${category}`
     const cachedData = await AsyncStorage.getItem(cacheKey)
 
