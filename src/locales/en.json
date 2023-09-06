@@ -85,5 +85,9 @@
   "Yes": "YES",
   "No": "NO",
   "UserProfileUpdateAlert": "User profile updated successfully!",
-  "ResetEmailSent": "Reset password email sent successfully!"
+  "ResetEmailSent": "Reset password email sent successfully!",
+  "DailyNotification": "Daily Notification",
+  "BodyNotification": "Time to do your exercise! 👋",
+  "Day": "day",
+  "Days": "days"
 }

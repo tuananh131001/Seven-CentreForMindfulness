@@ -31,9 +31,17 @@ export const InteractionAnalytics = ({
           padding="5"
           borderRadius="20"
         >
-          <HStack width="100%" space="2.5" alignItems="center" mb="5">
+          <HStack width="100%" space="2" alignItems="flex-start" mb="5">
             <Feather name="target" size={30} color={progressRedColor} />
-            <Heading size="xl">{currentStreak}d</Heading>
+            {currentStreak > 1 ? (
+              <Heading size="lg">
+                {currentStreak} {t('Days')}
+              </Heading>
+            ) : (
+              <Heading size="lg">
+                {currentStreak} {t('Day')}
+              </Heading>
+            )}
           </HStack>
           <Text color={progressSecondaryColor}>{t('CurrentStreak')}</Text>
         </Flex>
@@ -46,7 +54,15 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
             <FontAwesome name="star" size={30} color={progressYellowColor} />
-            <Heading size="xl">{longestStreak}d</Heading>
+            {longestStreak > 1 ? (
+              <Heading size="lg">
+                {longestStreak} {t('Days')}
+              </Heading>
+            ) : (
+              <Heading size="lg">
+                {longestStreak} {t('Day')}
+              </Heading>
+            )}
           </HStack>
           <Text color={progressSecondaryColor}>{t('LongestStreak')}</Text>
         </Flex>
