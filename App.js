@@ -114,8 +114,7 @@ const AppNavigator = () => {
 
   useEffect(() => {
     if (signedIn?.uid) {
-      getUserProfileByUID(signedIn.uid, dispatchSignedIn)
-      setIsLoading(false)
+      getUserProfileByUID(signedIn.uid, dispatchSignedIn, setIsLoading)
       console.log('Get user information successful')
     }
   }, [signedIn?.uid, signedIn?.isCompletedTest, signedIn?.isAgreedTerms])

@@ -75,7 +75,7 @@ export const logout = (dispatch) => {
   signOut(FIREBASE_AUTH)
 }
 
-export const getUserProfileByUID = async (uid, dispatch) => {
+export const getUserProfileByUID = async (uid, dispatch, setIsLoading) => {
   const q = query(collection(FIREBASE_DB, 'users'), where('uid', '==', uid))
   const querySnapshot = await getDocs(q)
   if (querySnapshot.empty) {
@@ -93,6 +93,7 @@ export const getUserProfileByUID = async (uid, dispatch) => {
   }
 
   calculateNewUserStreak(uid, streakData, dispatch)
+  setIsLoading(false)
 }
 
 export const updateUserProfileByUID = async (uid, updatedData, toast, dispatch) => {
