@@ -88,8 +88,8 @@
   "ResetEmailSent": "Đã gửi email đặt lại mật khẩu",
   "Day": "ngày",
   "Days": "ngày",
-  "Body":"Nội dung",
-  "Trigger":"Thông báo vào lúc:",
-  "Hour":"giờ",
-  "Minute":"phút"
+  "Body": "Nội dung",
+  "Trigger": "Thông báo vào lúc:",
+  "Hour": "giờ",
+  "Minute": "phút"
 }
