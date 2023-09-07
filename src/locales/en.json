@@ -87,5 +87,9 @@
   "UserProfileUpdateAlert": "User profile updated successfully!",
   "ResetEmailSent": "Reset password email sent successfully!",
   "Day": "day",
-  "Days": "days"
+  "Days": "days",
+  "Body": "Body",
+  "Trigger": "Trigger at:",
+  "Hour": "Hour",
+  "Minute": "minute"
 }
