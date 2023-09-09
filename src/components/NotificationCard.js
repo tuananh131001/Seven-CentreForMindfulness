@@ -59,10 +59,12 @@ export const NotificationCard = () => {
       {scheduledNotifications.map((notification) => (
         <Box key={notification.identifier}>
           <Text>ID: {notification.identifier}</Text>
-          <Text>Body:{notification.content.body}</Text>
           <Text>
-            Trigger at: {handleCrossPlatfromDate(notification.trigger).hour} hours{' '}
-            {handleCrossPlatfromDate(notification.trigger).minute} minutes
+            {t('Body')}:{notification.content.body}
+          </Text>
+          <Text>
+            {t('Trigger')} {handleCrossPlatfromDate(notification.trigger).hour} {t('Hour')}{' '}
+            {handleCrossPlatfromDate(notification.trigger).minute} {t('Minute')}
           </Text>
         </Box>
       ))}
