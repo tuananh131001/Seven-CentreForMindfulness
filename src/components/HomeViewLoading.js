@@ -4,9 +4,7 @@ import { primaryColor, secondaryColor } from '../../assets/ColorConst'
 export const HomeViewLoading = () => {
   return (
     <View bg={primaryColor} height="100%">
-      <Flex direction="row" width="100%" alignItems="center" mt="10">
-
-      </Flex>
+      <Flex direction="row" width="100%" alignItems="center" mt="10"></Flex>
 
       <Flex
         direction="column"

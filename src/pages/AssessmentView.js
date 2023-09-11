@@ -30,8 +30,8 @@ export const AssessmentView = ({ navigation }) => {
         (accumulator, currentValue) => accumulator + (currentValue + 1),
         0,
       )
-      updateUserFields(signedIn.uid, { isCompletedTest: true, assessmentScore: score })
-      dispatchSignedIn({ type: 'SET_TEST_STATUS', payload: { isCompletedTest: true } })
+      await updateUserFields(signedIn.uid, { isCompletedTest: true, assessmentScore: score })
+      await dispatchSignedIn({ type: 'SET_TEST_STATUS', payload: { isCompletedTest: true } })
       navigation.navigate('HomeStack', { screen: 'Home' })
     } else {
       alert('Please select at least one option before proceeding')
