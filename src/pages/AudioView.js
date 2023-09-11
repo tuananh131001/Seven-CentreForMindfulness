@@ -165,9 +165,7 @@ export const AudioView = ({ route, navigation }) => {
           <Box borderRadius="full" borderColor={audioPrimaryColor} borderWidth="4">
             <Box borderRadius="full" bg={audioPrimaryColor} margin="3">
               <Image
-                source={{
-                  uri: THUMBNAIL,
-                }}
+                source={THUMBNAIL}
                 alt="Self-reflection"
                 size="175"
                 margin="5"
