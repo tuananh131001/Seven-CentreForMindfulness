@@ -14,16 +14,20 @@ import { useFocusEffect } from '@react-navigation/native'
 import { checkNotificationPermissions } from '../utils/checkNotificationPermissions'
 import { scheduleDailyNotification } from '../services/notification'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { HomeViewLoading } from '../components/HomeViewLoading'
+import { set } from 'date-fns'
 
 const CACHE_EXPIRY_TIME = 60 * 60 * 1000 // 1 hour in milliseconds
+const CATEGORIES = ['audios', 'guidedPractices', 'articles'] // TODO: audios is Videos , will change latter
+const DEFAULT_SELECTED_CATEGORY = CATEGORIES[1]
 
 export const HomeView = ({ navigation }) => {
   const { t } = useTranslation()
   const toast = useToast()
-  const CATEGORIES = ['audios', 'guidedPractices', 'articles'] // TODO: audios is Videos , will change latter
   const [audioList, setAudioList] = useState([])
   const { signedIn } = useContext(SignInContext)
-  const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[1])
+  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_SELECTED_CATEGORY)
+  const [isloading, setLoading] = useState(true)
 
   const getFirestoreTableKey = (selectedCategory) => {
     if (i18n.language === 'vi') {
@@ -39,9 +43,9 @@ export const HomeView = ({ navigation }) => {
     }
   }
 
-  const getHomeViewData = async () => {
+  const getHomeViewData = async (choosenCategory) => {
     let audioListArr = []
-    const category = getFirestoreTableKey(selectedCategory)
+    const category = getFirestoreTableKey(choosenCategory)
     const cacheKey = `audioList_${category}`
     const cachedData = await AsyncStorage.getItem(cacheKey)
 
@@ -49,11 +53,11 @@ export const HomeView = ({ navigation }) => {
       if (cachedData) {
         const { data, timestamp } = JSON.parse(cachedData)
 
-        console.log('Get data from cache')
+        console.log('Get data from cache', cacheKey)
         Date.now() - timestamp < CACHE_EXPIRY_TIME
           ? setAudioList(data)
           : await getDataFromFirebase(category, audioListArr, cacheKey)
-      } else {
+      } else if (!audioList) {
         await getDataFromFirebase(category, audioListArr, cacheKey)
       }
     } catch (error) {
@@ -77,8 +81,6 @@ export const HomeView = ({ navigation }) => {
       JSON.stringify({ data: audioListArr, timestamp: Date.now() }),
     )
   }
-
-  const selectCategory = (category) => setSelectedCategory(category)
 
   const handlePressCard = async (audio) => {
     await findAudioOrCreate(audio.id)
@@ -115,12 +117,12 @@ export const HomeView = ({ navigation }) => {
   }
 
   useFocusEffect(
-    useCallback(() => {
-      getHomeViewData()
-
+    useCallback( () => {
+      setSelectedCategory(DEFAULT_SELECTED_CATEGORY)
+      getHomeViewData(selectedCategory)
+      setLoading(false)
       return () => {
         setAudioList([]) // cleanup function
-        setSelectedCategory(CATEGORIES[1])
       }
     }, []),
   )
@@ -130,9 +132,9 @@ export const HomeView = ({ navigation }) => {
     scheduleDailyNotification(toast, signedIn?.notificationHour, signedIn?.notificationMinute)
   }, [signedIn?.notificationHour, signedIn?.notificationMinute])
 
-  useEffect(() => {
-    getHomeViewData()
-  }, [selectedCategory])
+  if (isloading) {
+    return <HomeViewLoading></HomeViewLoading>
+  }
 
   return (
     <ScrollView minHeight="100%" px="5">
@@ -149,7 +151,10 @@ export const HomeView = ({ navigation }) => {
               <Button
                 key={category}
                 bg={category == selectedCategory ? primaryColor : secondaryColor}
-                onPress={() => selectCategory(category)}
+                onPress={async () => {
+                  setSelectedCategory(category)
+                  await getHomeViewData(category)
+                }}
                 px="5"
                 borderRadius="15"
               >

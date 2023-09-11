@@ -1,16 +1,11 @@
-import { Center, Flex, IconButton, Skeleton, VStack, View } from 'native-base'
+import { Center, Flex, Skeleton, VStack, View } from 'native-base'
 import { primaryColor, secondaryColor } from '../../assets/ColorConst'
-import { MaterialIcons } from '@expo/vector-icons'
 
-export const HomeViewLoading = ({ handleBackButtonClick }) => {
+export const HomeViewLoading = () => {
   return (
     <View bg={primaryColor} height="100%">
       <Flex direction="row" width="100%" alignItems="center" mt="10">
-        <IconButton
-          icon={<MaterialIcons name="arrow-back" size={40} color="white" />}
-          variant="ghost"
-          onPress={handleBackButtonClick}
-        />
+
       </Flex>
 
       <Flex

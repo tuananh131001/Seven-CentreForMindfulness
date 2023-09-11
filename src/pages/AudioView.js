@@ -61,6 +61,7 @@ export const AudioView = ({ route, navigation }) => {
         if (durationAudio > 0 && currentTimestamp >= durationAudio - 60000) {
           saveUserAttempt(currentTimestamp, durationAudio)
         }
+        sound.current.unloadAsync()
       }),
     [navigation, currentTimestamp],
   )
@@ -138,7 +139,13 @@ export const AudioView = ({ route, navigation }) => {
   }, [isPlayed])
 
   if (isLoading) {
-    return <HomeViewLoading handleBackButtonClick={() => navigation.goBack()} />
+    return (
+      <HomeViewLoading
+        handleBackButtonClick={async () => {
+          navigation.goBack()
+        }}
+      />
+    )
   }
 
   return (

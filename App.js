@@ -67,7 +67,6 @@ const HomeStack = () => (
     />
   </Tab.Navigator>
 )
-
 const PrivateStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeStack" component={HomeStack} />
