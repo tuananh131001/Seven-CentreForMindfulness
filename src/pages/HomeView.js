@@ -15,7 +15,6 @@ import { checkNotificationPermissions } from '../utils/checkNotificationPermissi
 import { scheduleDailyNotification } from '../services/notification'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { HomeViewLoading } from '../components/HomeViewLoading'
-import { set } from 'date-fns'
 
 const CACHE_EXPIRY_TIME = 60 * 60 * 1000 // 1 hour in milliseconds
 const CATEGORIES = ['audios', 'guidedPractices', 'articles'] // TODO: audios is Videos , will change latter
@@ -117,7 +116,7 @@ export const HomeView = ({ navigation }) => {
   }
 
   useFocusEffect(
-    useCallback( () => {
+    useCallback(() => {
       setSelectedCategory(DEFAULT_SELECTED_CATEGORY)
       getHomeViewData(selectedCategory)
       setLoading(false)
