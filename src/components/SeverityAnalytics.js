@@ -9,7 +9,7 @@ import {
 } from '../../assets/ColorConst'
 import { useTranslation } from 'react-i18next'
 
-export const UsageTimeAnalytics = ({ assessmentScore }) => {
+export const SeverityAnalytics = ({ assessmentScore }) => {
   const { t } = useTranslation()
 
   const returnSeverityColor = () => {
@@ -58,7 +58,12 @@ export const UsageTimeAnalytics = ({ assessmentScore }) => {
         <Heading size="4xl" color={returnSeverityColor()}>
           {assessmentScore}/28
         </Heading>
-        <Heading textTransform="uppercase" size="xl" color={returnSeverityColor()}>
+        <Heading
+          textAlign="center"
+          textTransform="uppercase"
+          size="xl"
+          color={returnSeverityColor()}
+        >
           {t(returnSeverityText())}
         </Heading>
       </VStack>
