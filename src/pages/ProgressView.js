@@ -1,6 +1,6 @@
 import { Flex, Heading, ScrollView, Link, Text, VStack, HStack } from 'native-base'
 
-import { UsageTimeAnalytics } from '../components/UsageTimeAnalytics'
+import { SeverityAnalytics } from '../components/SeverityAnalytics'
 import { InteractionAnalytics } from '../components/InteractionAnalytics'
 import { useTranslation } from 'react-i18next'
 import { updateUserFields } from '../services/user'
@@ -94,7 +94,7 @@ export const ProgressView = ({ navigation }) => {
         <Heading py="5">{t('Analytics')}</Heading>
       </Flex>
       <VStack space="5" width="100%" alignItems="center" px="5">
-        <UsageTimeAnalytics assessmentScore={finalScore} />
+        <SeverityAnalytics assessmentScore={finalScore} />
         <InteractionAnalytics
           currentStreak={signedIn.currentStreak}
           longestStreak={signedIn.longestStreak}
