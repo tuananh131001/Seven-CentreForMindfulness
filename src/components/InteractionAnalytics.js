@@ -33,7 +33,7 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2" alignItems="center" mb="5">
             <Feather name="target" size={30} color={progressRedColor} />
-            <Heading size="lg">
+            <Heading size="xl">
               {currentStreak} {t('Day')}
             </Heading>
           </HStack>
@@ -48,7 +48,7 @@ export const InteractionAnalytics = ({
         >
           <HStack width="100%" space="2.5" alignItems="center" mb="5">
             <FontAwesome name="star" size={30} color={progressYellowColor} />
-            <Heading size="lg">
+            <Heading size="xl">
               {longestStreak} {t('Day')}
             </Heading>
           </HStack>
