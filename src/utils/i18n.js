@@ -7,6 +7,7 @@ import en from '../../src/locales/en.json'
 
 import 'intl-pluralrules'
 
+// test sth
 i18n.use(initReactI18next).init({
   resources: {
     en: {
