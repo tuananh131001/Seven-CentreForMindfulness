@@ -51,12 +51,13 @@ export const HomeView = ({ navigation }) => {
     try {
       if (cachedData) {
         const { data, timestamp } = JSON.parse(cachedData)
-
         console.log('Get data from cache', cacheKey)
         Date.now() - timestamp < CACHE_EXPIRY_TIME
           ? setAudioList(data)
           : await getDataFromFirebase(category, audioListArr, cacheKey)
       } else if (!audioList) {
+        await getDataFromFirebase(category, audioListArr, cacheKey)
+      } else {
         await getDataFromFirebase(category, audioListArr, cacheKey)
       }
     } catch (error) {
